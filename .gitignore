@@ -69,3 +69,7 @@ slides/build/
 
 # --- Worktrees isolados (subagent-driven-development) ---
 .worktrees/
+
+# --- Jupyter/jupytext (preview ao vivo dos scripts SchemDraw) ---
+.ipynb_checkpoints/
+*.ipynb

@@ -28,8 +28,8 @@ Este espaço será o guia técnico e laboratório prático durante o semestre.
   ([manual](https://cpuvisualsimulator.github.io/manual)).
 - **Documentação de placas e shields:** repositórios irmãos
   [`lab_dev_boards`](https://github.com/professorjoaomiguel/lab_dev_boards) e
-  [`lab_se`](https://github.com/professorjoaomiguel/lab_se) (fotos, esquemáticos,
-  componentes e periféricos das placas/shields usadas em aula — `lab_se` usa
+  [`lab-se`](https://github.com/professorjoaomiguel/lab-se) (fotos, esquemáticos,
+  componentes e periféricos das placas/shields usadas em aula — `lab-se` usa
   MicroPython em seu próprio laboratório, mas aqui a linguagem é C/C++/Arduino IDE).
 
 ## 📂 Estrutura do Repositório

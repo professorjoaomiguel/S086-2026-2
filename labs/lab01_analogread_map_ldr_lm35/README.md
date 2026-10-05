@@ -1,4 +1,4 @@
-# Lab 01 — analogRead, map() e AREF: LDR, LM35 e o potenciômetro como dublê
+# Lab 01 — analogRead, map() e AREF: luz e temperatura no Shield 9-em-1
 
 **UC S086 — Sistemas Microprocessados** · Arduino UNO R3 + Shield 9-em-1 · ~3 h
 
@@ -12,8 +12,8 @@ Ao final deste laboratório, você vai saber:
    da leitura.
 3. **Comparar** as referências do conversor `DEFAULT` e `INTERNAL`:
    o que você ganha e o que você perde.
-4. **Validar** a lógica de um alarme **trocando o sensor por um
-   potenciômetro**, sem esperar o sensor esquentar.
+4. **Validar** a lógica de um alarme de temperatura **sem esperar o
+   sensor esquentar**.
 
 ## Antes de começar
 
@@ -23,7 +23,7 @@ você vai usar:
 | Componente | Pino | Detalhe importante |
 |---|---|---|
 | Potenciômetro | A0 | Gira de 0 V até 5 V |
-| LDR (sensor de luz) | A1 | Neste shield, **a leitura SOBE com mais luz** |
+| LDR (sensor de luz) | A1 | Forma um divisor de tensão com um resistor fixo |
 | LM35 (sensor de temperatura) | A2 | 10 mV para cada °C |
 | LED RGB | D9 vermelho, D10 azul, D11 verde | Acende com `HIGH`; os três aceitam PWM (`analogWrite`) |
 | Buzzer | D5 | Liga com `HIGH` (é um buzzer *ativo*: apita sozinho) |
@@ -202,8 +202,9 @@ mesmo:
 1. Deixe o LM35 parado e observe `cru` no Plotter por um minuto. A leitura
    oscila e às vezes dá saltos, mesmo com a temperatura parada.
 2. Duas causas para discutir com a dupla:
-   - **Resolução:** cada contagem do conversor vale alguns décimos de grau.
-     Uma oscilação de ±1 contagem já aparece como ±meio grau, mais ou menos.
+   - **Resolução:** cada contagem do conversor equivale a um "degrau" de
+     temperatura (o mesmo do 2b.4). Uma oscilação de só ±1 contagem já
+     aparece como ±1 degrau.
    - **Memória do conversor:** dentro do microcontrolador, o conversor tem
      um pequeno capacitor que "guarda" a tensão da última leitura. Se o
      programa leu outro pino antes (o LDR, por exemplo), a primeira leitura
@@ -250,19 +251,30 @@ referência.
 
 ### 3b. LM35 com a referência INTERNAL
 
+0. **Antes de mudar a referência**, anote na tabela do passo 6 a linha
+   `DEFAULT`: o `cru` e a temperatura que o seu sketch do Bloco 2 mostra
+   agora, com o LM35 parado.
 1. No sketch do Bloco 2, na linha marcada `ETAPA 3b` do `setup()`,
    escreva `analogReference(INTERNAL);`.
 2. Troque `TENSAO_REFERENCIA` de `5.0` para `1.1`. (Por que a conta precisa
    mudar junto?)
 3. 🧮 **Cálculo:** com 1,1 V de referência, quantas contagens o LM35 deve
    dar a 25 °C? Compare com o seu cálculo do Bloco 2.
-4. **Abra o Plotter antes de carregar** e olhe com atenção os primeiros
-   segundos depois que a placa reinicia. A leitura começa no valor certo?
+4. Para enxergar o que acontece logo depois da troca, deixe o programa
+   rápido **só neste passo**: no `loop()`, troque o `delay(500)` por
+   `delay(20)`, e na `lerTemperatura()` comente o `delay(100)` e a média
+   (use uma leitura só). Carregue, abra o Plotter e **aperte o botão RESET**
+   do shield com o Plotter já aberto. Olhe os primeiros instantes: a leitura
+   começa no valor certo?
 5. O que aconteceu: a placa tem um capacitor no pino AREF, que precisa de
    um tempo para descarregar de ~5 V até 1,1 V. O próprio datasheet avisa
    que *a primeira conversão depois de trocar a referência pode sair
-   imprecisa*. Corrija: logo depois do `analogReference(INTERNAL)`, espere
-   cerca de meio segundo e faça uma leitura descartada.
+   imprecisa*. Detalhe importante: o `analogReference()` só **anota** a
+   referência escolhida; a troca só acontece de verdade no próximo `analogRead()`.
+   Então, no `setup()`, logo depois do `analogReference(INTERNAL)`: faça
+   **primeiro** uma leitura descartada (é ela que troca a referência) e
+   **depois** espere cerca de meio segundo. Aperte RESET de novo e compare.
+   Por fim, volte o `delay(500)`, o `delay(100)` e a média.
 6. Preencha a tabela, com o LM35 parado na mesma bancada:
 
 | Referência | `cru` (contagens) | Temperatura (°C) |
@@ -313,7 +325,7 @@ ler a referência interna no UNO: não é um pino `A0`–`A5`.)
 
 ---
 
-## Bloco 4 — O alarme e o dublê (50 min)
+## Bloco 4 — O alarme de temperatura (50 min)
 
 > ✅ **Confira antes:** você apagou o `analogReference(INTERNAL)` e voltou
 > `TENSAO_REFERENCIA` para `5.0` (fim do Bloco 3)? Este bloco usa a
@@ -326,7 +338,10 @@ Ele compila e roda, mas o alarme ainda não decide nada.
 
 1. Copie o **corpo** da sua `lerTemperatura()` do Bloco 2 (com descarte e
    média) para dentro da `lerTemperatura()` deste sketch. Mantenha a
-   primeira linha como está: `float lerTemperatura() {`.
+   primeira linha como está: `float lerTemperatura() {`. Se a sua função
+   usa alguma constante criada fora dela (por exemplo, o número de
+   amostras da média), copie também as constantes que a função usa para o
+   topo deste sketch.
 2. Complete a função `atualizarSaidas()` seguindo esta especificação:
    - **LED RGB por faixa:** azul abaixo de uma faixa "confortável", verde
      dentro dela, vermelho acima do `LIMIAR` (30 °C). Você escolhe os
@@ -414,7 +429,7 @@ desligasse em 29 °C?
 
 | Problema | O que fazer |
 |---|---|
-| O LM35 lê ≈ 0 °C ou um valor absurdo, mesmo com a média | Avise o professor. Enquanto isso, use o potenciômetro (A0) no lugar do LM35 desde o Bloco 2: o resto do roteiro funciona igual. |
+| O LM35 lê ≈ 0 °C ou um valor absurdo, mesmo com a média | Avise o professor: ele vai indicar como a sua bancada segue. Os valores das tabelas e dos cálculos não vão bater com a temperatura da sala. |
 | A sala está acima de 30 °C e o alarme já começa disparado | Mude o `LIMIAR` para alguns graus acima da temperatura que aparece no painel. |
 | O Plotter não mostra os nomes das curvas | Versão antiga da IDE. Use o Monitor Serial: o formato `nome:valor` continua legível. |
 | No Bloco 4, o potenciômetro só muda a leitura num pedacinho do giro | Sobrou um `analogReference(INTERNAL)` no código. Apague a linha e volte `TENSAO_REFERENCIA` para `5.0`. |

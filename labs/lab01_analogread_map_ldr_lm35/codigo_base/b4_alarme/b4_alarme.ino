@@ -5,7 +5,7 @@
 // Você completa as etapas marcadas com "ETAPA".
 // Referência do ADC: DEFAULT (5 V). NÃO use analogReference(INTERNAL) aqui.
 
-const uint8_t PINO_SENSOR = A2;   // ETAPA 4d: troque para A0 (potenciômetro)
+const uint8_t PINO_SENSOR = A2;   // ETAPA 4d
 const float TENSAO_REFERENCIA = 5.0;
 const float ADC_MAXIMO = 1023.0;
 
@@ -30,7 +30,6 @@ void setup() {
 // Cole aqui DENTRO o corpo da sua lerTemperatura() do bloco 2
 // (com descarte e média). Mantenha o nome e o "float" da primeira linha.
 float lerTemperatura() {
-  // ETAPA 4d: quando o sensor for o potenciômetro, a escala precisa mudar.
   int leitura = analogRead(PINO_SENSOR);
   float tensao = leitura * (TENSAO_REFERENCIA / ADC_MAXIMO);
   return tensao * 100.0;  // LM35: 10 mV por °C

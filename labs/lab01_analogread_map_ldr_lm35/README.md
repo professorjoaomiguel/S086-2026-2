@@ -310,3 +310,139 @@ ler a referência interna no UNO: não é um pino `A0`–`A5`.)
 
 > ⛔ **Antes do bloco 4: apague a linha `analogReference(INTERNAL)` e volte
 > `TENSAO_REFERENCIA` para `5.0`.**
+
+---
+
+## Bloco 4 — O alarme e o dublê (50 min)
+
+> ✅ **Confira antes:** você apagou o `analogReference(INTERNAL)` e voltou
+> `TENSAO_REFERENCIA` para `5.0` (fim do Bloco 3)? Este bloco usa a
+> referência `DEFAULT`. Por quê? Você vai entender no passo 4d.
+
+### 4a. Montar o alarme com o LM35
+
+Abra o sketch [`codigo_base/b4_alarme`](codigo_base/b4_alarme/b4_alarme.ino).
+Ele compila e roda, mas o alarme ainda não decide nada.
+
+1. Copie o **corpo** da sua `lerTemperatura()` do Bloco 2 (com descarte e
+   média) para dentro da `lerTemperatura()` deste sketch. Mantenha a
+   primeira linha como está: `float lerTemperatura() {`.
+2. Complete a função `atualizarSaidas()` seguindo esta especificação:
+   - **LED RGB por faixa:** azul abaixo de uma faixa "confortável", verde
+     dentro dela, vermelho acima do `LIMIAR` (30 °C). Você escolhe os
+     limites da faixa confortável e cria constantes para eles.
+   - **Buzzer (D5):** ligado acima do `LIMIAR`, desligado abaixo. Use
+     `digitalWrite`, **não** `tone()`: o buzzer deste shield já apita
+     sozinho, e o `tone()` usa o mesmo temporizador que faz o PWM do pino
+     D11 (o verde do RGB).
+   - **Estado:** atualize a variável `estado` com um texto curto para cada
+     situação (por exemplo `FRIO`, `OK`, `ALARME`).
+3. **Critério de aceite:** o painel no Monitor
+   (`temp=26.3 lim=30.0 estado=OK`) mostra um `estado` coerente com a cor
+   do LED e com o buzzer.
+
+### 4b. Agora prove que funciona
+
+Desafio: **mostre o alarme disparando acima de 30 °C e desligando quando
+a temperatura volta a cair.** Mostre também as três cores.
+
+Use o LM35 de verdade. Anote **quanto tempo** levou para testar tudo.
+
+### 4c. Pare e pense
+
+🔮 **Previsão:** como você testaria se o alarme dispara em 35 °C **sem**
+esperar o sensor esquentar?
+
+Discuta com a dupla e depois com a turma **antes de seguir**. Vale qualquer
+ideia.
+
+<details>
+<summary>Travou? Uma pista</summary>
+
+O que o potenciômetro do Bloco 0, o LDR do Bloco 1 e o LM35 têm em comum,
+do ponto de vista do `analogRead`?
+
+</details>
+
+### 4d. Trocar o sensor em uma linha
+
+**Só comece depois da discussão do 4c.**
+
+1. No topo do sketch, troque `PINO_SENSOR` de `A2` para `A0`. Carregue e
+   gire o potenciômetro.
+2. Gire até o fim. Que "temperatura" aparece no painel? Faz sentido? Em
+   que parte do giro estão os valores que importam para o seu alarme
+   (perto de 30 °C)?
+3. Ajuste a escala para o potenciômetro "fingir" uma faixa de temperatura
+   realista, por exemplo de 15 °C a 45 °C.
+
+   <details>
+   <summary>Pista</summary>
+
+   No Bloco 1 você já usou uma função para ajustar a faixa de um sensor.
+
+   </details>
+
+4. **Onde** esse ajuste deve ficar para o resto do programa nem perceber
+   que o sensor mudou? (Pense na `lerTemperatura()` do Bloco 2.)
+5. Por que este bloco usa `DEFAULT` e não `INTERNAL`? (Lembre do 3c.)
+6. **Critério de aceite:** girando o potenciômetro, você mostra as três
+   cores, o buzzer ligando e desligando e o painel acompanhando, em menos
+   de um minuto.
+
+### 4e. De volta ao sensor real
+
+1. Volte `PINO_SENSOR` para `A2` (e desfaça o ajuste de escala do
+   potenciômetro). O alarme continua funcionando com o LM35, agora com a
+   lógica já testada.
+2. Responda no caderno: **o que o teste com o potenciômetro NÃO valida?**
+
+**Isso tem nome.** Trocar uma peça difícil de controlar (o sensor) por
+outra que você controla (o potenciômetro), só para testar a lógica, é
+usar um **dublê de teste**. Em software isso se chama *test double* ou
+*mock*. Na indústria, a versão grande da mesma ideia é o *hardware-in-the-loop*
+(HIL): o controlador real é testado com um simulador no lugar da máquina.
+
+**Bônus (opcional): histerese.** Com o LM35 parado perto de 30 °C, o
+buzzer pode ficar ligando e desligando sem parar. Por quê? (Lembre do
+Bloco 2.) Como evitar? Pista: e se o alarme ligasse em 30 °C, mas só
+desligasse em 29 °C?
+
+---
+
+## Se der errado
+
+| Problema | O que fazer |
+|---|---|
+| O LM35 lê ≈ 0 °C ou um valor absurdo, mesmo com a média | Avise o professor. Enquanto isso, use o potenciômetro (A0) no lugar do LM35 desde o Bloco 2: o resto do roteiro funciona igual. |
+| A sala está acima de 30 °C e o alarme já começa disparado | Mude o `LIMIAR` para alguns graus acima da temperatura que aparece no painel. |
+| O Plotter não mostra os nomes das curvas | Versão antiga da IDE. Use o Monitor Serial: o formato `nome:valor` continua legível. |
+| No Bloco 4, o potenciômetro só muda a leitura num pedacinho do giro | Sobrou um `analogReference(INTERNAL)` no código. Apague a linha e volte `TENSAO_REFERENCIA` para `5.0`. |
+| O Plotter ou o Monitor mostra caracteres estranhos | Confira a velocidade no canto da janela: 9600 baud, a mesma do `Serial.begin`. |
+
+---
+
+## Fechamento
+
+Responda no caderno, uma pergunta por bloco:
+
+1. **LDR:** por que é preciso medir a faixa do sensor antes de usar o
+   `map()`? O que o `constrain()` resolve que o `map()` não resolve?
+2. **LM35:** por que imprimir 2 casas decimais não significa medir com
+   precisão de 0,01 °C?
+3. **AREF:** em que situação vale a pena trocar para `INTERNAL`? E quando
+   isso atrapalha?
+4. **Dublê:** o que o teste com o potenciômetro valida, e o que ele não
+   valida?
+
+### Fontes
+
+- Datasheet do LM35 (Texas Instruments):
+  [`datasheets/sensores/TI_LM35_Temperatura.pdf`](../../datasheets/sensores/TI_LM35_Temperatura.pdf)
+- Datasheet do ATmega328P (Microchip), seção do conversor A/D (*ADC*):
+  [`datasheets/ATmega328P_Datasheet_Microchip.pdf`](../../datasheets/ATmega328P_Datasheet_Microchip.pdf)
+- Referência Arduino:
+  [`analogRead()`](https://docs.arduino.cc/language-reference/en/functions/analog-io/analogRead/),
+  [`analogReference()`](https://docs.arduino.cc/language-reference/en/functions/analog-io/analogReference/),
+  [`map()`](https://docs.arduino.cc/language-reference/en/functions/math/map/),
+  [`constrain()`](https://docs.arduino.cc/language-reference/en/functions/math/constrain/)

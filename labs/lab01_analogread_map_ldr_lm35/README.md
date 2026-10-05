@@ -145,3 +145,79 @@ quando estiver **mais escuro**. (Pista: só a ordem de dois números do
 >   cortadas. Isso volta no Bloco 2.
 > - Cada bancada tem uma faixa diferente, porque depende da luz de cada
 >   ponto da sala. Isso não é erro: é exatamente por isso que se calibra.
+
+---
+
+## Bloco 2 — LM35 no A2 (40 min)
+
+O LM35 é um sensor de temperatura que entrega uma **tensão** proporcional
+à temperatura: 10 mV para cada grau Celsius. O `analogRead` não sabe o que
+é temperatura: ele só devolve um número de 0 a 1023. O caminho é sempre o
+mesmo:
+
+**contagens** (0 a 1023) → **tensão** (V) → **temperatura** (°C)
+
+### 2a. Contagens → tensão → °C
+
+1. Abra o sketch [`codigo_base/b2_lm35_temperatura`](codigo_base/b2_lm35_temperatura/b2_lm35_temperatura.ino)
+   e carregue na placa. Ele já funciona: lê o A2 e imprime `cru` (a
+   leitura) e `tempC` (a temperatura).
+2. Leia a função `lerTemperatura()`. A conversão tem dois passos, os mesmos
+   do exemplo `ReadAnalogVoltage` da aula passada: primeiro contagens para
+   volts, depois volts para °C.
+3. 🔍 **Datasheet** — abra
+   [`datasheets/sensores/TI_LM35_Temperatura.pdf`](../../datasheets/sensores/TI_LM35_Temperatura.pdf)
+   e encontre:
+   - o fator de escala do sensor (quantos mV por °C?). Dica: primeira página;
+   - a exatidão do **LM35D** (a versão do shield) a 25 °C. Dica: tabela
+     *Electrical Characteristics*.
+4. 🧮 **Cálculo:** a 25 °C, quantos volts o LM35 entrega? E quantas
+   contagens o `analogRead` devolve, com a referência de 5 V? Que fração
+   da faixa de 0 a 1023 isso ocupa?
+5. Abra o Plotter. Confira se `tempC` está perto da temperatura da sala.
+   Segure o LM35 entre os dedos: a curva deve subir devagar.
+
+### 2b. Conta com `float` × conta com `map()`
+
+1. No `loop()`, na linha marcada `ETAPA 2b`, calcule a temperatura também
+   com o `map()`:
+
+   ```cpp
+   int tempMap = map(cru, 0, 1023, 0, 500);
+   ```
+
+   (Por que 0 a 500? Com 5 V de referência, 1023 contagens = 5 V = 500 °C
+   pela regra do LM35.)
+2. Acrescente `,tempMap:` e o valor na impressão. No Monitor você deve ver
+   algo como `cru:57,tempC:27.9,tempMap:27`.
+3. Os dois cálculos discordam. Por quê? (Pista: reveja as armadilhas do
+   Bloco 1.)
+4. Troque `Serial.println(tempC, 1)` por `Serial.println(tempC, 2)`. Agora
+   aparecem 2 casas decimais. Isso quer dizer que o seu termômetro mede com
+   precisão de 0,01 °C? Olhe a curva no Plotter: ela anda em "escadinhas".
+   De quanto é cada degrau, em °C?
+
+### 2c. A leitura que não para quieta
+
+1. Deixe o LM35 parado e observe `cru` no Plotter por um minuto. A leitura
+   oscila e às vezes dá saltos, mesmo com a temperatura parada.
+2. Duas causas para discutir com a dupla:
+   - **Resolução:** cada contagem do conversor vale alguns décimos de grau.
+     Uma oscilação de ±1 contagem já aparece como ±meio grau, mais ou menos.
+   - **Memória do conversor:** dentro do microcontrolador, o conversor tem
+     um pequeno capacitor que "guarda" a tensão da última leitura. Se o
+     programa leu outro pino antes (o LDR, por exemplo), a primeira leitura
+     do LM35 ainda sai contaminada. O LM35 fornece pouca corrente e demora a
+     corrigir esse capacitor (o datasheet fala disso em *Capacitive Drive
+     Capability*).
+3. Melhore a `lerTemperatura()` na linha marcada `ETAPA 2c`. Três pistas:
+   - faça uma leitura e **jogue fora** (não use o valor);
+   - espere um pouco, por exemplo `delay(100)`;
+   - faça **16 leituras**, some todas e divida por 16 (um laço de repetição
+     ajuda). Atenção ao tipo da variável da soma: 16 × 1023 cabe num `int`?
+4. Imprima também a leitura crua para comparar. No Plotter, a curva da
+   média deve ficar bem mais "lisa" que a curva crua.
+
+> 💡 **Por que a leitura fica isolada na função `lerTemperatura()`?** O
+> resto do programa só pergunta "qual é a temperatura?" e não sabe *como*
+> ela foi medida. No Bloco 4 você vai entender por que isso vale ouro.

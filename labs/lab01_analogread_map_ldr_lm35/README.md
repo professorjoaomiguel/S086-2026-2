@@ -221,3 +221,92 @@ mesmo:
 > 💡 **Por que a leitura fica isolada na função `lerTemperatura()`?** O
 > resto do programa só pergunta "qual é a temperatura?" e não sabe *como*
 > ela foi medida. No Bloco 4 você vai entender por que isso vale ouro.
+
+---
+
+## Bloco 3 — A referência do conversor (AREF) (30 min)
+
+O conversor transforma tensão em número **comparando** com uma tensão de
+referência: 0 V vira 0, e a referência vira 1023. Até agora a referência
+foi a alimentação da placa (~5 V). A função `analogReference()` troca essa
+referência.
+
+### 3a. As três opções do UNO R3
+
+| `analogReference(...)` | Referência | Faixa que dá para medir | 1 contagem vale |
+|---|---|---|---|
+| `DEFAULT` | Alimentação da placa (~5 V) | 0 a ~5 V | |
+| `INTERNAL` | Tensão interna de ~1,1 V | 0 a ~1,1 V | |
+| `EXTERNAL` | Tensão ligada no pino AREF | 0 até a tensão no AREF | depende |
+
+1. 🧮 **Cálculo:** preencha a última coluna para `DEFAULT` e `INTERNAL`
+   (em mV). Depois, converta para °C usando a regra do LM35.
+2. 🔍 **Datasheet** — abra
+   [`datasheets/ATmega328P_Datasheet_Microchip.pdf`](../../datasheets/ATmega328P_Datasheet_Microchip.pdf)
+   e, na tabela de características do conversor (*ADC Characteristics*),
+   encontre:
+   - o valor mínimo, típico e máximo da referência interna (`Vint`);
+   - a faixa permitida para a tensão de referência (`VREF`).
+
+### 3b. LM35 com a referência INTERNAL
+
+1. No sketch do Bloco 2, na linha marcada `ETAPA 3b` do `setup()`,
+   escreva `analogReference(INTERNAL);`.
+2. Troque `TENSAO_REFERENCIA` de `5.0` para `1.1`. (Por que a conta precisa
+   mudar junto?)
+3. 🧮 **Cálculo:** com 1,1 V de referência, quantas contagens o LM35 deve
+   dar a 25 °C? Compare com o seu cálculo do Bloco 2.
+4. **Abra o Plotter antes de carregar** e olhe com atenção os primeiros
+   segundos depois que a placa reinicia. A leitura começa no valor certo?
+5. O que aconteceu: a placa tem um capacitor no pino AREF, que precisa de
+   um tempo para descarregar de ~5 V até 1,1 V. O próprio datasheet avisa
+   que *a primeira conversão depois de trocar a referência pode sair
+   imprecisa*. Corrija: logo depois do `analogReference(INTERNAL)`, espere
+   cerca de meio segundo e faça uma leitura descartada.
+6. Preencha a tabela, com o LM35 parado na mesma bancada:
+
+| Referência | `cru` (contagens) | Temperatura (°C) |
+|---|---|---|
+| DEFAULT (5 V) | | |
+| INTERNAL (1,1 V) | | |
+
+> 🔁 **Duas instabilidades, mesma cura.** No Bloco 2, o capacitor *de
+> dentro* do conversor "lembrava" o pino lido antes. Aqui, o capacitor *do
+> pino AREF* "lembra" a referência anterior. Nos dois casos: descartar a
+> primeira leitura e esperar.
+
+### 3c. O preço da precisão
+
+1. 🔮 **Previsão:** ainda com `INTERNAL`, o que acontece se você ler o LDR
+   (A1) ou o potenciômetro (A0)?
+2. Teste: troque `PINO_SENSOR` para `A0` e gire o potenciômetro devagar,
+   de uma ponta à outra. Em que parte do giro a leitura ainda muda?
+3. Conclusão para anotar: a referência vale para **todos** os pinos
+   analógicos ao mesmo tempo. Mais precisão (contagens menores) significa
+   **menos faixa** de tensão.
+
+Volte `PINO_SENSOR` para `A2`.
+
+### 3d. EXTERNAL: só na teoria
+
+Com `EXTERNAL`, você escolhe a referência ligando uma tensão no pino AREF.
+Por exemplo, 3,3 V daria ao LM35 uma precisão entre a do `DEFAULT` e a do
+`INTERNAL`. **Não vamos fazer na prática**: o shield cobre o pino AREF do
+UNO e não tem um conector para ele.
+
+> ⚠️ **Segurança — se um dia usar EXTERNAL**
+> 1. Chame `analogReference(EXTERNAL)` **antes** de qualquer
+>    `analogRead()`. Com uma tensão ligada no AREF, as outras referências
+>    ficam **em curto** com ela dentro do chip (aviso do datasheet).
+> 2. Ligue a tensão externa ao AREF através de um resistor em série
+>    (~5 kΩ). Ele limita a corrente caso alguém esqueça o passo 1. Veja a
+>    [referência de `analogReference()`](https://docs.arduino.cc/language-reference/en/functions/analog-io/analogReference/).
+
+**Bônus (opcional): medir a tensão da própria placa.** Com a referência
+`DEFAULT`, o conversor também consegue ler a referência interna de 1,1 V.
+Então: `Vcc ≈ 1,1 × 1023 / leitura`. A sua placa recebe exatamente 5,0 V
+pela USB? O que isso faz com as contas que usam `5.0` fixo? (Pesquise como
+ler a referência interna no UNO: não é um pino `A0`–`A5`.)
+
+> ⛔ **Antes do bloco 4: apague a linha `analogReference(INTERNAL)` e volte
+> `TENSAO_REFERENCIA` para `5.0`.**

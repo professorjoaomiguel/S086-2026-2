@@ -80,3 +80,16 @@ slides/build/
 
 # --- Documentos de trabalho do professor (planos, specs, avaliações): só local ---
 docs/
+
+# --- Repositório público: só labs/ e datasheets/ (mais README e configs) ---
+# O resto fica local (material do professor, decks, diagramas, instruções de agentes).
+.ai/
+.claude/
+.github/
+GEMINI.md
+diagramas/
+guias_e_roteiros_tecnicos/
+schemdraw_biblioteca/
+scripts/
+slides/
+livros/

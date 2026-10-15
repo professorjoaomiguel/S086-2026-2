@@ -77,3 +77,6 @@ slides/build/
 # --- Material do professor (gabaritos): fica só local, o repositório é público ---
 **/gabarito*.md
 **/roteiro_duplas/aula_*/docx/
+
+# --- Documentos de trabalho do professor (planos, specs, avaliações): só local ---
+docs/

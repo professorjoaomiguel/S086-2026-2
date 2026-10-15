@@ -1,0 +1,125 @@
+# Doc 2 de 3 — Luz vira brilho
+
+**UC S086 — Sistemas Microprocessados** · Arduino UNO R3 + Shield 9-em-1
+*Este documento é o roteiro **e** o relatório. Um arquivo por dupla: os dois alunos entregam o mesmo arquivo.*
+
+## Identificação
+
+| Campo | Preencha |
+|---|---|
+| Aluno 1 (piloto) | |
+| Aluno 2 (navegador) | |
+| Turma / bancada | |
+| Data | 15/10/2026 |
+
+## Componentes utilizados neste documento
+
+| Componente | Usou? | Anote |
+|---|---|---|
+| Arduino UNO R3 | ☐ | Porta COM: |
+| Shield 9-em-1 | ☐ | |
+| LDR (A1) | ☐ | |
+| LED vermelho (D9) | ☐ | |
+| Lanterna do celular | ☐ | |
+| IA na web | ☐ | Qual: |
+
+## Como trabalhar
+
+Igual ao Doc 1: piloto na IDE, navegador conduzindo e registrando, Telegram Web para trocar código, ⚡ para quem já domina. Selos: 🔮 previsão · 🧮 cálculo · 🔍 pesquisa · 🤖 IA na web · ☑️ múltipla escolha · 🔒 fechada · 💭 aberta · 📸 mídia.
+
+- **Monitor e Plotter não funcionam ao mesmo tempo:** feche um antes de abrir o outro.
+- **Sketch pronto desta etapa:** `codigo_base/b1_ldr`, no repositório
+  <https://github.com/professorjoaomiguel/S086-2026-2> (pasta `labs/lab01_analogread_map_ldr_lm35/codigo_base`) ou no link do Telegram. *Arquivo → Abrir…* e escolha `b1_ldr.ino`.
+- **Trocar de documento conta no tempo** (~2 min).
+
+### Referências
+
+- [Documentação da linguagem Arduino (português)](https://docs.arduino.cc/language-reference/pt/): [`analogRead()`](https://docs.arduino.cc/language-reference/pt/fun%C3%A7%C3%B5es/analog-io/analogRead/) · [`analogWrite()`](https://docs.arduino.cc/language-reference/pt/fun%C3%A7%C3%B5es/analog-io/analogWrite/) · [`map()`](https://docs.arduino.cc/language-reference/pt/fun%C3%A7%C3%B5es/math/map/) · [`constrain()`](https://docs.arduino.cc/language-reference/pt/fun%C3%A7%C3%B5es/math/constrain/) · [`pinMode()`](https://docs.arduino.cc/language-reference/pt/fun%C3%A7%C3%B5es/digital-io/pinMode/) · [`Serial`](https://docs.arduino.cc/language-reference/pt/fun%C3%A7%C3%B5es/communication/serial/)
+- [Repositório lab-boards](https://github.com/professorjoaomiguel/lab-boards): dados do shield 9-em-1, incluindo o [pinout anotado](https://github.com/professorjoaomiguel/lab-boards/blob/main/shields/uno-shield-9in1/imagens/pinout-anotado.jpg) (confira os pinos do LDR e do LED).
+
+**Tempo deste documento: ~35 min.** Ao terminar, entregue pelo Classroom e abra o **Doc 3 de 3**.
+
+---
+
+# Etapa 2 — LDR: ler, calibrar, mapear e limitar (35 min)
+
+> 🧭 **Orientação:** agora o valor depende da luz, não da sua mão, e cada bancada tem uma faixa diferente. Você vai **medir** a faixa do seu LDR, usá-la no `map()` e proteger a saída com `constrain()`. No fim, peça ajuda a uma IA e **avalie** o que ela devolve. **Ao final desta etapa o LED deve acompanhar a luz, sem passar de 0–255.**
+
+**Objetivo:** o LDR controla o brilho do LED usando a faixa **que você mediu**. **Pinos:** A1 (LDR), D9 (LED vermelho).
+
+## 2.1 Ler e calibrar (8 min)
+
+1. ☐ Abra o sketch `b1_ldr` e carregue. Abra o **Plotter Serial** (9600): a curva `ldr` é a leitura do LDR.
+2. ☐ 🔮 Com **mais luz**, o número vai **subir** ou **descer**? ______
+3. ☐ Cubra o LDR com o dedo; depois aponte a lanterna do celular. Anote o valor de `ldr` (passe o mouse sobre a curva, ou use o Monitor Serial no lugar do Plotter):
+
+| Condição | Valor de `ldr` |
+|---|---|
+| Coberto (escuro) | |
+| Luz da sala | |
+| Lanterna (claro) | |
+
+4. ☐ 🔒 Acertou o sentido (sobe ou desce)? ☐ sim ☐ não
+5. ☐ 🧮 Faixa útil do LDR: (claro − escuro) ÷ 1023 × 100 = ______ %
+
+*Cada bancada tem uma faixa diferente. Isso não é erro: é por isso que se calibra.*
+
+> ⚡ **Já domina?** Preencha a tabela e a faixa útil e siga.
+
+## 2.2 Mapear e limitar (15 min)
+
+1. ☐ No sketch `b1_ldr`, troque os valores de `MINIMO_MEDIDO` (escuro) e `MAXIMO_MEDIDO` (claro) pelos **seus**. Carregue.
+2. ☐ Confira na linha do `map()` (dentro do `loop()`) que ela converte a faixa medida para 0–255 e que `analogWrite(PINO_LED, brilho)` manda o resultado ao LED.
+3. ☐ No Plotter, as curvas `ldr` e `brilho` devem subir e descer juntas. Cubra e descubra o LDR: o LED apaga e acende?
+4. ☐ Aproxime a lanterna **mais** do que na calibração e observe `brilho`. Depois **cubra mais** do que na calibração. Qual o maior e o menor valor de `brilho` que você viu? ______ e ______ *(pode passar de 255 ou ficar negativo)*
+5. ☐ ☑️ **O que o `constrain()` resolve que o `map()` não resolve?**
+   - ☐ a) Converte inteiro em decimal.
+   - ☐ b) Faz o programa rodar mais rápido.
+   - ☐ c) Limita o resultado à faixa de saída.
+   - ☐ d) Nada, fazem o mesmo.
+6. ☐ No lugar do comentário *ETAPA 2.2-6*, acrescente `brilho = constrain(brilho, 0, 255);` (antes do `analogWrite`) e teste de novo.
+
+| 📸 Cole aqui: GIF ou vídeo cobrindo e descobrindo o LDR, com o LED e o Plotter na mesma cena |
+|---|
+| |
+
+| 📝 Cole aqui: o código final (via Telegram) |
+|---|
+| |
+
+## 2.3 🤖 Peça ajuda a uma IA, e pergunte direito (12 min)
+
+**Meta:** o LED deve acender **só no escuro** e apagar na luz (o contrário do que você fez).
+
+1. ☐ Escreva um **pedido vago** (30 s), como se tivesse pressa.
+2. ☐ Escreva um **bom pedido** com 3 partes:
+   - **Contexto:** placa, pinos do LDR e do LED, o que seu código faz hoje (cole o código).
+   - **Objetivo:** o que deve passar a fazer.
+   - **Resultado esperado:** como você confirma que deu certo (ex.: "no escuro `brilho` perto de 255; na luz, perto de 0").
+3. ☐ Envie o **bom pedido** à IA (Gemini em <https://gemini.google.com>, conta SENAI). Se não estiver logado, peça ajuda ao professor.
+4. ☐ **Teste na placa; não confie sem testar.** Se o código da IA não compilar, cole a mensagem de erro de volta na IA e peça a correção.
+5. ☐ 💭 Compare com a sua solução: dá para obter o mesmo resultado trocando só dois números no `map()`? Qual?
+
+| 📝 Registre aqui: pedido vago · bom pedido · resposta da IA (trecho principal) |
+|---|
+| |
+
+| 📝 Avalie: funcionou? ☐ sim ☐ não ☐ em parte · o que você ajustou? O que mudou entre o pedido vago e o bom pedido? |
+|---|
+| |
+
+> 🏆 **Desafio opcional (não entra na evidência):** peça à IA algo que **não** seja só inverter: o LED liga abaixo de um limiar e só desliga um pouco acima dele (**histerese**), para não ficar piscando. Registre o pedido e o resultado.
+
+**📎 Evidência — Etapa 2:** ☐ tabela do LDR, sentido e faixa útil · ☐ maior e menor `brilho` vistos · ☐ GIF/vídeo do LDR+LED · ☐ código final com `map()` e `constrain()` · ☐ pedido vago, bom pedido, resposta e avaliação da IA
+
+---
+
+# Você leva para o próximo documento
+
+No **Doc 3**, você vai reusar:
+
+- a sua **porta COM** e o jeito de abrir e carregar um sketch;
+- o **Plotter Serial** para ver curvas (lembre de fechar o Monitor antes);
+- a ideia de transformar uma **leitura em unidade física**, agora em °C.
+
+**Entrega:** salve o arquivo, entregue no Classroom e abra o **Doc 3 de 3 — O termômetro**.

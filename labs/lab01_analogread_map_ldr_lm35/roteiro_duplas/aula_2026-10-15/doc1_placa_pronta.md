@@ -1,0 +1,163 @@
+# Doc 1 de 3 — Placa pronta
+
+**UC S086 — Sistemas Microprocessados** · Arduino UNO R3 + Shield 9-em-1
+*Este documento é o roteiro **e** o relatório. Um arquivo por dupla: os dois alunos entregam o mesmo arquivo.*
+
+## Identificação
+
+| Campo | Preencha |
+|---|---|
+| Aluno 1 (piloto) | |
+| Aluno 2 (navegador) | |
+| Turma / bancada | |
+| Data | 15/10/2026 |
+
+## Componentes utilizados neste documento
+
+Marque o que a dupla usou e anote o que for pedido.
+
+| Componente | Usou? | Anote |
+|---|---|---|
+| Arduino UNO R3 | ☐ | Chip USB: ☐ ATmega16U2 ☐ CH340 |
+| Shield 9-em-1 | ☐ | |
+| Cabo USB | ☐ | |
+| Potenciômetro (A0) | ☐ | |
+| LED vermelho (D9) | ☐ | |
+| LED **L** da placa (pino 13) | ☐ | |
+
+## Como trabalhar
+
+- **Piloto:** opera a Arduino IDE e escreve o código. **Navegador:** lê este roteiro em voz alta e **registra** aqui. Troquem de papel quando quiserem (convite, não obrigação).
+- **Telegram Web** aberto nos dois PCs: o piloto envia o código, o navegador cola no relatório.
+- Um passo de cada vez. Marque ☐ → ☑ ao concluir.
+- ⚡ **Já domina?** Faça só o que o selo pede e siga.
+- Estourou o tempo? **Siga adiante** e volte depois. Itens *(se sobrar tempo)* podem ficar em branco.
+- **Trocar de documento conta no tempo** (~2 min): entregue pelo Classroom e abra o próximo.
+- **Os sketches** (programas prontos) estão no repositório
+  <https://github.com/professorjoaomiguel/S086-2026-2>, na pasta `labs/lab01_analogread_map_ldr_lm35/codigo_base`, ou no link que o professor enviar no Telegram. Para abrir: *Arquivo → Abrir…* e escolha o arquivo `.ino` (ele precisa estar numa pasta com o mesmo nome).
+
+| Selo | Significa |
+|---|---|
+| 🔮 | **Previsão:** responda *antes* de testar. Não precisa acertar. |
+| 🧮 | **Cálculo:** faça a conta antes de conferir. |
+| 🔍 | **Pesquisa** na web: anote a fonte (link). |
+| ☑️ | **Múltipla escolha:** marque uma. |
+| 🔒 | **Fechada:** responda por extenso, ligando teoria e o que você viu. |
+| 💭 | **Aberta:** sem resposta certa; opine e justifique. |
+| 📸 | **Mídia:** foto, vídeo curto ou GIF. |
+
+### Glossário rápido
+
+| Palavra | Quer dizer |
+|---|---|
+| **sketch** | o programa que roda na placa |
+| **contagem** | o número de 0 a 1023 que o `analogRead` devolve |
+| **Monitor Serial** | janela de texto com o que a placa envia (lupa no canto superior direito da IDE) |
+| **Plotter Serial** | gráfico do que a placa envia (*Ferramentas → Plotter Serial*). **Feche o Monitor antes de abrir o Plotter** |
+| **`map()`** | `map(x, a, b, c, d)` converte `x` da faixa a–b para a faixa c–d |
+
+### Referências
+
+- [Documentação da linguagem Arduino (português)](https://docs.arduino.cc/language-reference/pt/): [`delay()`](https://docs.arduino.cc/language-reference/pt/fun%C3%A7%C3%B5es/time/delay/) · [`millis()`](https://docs.arduino.cc/language-reference/pt/fun%C3%A7%C3%B5es/time/millis/) · [`map()`](https://docs.arduino.cc/language-reference/pt/fun%C3%A7%C3%B5es/math/map/) · [`analogWrite()`](https://docs.arduino.cc/language-reference/pt/fun%C3%A7%C3%B5es/analog-io/analogWrite/) · [`analogRead()`](https://docs.arduino.cc/language-reference/pt/fun%C3%A7%C3%B5es/analog-io/analogRead/)
+- [Repositório lab-boards](https://github.com/professorjoaomiguel/lab-boards): fotos e dados das placas e do shield. Para conferir a localização das peças: [pinout-anotado.jpg](https://github.com/professorjoaomiguel/lab-boards/blob/main/shields/uno-shield-9in1/imagens/pinout-anotado.jpg) (use depois de tentar sozinho, não para copiar).
+
+**Tempo deste documento: ~30 min.** Ao terminar, entregue pelo Classroom e abra o **Doc 2 de 3**.
+
+---
+
+# Etapa 0 — Ligar, conectar e conhecer a placa (20 min)
+
+> 🧭 **Orientação:** antes de programar, garanta que o computador enxerga a placa e que você sabe onde ficam as peças que vai usar. **Ao final desta etapa a placa deve estar piscando e as peças do shield identificadas.**
+
+## 0.1 Ligar e achar a COM (5 min)
+
+1. ☐ Conecte o UNO R3 ao PC com o cabo USB e encaixe o Shield 9-em-1.
+2. ☐ Abra o **Gerenciador de Dispositivos → Portas (COM e LPT)**. Desconecte e reconecte o cabo: a linha que **some e volta** é a sua placa.
+3. ☐ Marque o que aparece:
+   - ☐ **Arduino Uno (COMx)**: chip USB ATmega16U2
+   - ☐ **USB-SERIAL CH340 (COMx)**: clone com chip CH340
+   - ☐ **Nada / "Dispositivo desconhecido"**: falta o driver CH340. Chame o professor.
+
+| 📝 Registre aqui: porta **COM ___** e o texto ao lado dela |
+|---|
+| |
+
+4. ☐ ☑️ *(se sobrar tempo)* **Como ter certeza de qual COM é a da sua placa?**
+   - ☐ a) É sempre a de menor número.
+   - ☐ b) É a que aparece ao plugar e some ao desplugar.
+   - ☐ c) É sempre a COM1.
+   - ☐ d) A IDE escolhe sozinha, não preciso conferir.
+
+## 0.2 Gravar o primeiro sketch (5 min)
+
+1. ☐ **Piloto:** abra a Arduino IDE. Em *Ferramentas → Placa → Arduino AVR Boards*, escolha **Arduino Uno**. Em *Ferramentas → Porta*, escolha a sua COM. Se a porta não aparece, reconecte o USB e abra o menu de novo.
+2. ☐ Abra *Arquivo → Exemplos → 01.Basics → Blink* e clique em **Carregar** (→). Espere a mensagem "Carregado".
+3. ☐ 🔮 Antes de mudar: se você trocar os dois `delay(1000);` por `delay(250);`, o que muda? ______________________
+4. ☐ Os exemplos da IDE são somente leitura: use *Arquivo → Salvar como…* para criar a sua cópia. Troque as duas linhas `delay(1000);` por `delay(250);`, carregue de novo e confira. Acertou a previsão? ☐ sim ☐ não
+
+| 📸 Cole aqui: vídeo ou GIF do LED **L** piscando com `delay(250)` |
+|---|
+| |
+
+5. ☐ 🔒 No Blink original (1 s ligado, 1 s desligado), qual o **período** completo e quantas piscadas em 10 s? ______________________
+
+> ⚡ **Já domina 0.1 e 0.2?** Anote a COM, grave o vídeo do Blink em `delay(250)` e responda o 0.2-5. Pule para 0.3.
+
+## 0.3 Localizar as peças (10 min)
+
+1. ☐ 📸 Tire **uma foto do Shield 9-em-1** e **marque com setas ou números** (no Docs ou no celular):
+   1. **potenciômetro** (A0) · 2. **LDR** (A1) · 3. **LM35** (A2) · 4. **LED RGB** (D9/D10/D11) · 5. **buzzer** (D5)
+
+| 📸 Cole aqui: foto do shield com as 5 marcações |
+|---|
+| |
+
+2. ☐ 🔒 *(se sobrar tempo)* O ATmega328P tem 32 KB de Flash e 2 KB de SRAM. Em qual memória o **seu sketch** fica gravado? Por que a placa continua funcionando depois de desligar o USB e religar? ______________________
+3. ☐ *(se sobrar tempo)* 📸 Foto do UNO R3 marcando: USB · ATmega328P · jack de alimentação · RESET · LEDs ON e L · pinos AREF, A0–A5, 5V, GND.
+
+**📎 Evidência — Etapa 0:** ☐ COM e texto ao lado · ☐ vídeo/GIF do Blink · ☐ foto do shield marcada · ☐ respostas 0.2-5 (período), 0.1-4 e 0.3-2 (se fez)
+
+---
+
+# Etapa 1 — Ponte: potenciômetro e `map()` (10 min)
+
+> 🧭 **Orientação:** o potenciômetro é o sensor mais simples: você controla o valor com a mão. Use-o para **ver o `map()` funcionando** antes de aplicá-lo a sensores de verdade. Não altere o código: leia, rode, observe e responda. **Ao final desta etapa você sabe dizer o que o `map()` faz com a faixa de entrada e a de saída.**
+
+**Pinos:** A0 (potenciômetro), D9 (LED vermelho).
+
+1. ☐ **Piloto:** *Exemplos → 03.Analog → AnalogInOutSerial*. Carregue.
+2. ☐ Abra o **Monitor Serial** (9600) e gire o potenciômetro. O LED muda de brilho e aparecem linhas como `sensor = 812  output = 202`.
+
+| 📸 Cole aqui: vídeo curto girando o potenciômetro, com o LED e o Monitor na mesma cena |
+|---|
+| |
+
+3. ☐ No editor, dentro do `loop()`, ache a linha do `map()` e copie:
+
+| 📝 Registre aqui: a linha do `map()` |
+|---|
+| |
+
+4. ☐ 🔮 Suponha que o sensor só variasse de **300 a 700** (e o `map()` fosse de 0–1023 para 0–255). O que aconteceria com o brilho?
+   - ☐ a) O LED apaga totalmente e chega ao brilho máximo.
+   - ☐ b) O LED nunca apaga totalmente e nunca chega ao brilho máximo.
+   - ☐ c) O LED pisca.
+   - ☐ d) Dá erro de compilação.
+5. ☐ 🧮 **Confira a previsão com a conta:** quanto vale `output` para `sensor = 300` e para `sensor = 700`? ______ e ______
+
+> ⚡ **Já domina?** Grave o vídeo do passo 2 e responda o passo 4.
+
+**📎 Evidência — Etapa 1:** ☐ vídeo do potenciômetro · ☐ linha do `map()` · ☐ previsão (passo 4) e conta (passo 5)
+
+---
+
+> 🏆 **Desafio opcional (não entra na evidência):** faça o Blink piscar **sem `delay()`**, usando `millis()`.
+
+# Você leva para o próximo documento
+
+No **Doc 2**, você vai reusar:
+
+- a sua **porta COM** e o jeito de carregar um sketch;
+- a ideia do `map()` (faixa de entrada → faixa de saída), agora com uma faixa **que você mede**.
+
+**Entrega:** salve o arquivo, entregue no Classroom e abra o **Doc 2 de 3 — Luz vira brilho**.

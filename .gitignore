@@ -73,3 +73,7 @@ slides/build/
 # --- Jupyter/jupytext (preview ao vivo dos scripts SchemDraw) ---
 .ipynb_checkpoints/
 *.ipynb
+
+# --- Material do professor (gabaritos): fica só local, o repositório é público ---
+**/gabarito*.md
+**/roteiro_duplas/aula_*/docx/

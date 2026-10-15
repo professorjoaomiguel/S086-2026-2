@@ -27,7 +27,23 @@ Marque o que a dupla usou e anote o que for pedido.
 
 ## Como trabalhar
 
-- **Piloto:** opera a Arduino IDE e escreve o código. **Navegador:** lê este roteiro em voz alta e **registra** aqui. Troquem de papel quando quiserem (convite, não obrigação).
+### Piloto e navegador
+
+A dupla trabalha com **dois PCs e dois papéis**.
+
+| | **Piloto** | **Navegador** |
+|---|---|---|
+| **Faz** | Opera a **Arduino IDE** e a placa: conecta, carrega o sketch, escreve e edita o código, gira o potenciômetro, cobre o LDR. | Conduz **este roteiro**: lê cada passo em voz alta, confere se foi feito, marca ☐ → ☑ e **registra** aqui (respostas, fotos, vídeos, código). |
+| **Espera-se** | Executar **um passo por vez**, só depois que o navegador ler. Avisar o que está fazendo e o que está vendo (ex.: "carreguei, a COM é a 5"). | Ler com calma, **não pular passos**, cobrar o registro e só avançar quando o piloto confirmar. Chamar o professor se algo não bater. |
+| **Não faz** | Não avança sozinho sem o roteiro. | Não digita o código nem mexe na placa, mas **orienta e questiona**. |
+
+- Os dois **pensam juntos** nas perguntas 🔮 🧮 🔒 💭. Quem não está com a mão no teclado raciocina em voz alta.
+- **Podem trocar de papel durante a prática.** É convite, não obrigação. Boas horas de trocar: ao começar cada etapa (0, 1, 2, 3) ou quando um dos dois estiver perdido. Quem só pilotou aprende outra coisa navegando.
+- **Antes de trocar:** salve o código, mande-o pelo Telegram e passe o registro para o PC de quem vai navegar.
+- **Dica:** o relatório é um arquivo só, então combinem quem o mantém aberto (o navegador) e mandem o código pelo Telegram para colar nele.
+
+### Demais combinados
+
 - **Telegram Web** aberto nos dois PCs: o piloto envia o código, o navegador cola no relatório.
 - Um passo de cada vez. Marque ☐ → ☑ ao concluir.
 - ⚡ **Já domina?** Faça só o que o selo pede e siga.

@@ -23,7 +23,7 @@
 
 ## Como trabalhar
 
-Igual aos documentos anteriores: piloto na IDE, navegador conduzindo e registrando, Telegram Web para trocar código, ⚡ para quem já domina. Selos: 🔮 previsão · 🧮 cálculo · 🔍 pesquisa · ☑️ múltipla escolha · 🔒 fechada · 💭 aberta · 📸 mídia.
+Igual aos documentos anteriores. **Piloto:** opera a IDE e a placa, um passo por vez e dizendo o que faz. **Navegador:** lê o roteiro em voz alta, registra e cobra as evidências, sem digitar o código. Os dois pensam juntos nas perguntas. **Vale trocar de papel** (sugestão: ao começar **3.1** e ao começar **3.2**; antes de trocar, mande o código pelo Telegram). Telegram Web para trocar código, ⚡ para quem já domina. Selos: 🔮 previsão · 🧮 cálculo · 🔍 pesquisa · ☑️ múltipla escolha · 🔒 fechada · 💭 aberta · 📸 mídia.
 
 - **Monitor e Plotter não funcionam ao mesmo tempo:** feche um antes de abrir o outro.
 - **Sketch pronto desta etapa:** `codigo_base/b2_lm35_temperatura`, no repositório

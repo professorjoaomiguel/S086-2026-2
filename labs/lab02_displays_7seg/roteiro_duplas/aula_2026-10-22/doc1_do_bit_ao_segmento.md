@@ -70,6 +70,8 @@ A dupla trabalha com **dois PCs e dois papéis**.
 |---|---|
 | **segmento** | cada um dos 7 traços do display (a, b, c, d, e, f, g). **Cada segmento é um LED** |
 | **cátodo comum** | display em que os cátodos (−) dos 7 LEDs estão ligados num pino só, que vai ao GND. O segmento acende com nível **ALTO** |
+| **peso** | o valor que um algarismo ou bit tem por causa do **lugar** onde está (decimal: 100, 10, 1; binário: 8, 4, 2, 1) |
+| **MSB** / **LSB** | bit mais significativo (maior peso, à esquerda) / menos significativo (menor peso, à direita) |
 | **BCD** | *decimal codificado em binário*: cada algarismo de 0 a 9 escrito com 4 bits (ex.: 6 = `0110`) |
 | **CD4511** | circuito integrado que recebe 4 bits BCD e acende os segmentos certos do display |
 | **tabela de consulta** | um vetor em que a posição é o símbolo e o valor guardado diz o que fazer (aqui: quais segmentos acender) |
@@ -112,17 +114,31 @@ A dupla trabalha com **dois PCs e dois papéis**.
 
 ---
 
-# Etapa 1A — O Arduino manda 4 bits, o CD4511 acende o número (12 min)
+# Etapa 1A — O Arduino manda 4 bits, o CD4511 acende o número (13 min)
 
 > 🧭 **Orientação:** o Arduino não "sabe" desenhar um 5. Ele só manda o número em **binário** (4 fios); um CI dedicado, o **CD4511**, decide quais segmentos acender. **Ao final desta etapa o display conta de 0 a 9 sozinho.**
 
 **Pinos:** D2 = bit 0 (entrada **A** do CI) · D3 = bit 1 (**B**) · D4 = bit 2 (**C**) · D5 = bit 3 (**D**).
 
-## 1A.1 Contar em BCD antes de montar (3 min)
+## 1A.1 Contar em BCD antes de montar (4 min)
 
-1. 🧮 Complete a tabela: cada número de 0 a 9 em 4 bits. O 0 já está feito.
+1. **Peso dos algarismos (decimal).** No número **123**, cada algarismo vale pelo **lugar** em que está: o **1** é uma **centena** (100), o **2** são **duas dezenas** (20) e o **3** são **três unidades** (3).
+   `123 = 1 × 100 + 2 × 10 + 3 × 1` — os pesos são potências de 10: `10²`, `10¹`, `10⁰`.
+   🧮 No número **407**, quanto vale o algarismo **4**? E o **0**? ______________________
+2. **Peso dos bits (binário).** No binário vale a mesma ideia, só que a base é **2**: cada **bit** tem um **peso** que é uma potência de 2, e o bit só soma o seu peso quando vale **1**.
 
-| Número | D (D5) | C (D4) | B (D3) | A (D2) |
+   | Bit | D (D5) | C (D4) | B (D3) | A (D2) |
+   |---|---|---|---|---|
+   | Potência | 2³ | 2² | 2¹ | 2⁰ |
+   | **Peso** | **8** | **4** | **2** | **1** |
+   | Posição | **MSB** (mais significativo) | | | **LSB** (menos significativo) |
+
+   - **MSB** (*Most Significant Bit*): o bit de **maior peso**, o da esquerda (aqui, **D**).
+   - **LSB** (*Least Significant Bit*): o bit de **menor peso**, o da direita (aqui, **A**).
+   - Exemplo: `0110` = `0 × 8 + 1 × 4 + 1 × 2 + 0 × 1` = **6**.
+3. 🧮 Complete a tabela: cada número de 0 a 9 em 4 bits. O 0 já está feito. *Dica: some os pesos dos bits que valem 1 até chegar ao número.*
+
+| Número | D (D5) · MSB · peso 8 | C (D4) · peso 4 | B (D3) · peso 2 | A (D2) · LSB · peso 1 |
 |---|---|---|---|---|
 | 0 | 0 | 0 | 0 | 0 |
 | 1 | | | | |
@@ -135,7 +151,7 @@ A dupla trabalha com **dois PCs e dois papéis**.
 | 8 | | | | |
 | 9 | | | | |
 
-2. 🔮 Com 4 bits dá para escrever até qual número? Por que o BCD para no 9? ______________________
+4. 🔮 Com 4 bits dá para escrever até qual número? Por que o BCD para no 9? ______________________
 
 ## 1A.2 Montar (5 min)
 
@@ -160,7 +176,7 @@ A dupla trabalha com **dois PCs e dois papéis**.
 
 > ⚡ **Já domina binário?** Complete a tabela BCD, monte, tire o GIF e responda o 1A.3-4.
 
-**📎 Evidência — Etapa 1A:** confira que tem: tabela BCD de 0 a 9 · previsão 1A.1-2 · diferença com o esquema (1A.2-6) · conta do 1A.3-2 · GIF ou prints da contagem · resposta 1A.3-4
+**📎 Evidência — Etapa 1A:** confira que tem: tabela BCD de 0 a 9 · previsão 1A.1-4 · conta 1A.1-1 · diferença com o esquema (1A.2-6) · conta do 1A.3-2 · GIF ou prints da contagem · resposta 1A.3-4
 
 ---
 

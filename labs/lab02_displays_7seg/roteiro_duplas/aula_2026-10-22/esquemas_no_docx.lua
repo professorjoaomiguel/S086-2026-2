@@ -1,8 +1,8 @@
 -- Filtro pandoc usado por build_docx.py (lab02).
 --
--- Os .md citam os esquemas como LINK: [texto](../imagens/<arquivo>.png).
+-- Os .md citam os esquemas como LINK: [texto](../../imagens/<arquivo>.png).
 -- No .docx (Google Docs) esse caminho relativo não abre. Este filtro:
---   1) troca o destino de cada link ../imagens/*.png pelo endereço do arquivo
+--   1) troca o destino de cada link ../../imagens/*.png pelo endereço do arquivo
 --      no GitHub (o link continua clicável no Google Docs);
 --   2) embute a imagem logo DEPOIS do bloco de nível superior em que ela é
 --      citada pela ÚLTIMA vez (o passo "Confira com o esquema ... depois de
@@ -12,7 +12,7 @@ local BASE = "https://github.com/professorjoaomiguel/S086-2026-2/blob/main/labs/
 local LARGURA = "15cm"
 
 local function arquivo_local(alvo)
-  return alvo:match("^%.%./imagens/([%w_%-]+%.png)$")
+  return alvo:match("^%.%./%.%./imagens/([%w_%-]+%.png)$")
 end
 
 function Pandoc(doc)
@@ -43,7 +43,7 @@ function Pandoc(doc)
     }))
     for _, nome in ipairs(ordem) do
       if ultimo[nome] == i then
-        local img = pandoc.Image({}, "../imagens/" .. nome, "", pandoc.Attr("", {}, { width = LARGURA }))
+        local img = pandoc.Image({}, "../../imagens/" .. nome, "", pandoc.Attr("", {}, { width = LARGURA }))
         novos:insert(pandoc.Para({ img }))
       end
     end

@@ -56,7 +56,7 @@ Igual ao Doc 1 (veja lá a tabela **piloto e navegador** e os combinados). Resum
 ### Referências
 
 - [Documentação da linguagem Arduino (português)](https://docs.arduino.cc/language-reference/pt/): [`digitalWrite()`](https://docs.arduino.cc/language-reference/pt/fun%C3%A7%C3%B5es/digital-io/digitalWrite/) · [`delay()`](https://docs.arduino.cc/language-reference/pt/fun%C3%A7%C3%B5es/time/delay/) · [`millis()`](https://docs.arduino.cc/language-reference/pt/fun%C3%A7%C3%B5es/time/millis/) · [`bitRead()`](https://docs.arduino.cc/language-reference/pt/fun%C3%A7%C3%B5es/bits-and-bytes/bitRead/)
-- Esquemas de ligação desta atividade: [2A dois dígitos](../imagens/lab02_2a_dois_digitos.png) · [2B quatro dígitos](../imagens/lab02_2b_quatro_digitos.png) (use **depois de tentar sozinho**, para conferir, não para copiar).
+- Esquemas de ligação desta atividade: [2A dois dígitos](../../imagens/lab02_2a_dois_digitos.png) · [2B quatro dígitos](../../imagens/lab02_2b_quatro_digitos.png) (use **depois de tentar sozinho**, para conferir, não para copiar).
 - Sketches de referência na pasta `labs/lab02_displays_7seg/codigo_base` do repositório: `b1_dois_digitos`, `b2_quatro_digitos`, `b3_contador_millis`. **Só para conferir depois** que o seu funcionar (ou se travar de vez).
 
 **Tempo deste documento: ~30 min.** Ao terminar, entregue pelo Classroom e abra o **Doc 3 de 3**.
@@ -85,7 +85,7 @@ Para escolher **qual** display acende, o comum de cada um passa por um **transis
 2. Arraste **dois transistores NPN**. Passe o mouse sobre os terminais: o Tinkercad mostra **base**, **coletor** e **emissor**.
 3. Em cada NPN: **emissor no GND** e **coletor no comum** do seu display. *(A ordem importa: invertido, o dígito não acende.)*
 4. Agora só os fios de controle: **D9 → resistor de 1 kΩ → base do NPN do display 1**; **D10 → 1 kΩ → base do NPN do display 2**.
-5. Confira com o esquema [lab02_2a_dois_digitos.png](../imagens/lab02_2a_dois_digitos.png) **depois** de montar. Achou alguma diferença? Qual? ______________________
+5. Confira com o esquema [lab02_2a_dois_digitos.png](../../imagens/lab02_2a_dois_digitos.png) **depois** de montar. Achou alguma diferença? Qual? ______________________
 
 ## 2A.3 Varredura lenta, à mão (3 min)
 
@@ -166,7 +166,7 @@ void loop() {
 3. Ligue os segmentos a–g de cada display novo **nos mesmos pontos** das linhas a–g (depois dos resistores, do lado do display). Ainda **7 resistores** de segmento no total.
 4. Ligue o **emissor** de cada NPN novo no **GND**.
 5. Só os fios de controle: **D11 → resistor** da base do NPN do display 3; **D12 → resistor** da base do NPN do display 4.
-6. Confira com o esquema [lab02_2b_quatro_digitos.png](../imagens/lab02_2b_quatro_digitos.png) **depois** de montar.
+6. Confira com o esquema [lab02_2b_quatro_digitos.png](../../imagens/lab02_2b_quatro_digitos.png) **depois** de montar.
 
 ## 2B.3 Separar o que mostrar de como atualizar (3 min)
 

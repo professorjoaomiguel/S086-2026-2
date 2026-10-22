@@ -61,7 +61,7 @@ Igual ao Doc 1 (veja lá a tabela **piloto e navegador** e os combinados). Resum
 - [Documentação da linguagem Arduino (português)](https://docs.arduino.cc/language-reference/pt/): [`analogRead()`](https://docs.arduino.cc/language-reference/pt/fun%C3%A7%C3%B5es/analog-io/analogRead/) · [`map()`](https://docs.arduino.cc/language-reference/pt/fun%C3%A7%C3%B5es/math/map/) · [`constrain()`](https://docs.arduino.cc/language-reference/pt/fun%C3%A7%C3%B5es/math/constrain/) · [`delay()`](https://docs.arduino.cc/language-reference/pt/fun%C3%A7%C3%B5es/time/delay/)
 - Biblioteca **TM1637** (Avishay Orpaz), página no GitHub: <https://github.com/avishorp/TM1637>. Lá está a lista das funções (`showNumberDec`, `showNumberDecEx`, `setBrightness`, `setSegments`).
 - [Repositório lab-boards](https://github.com/professorjoaomiguel/lab-boards): fotos do shield. Para achar as barras D7 e D8: [pinout-anotado.jpg](https://github.com/professorjoaomiguel/lab-boards/blob/main/shields/uno-shield-9in1/imagens/pinout-anotado.jpg).
-- Esquema de ligação desta atividade: [3A módulo TM1637 no shield](../imagens/lab02_3a_tm1637_shield.png) (use **depois de tentar sozinho**, para conferir, não para copiar).
+- Esquema de ligação desta atividade: [3A módulo TM1637 no shield](../../imagens/lab02_3a_tm1637_shield.png) (use **depois de tentar sozinho**, para conferir, não para copiar).
 - Sketches de referência na pasta `labs/lab02_displays_7seg/codigo_base` do repositório: `c1_tm1637_ola`, `c2_pot_display`, `c3_indicador_nivel`. **Só para conferir depois** que o seu funcionar (ou se travar de vez).
 
 **Tempo deste documento: ~30 min.** Ao terminar, entregue pelo Classroom: é o último do bloco.
@@ -126,7 +126,7 @@ Os nomes dos menus podem mudar um pouco entre versões da IDE (2.x e 1.8). Procu
 3. **Primeiro, a alimentação:** um fio do **GND** da barra D7 ao **GND** do módulo; outro do **VCC** da barra D7 ao **VCC** do módulo. Confira os dois com o navegador antes de seguir. *(Se os pinos do módulo e da barra forem ambos macho, use jumpers fêmea-fêmea.)*
 4. **Depois, os sinais:** o pino de sinal da barra **D7** ao **CLK** do módulo; o pino de sinal da barra **D8** ao **DIO**.
 5. 🔮 Se a dupla trocar **CLK** e **DIO**, o que você espera ver no módulo? ______________________
-6. Confira com o esquema [lab02_3a_tm1637_shield.png](../imagens/lab02_3a_tm1637_shield.png) **depois** de ligar. Achou alguma diferença? Qual? ______________________
+6. Confira com o esquema [lab02_3a_tm1637_shield.png](../../imagens/lab02_3a_tm1637_shield.png) **depois** de ligar. Achou alguma diferença? Qual? ______________________
 
 ## 3A.4 Mostrar 1234 (3 min)
 

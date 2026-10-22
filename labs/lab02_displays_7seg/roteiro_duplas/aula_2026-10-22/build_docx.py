@@ -2,7 +2,7 @@
 
 Lab02 (displays de 7 segmentos). Copiado do build_docx.py do lab01
 (aula_2026-10-15), com uma diferença: estes documentos citam os esquemas
-como LINK relativo (../imagens/<arquivo>.png). O filtro esquemas_no_docx.lua
+como LINK relativo (../../imagens/<arquivo>.png). O filtro esquemas_no_docx.lua
 embute cada esquema no passo "Confira com o esquema" e troca o link pelo
 endereço no GitHub; o pandoc roda com a pasta dos .md como diretório de
 trabalho e --resource-path, para achar os .png e embuti-los no .docx.
@@ -53,7 +53,7 @@ def e_quadro_de_registro(tabela):
 def converter(md):
     SAIDA.mkdir(exist_ok=True)
     saida = SAIDA / (md.stem + ".docx")
-    # cwd e --resource-path na pasta do .md: ../imagens/*.png é achado e embutido.
+    # cwd e --resource-path na pasta do .md: ../../imagens/*.png é achado e embutido.
     subprocess.run(
         [
             "pandoc", md.name,

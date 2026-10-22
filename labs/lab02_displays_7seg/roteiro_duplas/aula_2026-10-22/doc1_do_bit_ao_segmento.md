@@ -78,7 +78,7 @@ A dupla trabalha com **dois PCs e dois papéis**.
 
 - [Documentação da linguagem Arduino (português)](https://docs.arduino.cc/language-reference/pt/): [`pinMode()`](https://docs.arduino.cc/language-reference/pt/fun%C3%A7%C3%B5es/digital-io/pinMode/) · [`digitalWrite()`](https://docs.arduino.cc/language-reference/pt/fun%C3%A7%C3%B5es/digital-io/digitalWrite/) · [`delay()`](https://docs.arduino.cc/language-reference/pt/fun%C3%A7%C3%B5es/time/delay/) · [`bitRead()`](https://docs.arduino.cc/language-reference/pt/fun%C3%A7%C3%B5es/bits-and-bytes/bitRead/)
 - [Tinkercad Circuits](https://www.tinkercad.com/circuits): entre com a conta indicada pelo professor.
-- Esquemas de ligação desta atividade: [1A com CD4511](../imagens/lab02_1a_cd4511.png) · [1B direto no Arduino](../imagens/lab02_1b_direto.png) (use **depois de tentar sozinho**, para conferir, não para copiar).
+- Esquemas de ligação desta atividade: [1A com CD4511](../../imagens/lab02_1a_cd4511.png) · [1B direto no Arduino](../../imagens/lab02_1b_direto.png) (use **depois de tentar sozinho**, para conferir, não para copiar).
 
 **Tempo deste documento: ~30 min.** Ao terminar, entregue pelo Classroom e abra o **Doc 2 de 3**.
 
@@ -144,7 +144,7 @@ A dupla trabalha com **dois PCs e dois papéis**.
 3. Ligue os pinos de controle: **LT** e **BI** no **5V** e **LE** no **GND** (assim o CI fica sempre mostrando).
 4. Ligue **D2, D3, D4, D5** nas entradas **A, B, C, D** do CI.
 5. Ligue cada saída **a … g** do CI ao segmento de mesmo nome do display, **cada uma com seu resistor de 220 Ω**. Comum do display no **GND**.
-6. Confira com o esquema [lab02_1a_cd4511.png](../imagens/lab02_1a_cd4511.png) **depois** de montar. Achou alguma diferença? Qual? ______________________
+6. Confira com o esquema [lab02_1a_cd4511.png](../../imagens/lab02_1a_cd4511.png) **depois** de montar. Achou alguma diferença? Qual? ______________________
 
 ## 1A.3 Rodar e observar (4 min)
 
@@ -173,7 +173,7 @@ A dupla trabalha com **dois PCs e dois papéis**.
 ## 1B.1 Religar sem o CI (3 min)
 
 1. **Piloto:** apague o CD4511. Ligue cada segmento a–g, pelo seu resistor, ao pino da lista acima.
-2. Confira com o esquema [lab02_1b_direto.png](../imagens/lab02_1b_direto.png) **depois** de montar.
+2. Confira com o esquema [lab02_1b_direto.png](../../imagens/lab02_1b_direto.png) **depois** de montar.
 
 ## 1B.2 Escrever a tabela (4 min)
 

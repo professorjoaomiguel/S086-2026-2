@@ -52,7 +52,7 @@ A dupla trabalha com **dois PCs e dois papéis**.
 - **Trocar de documento conta no tempo** (~2 min): entregue pelo Classroom e abra o próximo.
 - **Código no Tinkercad:** botão **Código** → troque *Blocos* por **Texto**. O Tinkercad não abre arquivo `.ino`: abra o sketch no navegador ou no Telegram, copie o texto e cole no editor.
 - **Os sketches** estão no repositório
-  <https://github.com/professorjoaomiguel/S086-2026-2>, na pasta `labs/lab02_displays_7seg/codigo_base`, ou no link que o professor enviar no Telegram.
+  <https://github.com/professorjoaomiguel/S086-2026-2>, no sketch `a1_bcd_cd4511` (pasta `labs/lab02_displays_7seg/codigo_base`), ou no link que o professor enviar no Telegram.
 
 | Selo | Significa |
 |---|---|
@@ -140,10 +140,11 @@ A dupla trabalha com **dois PCs e dois papéis**.
 ## 1A.2 Montar (5 min)
 
 1. **Piloto:** no mesmo circuito (pode apagar o LED), coloque um **CD4511** atravessando o canal central da placa de ensaio.
-2. Alimente o CI: **VDD → 5V** e **VSS → GND**. Ligue **LT** e **BI** no **5V** e **LE** no **GND** (assim o CI fica sempre mostrando).
-3. Ligue **D2, D3, D4, D5** nas entradas **A, B, C, D** do CI.
-4. Ligue cada saída **a … g** do CI ao segmento de mesmo nome do display, **cada uma com seu resistor de 220 Ω**. Comum do display no **GND**.
-5. Confira com o esquema [lab02_1a_cd4511.png](../imagens/lab02_1a_cd4511.png) **depois** de montar. Achou alguma diferença? Qual? ______________________
+2. Alimente o CI: **VDD → 5V** e **VSS → GND**.
+3. Ligue os pinos de controle: **LT** e **BI** no **5V** e **LE** no **GND** (assim o CI fica sempre mostrando).
+4. Ligue **D2, D3, D4, D5** nas entradas **A, B, C, D** do CI.
+5. Ligue cada saída **a … g** do CI ao segmento de mesmo nome do display, **cada uma com seu resistor de 220 Ω**. Comum do display no **GND**.
+6. Confira com o esquema [lab02_1a_cd4511.png](../imagens/lab02_1a_cd4511.png) **depois** de montar. Achou alguma diferença? Qual? ______________________
 
 ## 1A.3 Rodar e observar (4 min)
 
@@ -155,11 +156,11 @@ A dupla trabalha com **dois PCs e dois papéis**.
 |---|
 | |
 
-4. 🔒 O que o **CD4511** faz que o Arduino **não precisa mais fazer**? Quantos pinos do Arduino ele economiza (4 em vez de quantos)? ______________________
+4. 🔒 O que o **CD4511** faz que o Arduino **não precisa mais fazer**? Sem o CI, quantos fios o Arduino precisaria para acender os segmentos? E com o CI, quantos usa? Quantos pinos o CD4511 economiza? ______________________
 
 > ⚡ **Já domina binário?** Complete a tabela BCD, monte, tire o GIF e responda o 1A.3-4.
 
-**📎 Evidência — Etapa 1A:** confira que tem: tabela BCD de 0 a 9 · previsão 1A.1-2 · diferença com o esquema (1A.2-5) · conta do 1A.3-2 · GIF ou prints da contagem · resposta 1A.3-4
+**📎 Evidência — Etapa 1A:** confira que tem: tabela BCD de 0 a 9 · previsão 1A.1-2 · diferença com o esquema (1A.2-6) · conta do 1A.3-2 · GIF ou prints da contagem · resposta 1A.3-4
 
 ---
 
@@ -202,7 +203,7 @@ Cada símbolo vira **7 bits**, um por segmento: **bit 0 = a**, bit 1 = b, …, *
 | 8 | | | | | | | | |
 | 9 | | | | | | | | |
 
-2. Completem 4 a 9. Se o tempo apertar, deixem 4 a 9 para testar depois de o 0 a 3 funcionar.
+2. Completem 4 a 9. Se o tempo apertar, deixem 4 a 9 para testar depois de o 0 a 3 funcionar. **Atenção:** se pularem os dígitos 4 a 9 por enquanto, o display ficará **apagado** nesses números na contagem do 1B.3. Isso é esperado, não é erro de montagem.
 
 ## 1B.3 Programar (5 min)
 

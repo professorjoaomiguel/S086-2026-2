@@ -162,7 +162,7 @@ void loop() {
 > Atalho opcional: o professor pode oferecer um circuito pronto do Tinkercad com os quatro displays já posicionados. Se usar, confira as ligações pelos passos abaixo.
 
 1. **Piloto:** selecione **juntos** o display 2, o seu NPN, o resistor de 1 kΩ da base e os fios entre eles (arraste uma caixa de seleção em volta, ou `Shift` + clique em cada um).
-2. `Ctrl+C` / `Ctrl+V` **duas vezes**: surgem os blocos dos **displays 3 e 4**. O Tinkercad mantém os fios **internos** do bloco copiado (comum → coletor, resistor → base), mas **não** os fios que iam ao Arduino e às linhas a–g. Confira **cátodo** em cada display novo.
+2. `Ctrl+C` / `Ctrl+V` **duas vezes**: surgem os blocos dos **displays 3 e 4**. O Tinkercad costuma manter os fios **internos** do bloco copiado (comum → coletor, resistor → base), mas **confira cada fio do bloco colado**; os fios que iam ao Arduino e às linhas a–g não vêm junto. O bloco colado pode cair **em cima do original**: arraste-o para o lado. Confira **cátodo** em cada display novo.
 3. Ligue os segmentos a–g de cada display novo **nos mesmos pontos** das linhas a–g (depois dos resistores, do lado do display). Ainda **7 resistores** de segmento no total.
 4. Ligue o **emissor** de cada NPN novo no **GND**.
 5. Só os fios de controle: **D11 → resistor** da base do NPN do display 3; **D12 → resistor** da base do NPN do display 4.

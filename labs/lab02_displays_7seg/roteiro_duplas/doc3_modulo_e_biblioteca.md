@@ -99,7 +99,7 @@ void loop() {
 |---|
 | |
 
-*Compilou sem erro?* Alguém já instalou a biblioteca neste PC. Pule para o 3A.2-4, só para conferir.
+*Compilou sem erro?* Alguém já instalou a biblioteca neste PC. Vá direto ao passo 4 do 3A.2 (o print do TM1637Test), só para conferir.
 
 ## 3A.2 Como instalar uma biblioteca (3 min)
 
@@ -210,7 +210,8 @@ Os nomes dos menus podem mudar um pouco entre versões da IDE (2.x e 1.8). Procu
 
 > ⚡ **Já domina?** Faça o 3C.1 e o 3C.2 direto e escolha um desafio *(se sobrar tempo)*:
 > - **Brilho:** use `setBrightness()` para o brilho seguir o nível (0 a 7). Lembre: o brilho novo só vale **na próxima vez** que você mostrar um número. 🔮 O que acontece se você chamar `setBrightness()` e não mostrar nada depois? ______________________
-> - **Dois-pontos:** veja no seu módulo se ele tem **dois-pontos** no meio ou **pontos decimais**. Com `showNumberDecEx(valor, 0b01000000, true)` os dois-pontos acendem. Mostre o nível de **00:00 a 10:00**. Se o seu módulo tiver **pontos decimais**, mostre a porcentagem **0,0 a 100,0 %** (o segundo argumento muda: veja a lista no comentário de `showNumberDecEx` na página da biblioteca). 🔒 Por que o mesmo `map()` de 0 a 1000 serve para 0,0 a 100,0 %? ______________________
+> - **Dois-pontos:** se o seu módulo tem dois-pontos no meio, use `showNumberDecEx(valor, 0b01000000, true)` para acendê-los e mostre o nível de **00:00 a 10:00**. Se o módulo não tem dois-pontos nem pontos decimais, pule este ⚡.
+> - **Pontos decimais:** se o seu módulo tem pontos decimais, mostre a porcentagem **0,0 a 100,0 %** (o segundo argumento muda: veja a lista no comentário de `showNumberDecEx` na página da biblioteca). 🔒 Por que o mesmo `map()` de 0 a 1000 serve para 0,0 a 100,0 %? ______________________
 > - **Volta ao Doc 1:** a função `setSegments()` recebe os segmentos de cada dígito com **bit 0 = a … bit 6 = g**, como a sua tabela `SEG[10]`. Mostre um símbolo seu (ex.: `-` ou uma letra do Doc 1) num dos dígitos.
 
 **📎 Evidência — Etapa 3C:** confira que tem: conta do 3C.1 · 0 e 1000 nas pontas · previsão e resposta dos zeros à esquerda · foto · código final · desafio ⚡ (se fez)
@@ -219,7 +220,7 @@ Os nomes dos menus podem mudar um pouco entre versões da IDE (2.x e 1.8). Procu
 
 # Fechamento do bloco (3 min)
 
-1. 💭 No Doc 2, o **seu** código fazia a varredura: `exibir[4]`, `varrer()`, `mostrarDigito()`, a frequência de varredura e o `millis()`, com **11 pinos**. Aqui foram **2 pinos** e uma linha de código. O que **saiu do seu software e foi para dentro do chip TM1637**? E o que a **biblioteca** faz entre o seu `showNumberDec()` e o chip? ______________________
+1. 💭 No Doc 2, o **seu** código fazia a varredura: `exibir[4]`, `varrer()`, `mostrarDigito()`, a frequência de varredura e o `millis()`, com **11 pinos**. Aqui foram **2 pinos** e duas linhas de código (brilho e número). O que **saiu do seu software e foi para dentro do chip TM1637**? E o que a **biblioteca** faz entre o seu `showNumberDec()` e o chip? ______________________
 2. 🔒 Nos Docs 1 e 2 você usou o simulador; aqui, a bancada. Cite **duas coisas** que a bancada mostrou (ou poderia mostrar) e o simulador esconde. *Ideias: corrente nos pinos, fio solto ou trocado, instalar biblioteca, brilho real, leitura que "treme".* ______________________
 
 ## O que levei do bloco

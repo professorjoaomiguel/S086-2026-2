@@ -63,7 +63,7 @@ Igual ao Doc 1 (veja lá a tabela **piloto e navegador** e os combinados). Resum
 
 ---
 
-# Etapa 2A — Dois displays, os mesmos 7 fios (12 min)
+# Etapa 2A — Dois displays, os mesmos 7 fios (11 min)
 
 > 🧭 **Orientação:** um segundo display entra **pendurado nas mesmas linhas a–g**. Sozinho, isso só copia o número. O truque é ligar **um dígito de cada vez**. **Ao final desta etapa os dois displays mostram 42, e você viu a troca ficar rápida demais para o olho.**
 
@@ -72,7 +72,7 @@ Igual ao Doc 1 (veja lá a tabela **piloto e navegador** e os combinados). Resum
 ## 2A.1 Segundo display em paralelo (3 min)
 
 1. **Piloto:** arraste um **segundo display** ao lado do primeiro. Clique nele e **confira que o comum está em "cátodo"**.
-2. Ligue cada segmento a–g do display 2 **no mesmo ponto** do segmento de mesmo nome do display 1 (depois do resistor). **Não** acrescente resistores: os 7 do Doc 1 servem aos dois.
+2. Ligue cada segmento a–g do display 2 **no mesmo ponto** do segmento de mesmo nome do display 1 (depois do resistor, do lado do display). **Não** acrescente resistores: os 7 do Doc 1 servem aos dois.
 3. Ligue o comum do display 2 no **GND**, como o do display 1.
 4. 🔮 Com o código do Doc 1 (contagem de 0 a 9) ainda no Arduino, o que os dois displays vão mostrar? ______________________
 5. Inicie a simulação. Acertou? (S ou N): ______
@@ -120,19 +120,17 @@ void loop() {
 3. Escreva o `loop()`: dezena = 4, espera `TEMPO_DIGITO_MS`; unidade = 2, espera `TEMPO_DIGITO_MS`.
 4. Inicie a simulação. Com 500 ms você deve ver **4** e **2** se alternando, com **um display apagado de cada vez**. Isso é o esperado. Funcionou? (S ou N): ______
 
-## 2A.4 Acelerar até enganar o olho (2 min)
+## 2A.4 Acelerar até enganar o olho (1 min)
 
 1. Troque `TEMPO_DIGITO_MS` e anote o que vê em cada valor (alterna, pisca, parece fixo, "fantasma" do outro dígito, brilho fraco):
 
 | `TEMPO_DIGITO_MS` | O que você viu |
 |---|---|
 | 500 | |
-| 100 | |
 | 20 | |
 | 5 | |
-| 1 | |
 
-| 📸 Cole aqui: **um ou dois prints**: um em 500 ms (um display apagado) e um em 5 ms (42 parecendo fixo) |
+| 📸 Cole aqui: **um print** em 5 ms (42 parecendo fixo nos dois displays) |
 |---|
 | |
 
@@ -144,28 +142,31 @@ void loop() {
 
 > ⚡ **Já domina?** Monte, escreva `mostrarDigito` e o `loop()` direto em 5 ms, preencha só as linhas 500 e 5 da tabela e responda o 2A.4-2.
 
-**📎 Evidência — Etapa 2A:** confira que tem: previsão 2A.1-4 · diferença com o esquema (2A.2-5) · tabela de tempos · um ou dois prints · resposta 2A.4-2 · código final
+**📎 Evidência — Etapa 2A:** confira que tem: previsão 2A.1-4 · diferença com o esquema (2A.2-5) · tabela de tempos · um print · resposta 2A.4-2 · código final
 
 ---
 
-# Etapa 2B — Quatro displays: o que mostrar e como atualizar (9 min)
+# Etapa 2B — Quatro displays: o que mostrar e como atualizar (10 min)
 
 > 🧭 **Orientação:** dobrar para 4 dígitos custa só **2 pinos a mais**. No código, separe **o que mostrar** (um vetor) de **como atualizar** (a varredura). **Ao final desta etapa os quatro displays mostram 1234.**
 
 **Pinos:** a–g = D2–D8 · seleção: D9 = milhar, D10 = centena, D11 = dezena, D12 = unidade.
 
-## 2B.1 Por que o transistor? (2 min)
+## 2B.1 Por que o transistor? (1 min)
 
 1. 🧮 Cada segmento aceso puxa cerca de **13 mA**. No "8", com os 7 segmentos acesos, quanta corrente passa pelo **comum** do display? ______ mA
 2. 🔒 Um pino do Arduino aguenta com segurança cerca de **20 mA**. Por que não ligar o comum direto num pino de seleção, e por que o NPN resolve? *(O Tinkercad não reclama; a placa real, sim.)* ______________________
 
-## 2B.2 Mais dois displays (3 min)
+## 2B.2 Mais dois displays, copiando o bloco (5 min)
 
-1. **Piloto:** acrescente os **displays 3 e 4** (confira **cátodo** em cada um). Dica: selecione um display e use `Ctrl+C` / `Ctrl+V`.
-2. Ligue os segmentos a–g de cada um **nos mesmos pontos** dos displays 1 e 2. Ainda **7 resistores** no total.
-3. Monte **um NPN por display novo**, como no 2A.2: **emissor no GND**, **coletor no comum**.
-4. Só os fios de controle: **D11 → 1 kΩ → base** do NPN do display 3; **D12 → 1 kΩ → base** do NPN do display 4.
-5. Confira com o esquema [lab02_2b_quatro_digitos.png](../imagens/lab02_2b_quatro_digitos.png) **depois** de montar.
+> Atalho opcional: o professor pode oferecer um circuito pronto do Tinkercad com os quatro displays já posicionados. Se usar, confira as ligações pelos passos abaixo.
+
+1. **Piloto:** selecione **juntos** o display 2, o seu NPN, o resistor de 1 kΩ da base e os fios entre eles (arraste uma caixa de seleção em volta, ou `Shift` + clique em cada um).
+2. `Ctrl+C` / `Ctrl+V` **duas vezes**: surgem os blocos dos **displays 3 e 4**. O Tinkercad mantém os fios **internos** do bloco copiado (comum → coletor, resistor → base), mas **não** os fios que iam ao Arduino e às linhas a–g. Confira **cátodo** em cada display novo.
+3. Ligue os segmentos a–g de cada display novo **nos mesmos pontos** das linhas a–g (depois dos resistores, do lado do display). Ainda **7 resistores** de segmento no total.
+4. Ligue o **emissor** de cada NPN novo no **GND**.
+5. Só os fios de controle: **D11 → resistor** da base do NPN do display 3; **D12 → resistor** da base do NPN do display 4.
+6. Confira com o esquema [lab02_2b_quatro_digitos.png](../imagens/lab02_2b_quatro_digitos.png) **depois** de montar.
 
 ## 2B.3 Separar o que mostrar de como atualizar (3 min)
 
@@ -241,7 +242,7 @@ A ideia: em vez de **esperar** 1 s, o `loop()` **pergunta** a cada volta se já 
   }
 ```
 
-3. Escreva as linhas que faltam. Comece em `contador = 0`.
+3. Escreva as linhas que faltam. **Volte o início para `contador = 0;`** (no 2C.1 estava em 2026 e depois em 7).
 4. Inicie a simulação. Conta 0000, 0001, 0002… sem piscar? ______ Para testar a volta, comece em `contador = 9995`. Depois de 9999 vem **0000**? ______
 
 | 📸 Cole aqui: **um GIF** da contagem (ou **dois prints** com números diferentes) |
@@ -254,7 +255,7 @@ A ideia: em vez de **esperar** 1 s, o `loop()` **pergunta** a cada volta se já 
 
 ## 2C.4 Qual a varredura mínima? (2 min)
 
-1. 🧮 Com 4 dígitos e `TEMPO_DIGITO_MS = 2`, uma volta completa leva ______ ms, ou seja, ______ voltas por segundo (Hz). E com 10 ms? ______ Hz
+1. 🧮 Exemplo com `TEMPO_DIGITO_MS = 10`: 10 ms × 4 dígitos = **40 ms por volta**; 1000 ms ÷ 40 ms = **25 voltas por segundo (25 Hz)**. Agora faça com `TEMPO_DIGITO_MS = 2`: uma volta leva ______ ms, ou seja, ______ Hz
 2. Aumente `TEMPO_DIGITO_MS` (5, 10, 15, 20…) até começar a piscar. Em qual valor começou? ______ Qual a frequência? ______ Hz *(O Tinkercad pode simular mais devagar que o tempo real; anote o que viu.)*
 3. 💭 Qual frequência de varredura mínima você escolheria para não piscar, e por quê? ______________________
 

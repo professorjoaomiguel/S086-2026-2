@@ -14,18 +14,19 @@
 
 ## Componentes utilizados neste documento
 
-| Componente | Usou? | Anote |
+| Componente | Usou? (S ou N) | Anote |
 |---|---|---|
-| Arduino UNO R3 | ☐ | Porta COM: |
-| Shield 9-em-1 | ☐ | |
-| LM35 (A2) | ☐ | |
-| Termômetro de referência (celular ou do professor) | ☐ | Qual: |
+| Arduino UNO R3 | | Porta COM: |
+| Shield 9-em-1 | | |
+| LM35 (A2) | | |
+| Termômetro de referência (celular ou do professor) | | Qual: |
 
 ## Como trabalhar
 
 Igual aos documentos anteriores. **Piloto:** opera a IDE e a placa, um passo por vez e dizendo o que faz. **Navegador:** lê o roteiro em voz alta, registra e cobra as evidências, sem digitar o código. Os dois pensam juntos nas perguntas. **Vale trocar de papel** (sugestão: ao começar **3.1** e ao começar **3.2**; antes de trocar, mande o código pelo Telegram). Telegram Web para trocar código, ⚡ para quem já domina. Selos: 🔮 previsão · 🧮 cálculo · 🔍 pesquisa · ☑️ múltipla escolha · 🔒 fechada · 💭 aberta · 📸 mídia.
 
 - **Monitor e Plotter não funcionam ao mesmo tempo:** feche um antes de abrir o outro.
+- **Mídia:** foto, print de tela ou GIF (*Inserir → Imagem* ou `Ctrl+V`; print: `Win + Shift + S`). **Vídeo não cola no Docs.**
 - **Sketch pronto desta etapa:** `codigo_base/b2_lm35_temperatura`, no repositório
   <https://github.com/professorjoaomiguel/S086-2026-2> (pasta `labs/lab01_analogread_map_ldr_lm35/codigo_base`) ou no link do Telegram. *Arquivo → Abrir…* e escolha `b2_lm35_temperatura.ino`.
 
@@ -48,15 +49,16 @@ O LM35 entrega **10 mV por °C**. O caminho é: **contagens → tensão (V) → 
 
 ## 3.1 Ler a temperatura (20 min)
 
-1. ☐ **Piloto:** abra `b2_lm35_temperatura`, carregue e abra o **Plotter Serial** (9600).
-2. ☐ Compare `tempC` com a temperatura da sala (celular ou termômetro do professor). Para ler o número exato, passe o mouse sobre a curva ou use o Monitor Serial (fechando o Plotter antes).
-3. ☐ Segure o LM35 entre os dedos: a curva deve subir devagar.
-4. ☐ Em `lerTemperatura()`, ache as duas contas (contagens → volts e volts → °C) e copie.
-5. ☐ ☑️ **A 25 °C o LM35 entrega…**
-   - ☐ a) 25 mV ☐ b) 250 mV ☐ c) 2,5 V ☐ d) 25 V
-6. ☐ 🧮 Com a resposta do passo 5, quantas **contagens** o `analogRead` devolve a 25 °C, com referência de 5 V? Caminho: °C × 10 = mV · mV ÷ 1000 = V · V ÷ 5 × 1023 = contagens. Conta: ______ → ______
-7. ☐ 🔒 Sua conta do passo 6 bateu com o `cru` do sketch? Se não, o que explica a diferença? ______________________
-8. ☐ 🔍 *(se sobrar tempo)* No datasheet do LM35 (site da Texas Instruments), a **exatidão do LM35D a 25 °C**: ______ · link: ______
+1. **Piloto:** abra `b2_lm35_temperatura`, carregue e abra o **Plotter Serial** (9600).
+2. Compare `tempC` com a temperatura da sala (celular ou termômetro do professor). Para ler o número exato, passe o mouse sobre a curva ou use o Monitor Serial (fechando o Plotter antes).
+3. Segure o LM35 entre os dedos: a curva deve subir devagar.
+4. Em `lerTemperatura()`, ache as duas contas (contagens → volts e volts → °C) e copie.
+5. ☑️ **A 25 °C o LM35 entrega…**
+   - a) 25 mV · b) 250 mV · c) 2,5 V · d) 25 V
+   **Sua resposta (letra): ______**
+6. 🧮 Com a resposta do passo 5, quantas **contagens** o `analogRead` devolve a 25 °C, com referência de 5 V? Caminho: °C × 10 = mV · mV ÷ 1000 = V · V ÷ 5 × 1023 = contagens. Conta: ______ → ______
+7. 🔒 Sua conta do passo 6 bateu com o `cru` do sketch? Se não, o que explica a diferença? ______________________
+8. 🔍 *(se sobrar tempo)* No datasheet do LM35 (site da Texas Instruments), a **exatidão do LM35D a 25 °C**: ______ · link: ______
 
 ⚠️ Se o LM35 ler ≈ 0 °C ou algo absurdo, avise o professor.
 
@@ -70,18 +72,19 @@ O LM35 entrega **10 mV por °C**. O caminho é: **contagens → tensão (V) → 
 |---|
 | |
 
-| 📸 Cole aqui: GIF ou print do Plotter com a curva subindo ao segurar o sensor |
+| 📸 Cole aqui: **print do Plotter** com a curva subindo ao segurar o sensor (tire no fim da subida). **Ou um GIF** da curva subindo |
 |---|
 | |
 
 ## 3.2 Precisão e ruído (20 min)
 
-1. ☐ Troque `Serial.println(tempC, 1)` por `(tempC, 2)`. Olhe as "escadinhas" no Plotter.
-2. ☐ ☑️ **Com referência de 5 V, uma contagem equivale a aproximadamente…**
-   - ☐ a) 0,01 °C ☐ b) 0,1 °C ☐ c) 0,5 °C ☐ d) 1 °C
-3. ☐ 🔒 Por que **2 casas decimais não significam precisão de 0,01 °C**? Use o tamanho do degrau. ______________________
-4. ☐ Deixe o LM35 parado por 1 minuto. O `cru` oscila? ☐ sim ☐ não
-5. ☐ No sketch, no trecho marcado **ETAPA 2c** (dentro de `lerTemperatura()`), troque a leitura única por este esqueleto e complete os `___`:
+1. Troque `Serial.println(tempC, 1)` por `(tempC, 2)`. Olhe as "escadinhas" no Plotter.
+2. ☑️ **Com referência de 5 V, uma contagem equivale a aproximadamente…**
+   - a) 0,01 °C · b) 0,1 °C · c) 0,5 °C · d) 1 °C
+   **Sua resposta (letra): ______**
+3. 🔒 Por que **2 casas decimais não significam precisão de 0,01 °C**? Use o tamanho do degrau. ______________________
+4. Deixe o LM35 parado por 1 minuto. O `cru` oscila? (S ou N): ______
+5. No sketch, no trecho marcado **ETAPA 2c** (dentro de `lerTemperatura()`), troque a leitura única por este esqueleto e complete os `___`:
 
    ```cpp
    analogRead(PINO_SENSOR);          // 1ª leitura: descartada
@@ -93,12 +96,12 @@ O LM35 entrega **10 mV por °C**. O caminho é: **contagens → tensão (V) → 
    float leitura = soma / ___;       // média das leituras
    ```
 
-6. ☐ 🔒 16 × 1023 cabe em um `int` (máximo 32767)? E por que dividir por `16.0` e não por `16` mantém os decimais da média? ______________________
-7. ☐ Carregue e compare as curvas no Plotter. O `cru` é **uma leitura avulsa**; o `tempC` usa a **média das 16**. As duas linhas ficam em escalas diferentes (`cru` ~50, `tempC` ~25): isso é normal. Compare a **suavidade**, não a altura.
+6. 🔒 16 × 1023 cabe em um `int` (máximo 32767)? E por que dividir por `16.0` e não por `16` mantém os decimais da média? ______________________
+7. Carregue e compare as curvas no Plotter. O `cru` é **uma leitura avulsa**; o `tempC` usa a **média das 16**. As duas linhas ficam em escalas diferentes (`cru` ~50, `tempC` ~25): isso é normal. Compare a **suavidade**, não a altura.
 
 > Os comentários **ETAPA 2b** e **ETAPA 3b** do sketch ficam para a próxima aula.
 
-| 📸 Cole aqui: print ou GIF do Plotter com `cru` e `tempC` (a média deve estar mais lisa) |
+| 📸 Cole aqui: **print do Plotter** com `cru` e `tempC` (a média deve estar mais lisa) |
 |---|
 | |
 
@@ -110,7 +113,7 @@ O LM35 entrega **10 mV por °C**. O caminho é: **contagens → tensão (V) → 
 
 > 🏆 **Desafio opcional (não entra na evidência):** use `analogReference(INTERNAL)` (referência de ~1,1 V, cerca de 0,1 °C por contagem) e ajuste `TENSAO_REFERENCIA`. Anote o que mudou na curva e o que acontece nas primeiras leituras depois do `RESET`.
 
-**📎 Evidência — Etapa 3:** ☐ `tempC` × sala · ☐ duas contas e resultado do passo 6 · ☐ Plotter com a curva subindo · ☐ Plotter com `cru` e `tempC` · ☐ código final de `lerTemperatura()` · ☐ respostas 3.1-5, 3.1-7, 3.2-2, 3.2-3, 3.2-6
+**📎 Evidência — Etapa 3:** confira que tem: `tempC` × sala · duas contas e resultado do passo 6 · Plotter com a curva subindo · Plotter com `cru` e `tempC` · código final de `lerTemperatura()` · respostas 3.1-5, 3.1-7, 3.2-2, 3.2-3, 3.2-6
 
 ---
 
@@ -132,4 +135,4 @@ Cada aluno responde em 2 a 3 linhas.
 
 ---
 
-**Entrega final:** salve o arquivo e entregue no Classroom. **Os dois alunos entregam o mesmo arquivo.** Confira antes: ☐ identificação preenchida ☐ componentes marcados ☐ todas as evidências da Etapa 3 ☐ fechamento dos dois alunos.
+**Entrega final:** salve o arquivo e entregue no Classroom. **Os dois alunos entregam o mesmo arquivo.** Confira antes: identificação preenchida · componentes marcados · todas as evidências da Etapa 3 · fechamento dos dois alunos.

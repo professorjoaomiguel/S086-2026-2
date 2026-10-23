@@ -64,7 +64,7 @@ O LM35 entrega **10 mV por °C**. O caminho é: **contagens → tensão (V) → 
 > 1. A IDE mostrou **"Carregado"**? Se deu erro, leia a **primeira** linha vermelha: ela diz o arquivo e a linha.
 > 2. A **placa** (Arduino Uno) e a **porta COM** continuam as mesmas da Etapa 0?
 > 3. O Monitor/Plotter está em **9600**? Números ilegíveis ou símbolos estranhos indicam velocidade errada.
-> 4. `tempC` ≈ 0 °C, absurdo ou travado: o sketch lê o **A2**? O LM35 está **encaixado e na posição certa** no shield?
+> 4. `tempC` ≈ 0 °C, absurdo ou travado: o sketch lê o **A2** (`PINO_SENSOR`)? O **shield está bem encaixado** no UNO? Segure o LM35 entre os dedos: o número muda?
 > 5. Ainda assim não resolveu: **avise o professor** e diga o que já conferiu.
 
 > ⚡ **Já domina?** Carregue, compare com a sala, cole as duas contas e o resultado do passo 6, e siga.
@@ -104,7 +104,7 @@ O LM35 entrega **10 mV por °C**. O caminho é: **contagens → tensão (V) → 
    - **Onde colar:** dentro de `lerTemperatura()`, no lugar da leitura única, logo abaixo do comentário **ETAPA 2c**. O resto da função (as duas contas) continua usando `leitura`.
    - **Se não funcionou, olhe:**
      1. Erro de compilação apontando para uma linha com `___`: faltou preencher o número (use o **mesmo** número nos dois lugares).
-     2. `tempC` com valor enorme ou negativo: confira se `soma` é `long` e se a divisão não ficou com `int` (dividir por `16.0`, não por `16`).
+     2. `tempC` com valor absurdo (muito maior ou menor que a sala): o número de repetições do `for` e o divisor têm que ser o **mesmo** (16 e 16, por exemplo). Se a temperatura ficou "em degraus", releia a pergunta 6 sobre dividir por `16.0`.
      3. O Plotter não mudou: o trecho está **dentro** de `lerTemperatura()`, e não solto fora das chaves?
 
 6. 🔒 16 × 1023 cabe em um `int` (máximo 32767)? E por que dividir por `16.0` e não por `16` mantém os decimais da média? ______________________

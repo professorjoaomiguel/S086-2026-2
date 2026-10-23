@@ -112,6 +112,11 @@ A dupla trabalha com **dois PCs e dois papéis**.
 2. Abra *Arquivo → Exemplos → 01.Basics → Blink* e clique em **Carregar** (→). Espere a mensagem "Carregado".
 3. 🔮 Antes de mudar: se você trocar os dois `delay(1000);` por `delay(250);`, o que muda? ______________________
 4. Os exemplos da IDE são somente leitura: use *Arquivo → Salvar como…* para criar a sua cópia. Troque as duas linhas `delay(1000);` por `delay(250);`, carregue de novo e confira. Acertou a previsão? (S ou N): ______
+   - **Onde mexer:** dentro de `void loop() { … }`, nas duas linhas `delay(1000);`: uma logo depois de `digitalWrite(LED_BUILTIN, HIGH);` e outra depois de `digitalWrite(LED_BUILTIN, LOW);`. Troque só o número.
+   - **Se não funcionou, olhe:**
+     1. A mensagem ficou **"Carregado"**? Se deu erro, leia a **primeira** linha vermelha: ela diz o arquivo e a linha.
+     2. Em *Ferramentas*, a **placa** é *Arduino Uno* e a **porta** é a COM que você anotou no 0.1?
+     3. Aparece "Carregado", mas o LED **L** continua no ritmo antigo (1 s): você clicou em **Carregar** de novo **depois** de trocar o número? Salvar não envia o programa para a placa.
 
 | 📸 Cole aqui: **duas fotos** do Blink: (1) a placa com o LED **L** aceso; (2) o print da IDE mostrando `delay(250)` e a mensagem "Carregado". **Ou um GIF** do LED piscando |
 |---|
@@ -163,6 +168,12 @@ A dupla trabalha com **dois PCs e dois papéis**.
    - d) Dá erro de compilação.
    **Sua resposta (letra): ______**
 5. 🧮 **Confira a previsão com a conta:** quanto vale `output` para `sensor = 300` e para `sensor = 700`? ______ e ______
+
+> 🔎 **Se não funcionou, olhe nesta ordem** (aqui você só carrega e observa, sem mudar o código):
+> 1. Apareceu **"Carregado"**, com a placa e a COM da Etapa 0?
+> 2. O Monitor Serial está em **9600**? Símbolos estranhos indicam velocidade errada.
+> 3. O número `sensor` **muda** ao girar o potenciômetro? Se não muda, confira se o exemplo é o **AnalogInOutSerial** e se o shield está bem encaixado.
+> 4. O número muda, mas o LED vermelho **não** muda de brilho: o exemplo usa o **pino 9**; confira o LED vermelho do D9 no shield.
 
 > ⚡ **Já domina?** Tire as duas fotos do passo 2 e responda o passo 4.
 

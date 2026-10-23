@@ -47,6 +47,8 @@ A dupla trabalha com **dois PCs e dois papéis**.
 - **Foto, print ou GIF no Google Docs:** *Inserir → Imagem*, ou cole com `Ctrl+V`. Print de tela no Windows: `Win + Shift + S`. **Vídeo não cola no Docs; GIF cola** (como imagem).
 - **Telegram Web** aberto nos dois PCs: o piloto envia o código, o navegador cola no relatório.
 - Um passo de cada vez, na ordem em que aparecem.
+- **Mudou o código ou um fio?** **Pare e inicie** a simulação de novo.
+- **Erro no código?** Leia a **primeira** mensagem de erro: ela diz a linha.
 - ⚡ **Já domina?** Faça só o que o selo pede e siga.
 - Estourou o tempo? **Siga adiante** e volte depois. Itens *(se sobrar tempo)* podem ficar em branco.
 - **Trocar de documento conta no tempo** (~2 min): entregue pelo Classroom e abra o próximo.
@@ -179,11 +181,10 @@ A dupla trabalha com **dois PCs e dois papéis**.
 3. Inicie a simulação. O display conta de 0 a 9?
 
 > 🔎 **Se não funcionou, olhe nesta ordem:**
-> 1. Erro no código? Leia a **primeira** mensagem de erro: ela diz a linha.
-> 2. Display todo apagado: **VDD → 5V** e **VSS → GND**? **BI** no **5V** (no GND ele apaga o display)? Comum do display no GND e propriedade **cátodo**?
-> 3. Mostra **8** parado ou não sai do lugar: **LT** no **5V** (no GND ele acende tudo) e **LE** no **GND** (no 5V ele congela o número)?
-> 4. Números trocados (ex.: no lugar do 1 aparece 8): **D2, D3, D4, D5** estão em **A, B, C, D**, nessa ordem? Trocar A com D faz exatamente isso.
-> 5. Desenhos estranhos, que não são números: cada saída **a … g** do CI vai ao segmento de **mesmo nome** do display?
+> 1. Display todo apagado: **VDD → 5V** e **VSS → GND**? **BI** no **5V** (no GND ele apaga o display)? Comum do display no GND e propriedade **cátodo**?
+> 2. Mostra **8** parado ou não sai do lugar: **LT** no **5V** (no GND ele acende tudo) e **LE** no **GND** (no 5V ele congela o número)?
+> 3. Alguns números trocados (no lugar do 1 aparece 8) ou apagados no meio da contagem: **D2, D3, D4, D5** estão em **A, B, C, D**, nessa ordem?
+> 4. Desenhos estranhos, que não são números: cada saída **a … g** do CI vai ao segmento de **mesmo nome** do display?
 
 | 📸 Cole aqui: **um GIF** do display contando de 0 a 9 (ou **três prints**: 0, 5 e 9) |
 |---|
@@ -272,7 +273,7 @@ void loop() {
 
 - **Onde mexer:** só nas 10 linhas de `SEG`: troque cada `0b0000000` pelo valor da linha de mesmo número da **sua** tabela. Mantenha a vírgula no fim de cada linha, menos na do 9.
 - **Se não funcionou, olhe:**
-  1. Erro numa linha de `SEG`: faltou uma **vírgula** entre dois valores?
+  1. Erro `expected '}' before numeric constant` numa linha de `SEG`: falta a vírgula no fim da linha **de cima**.
   2. Erro num valor `0b…`: depois do `0b` só pode haver **0** e **1**.
   3. Erro `too many initializers`: há mais de 10 valores dentro das chaves.
 
@@ -280,15 +281,14 @@ void loop() {
    - **Onde mexer:** dentro de `void loop() { … }`, logo abaixo do comentário `// ETAPA 1B.3`. Não mexa no `setup()`.
    - **Se não funcionou, olhe:**
      1. Erro `'n' was not declared in this scope` (ou `'i'`): a variável se cria **dentro** do `for`, como no `for` do `setup()`.
-     2. Os segmentos acendem **um por vez**, devagar: a espera de 1 s ficou **dentro** do `for` dos segmentos; ela vem depois dele.
+     2. O número vai se formando um segmento por segundo: a espera de 1 s ficou **dentro** do `for` dos segmentos; ela vem depois dele.
      3. Display sempre apagado, sem erro: a tabela ainda está com `0b0000000`? O `bitRead` recebe primeiro o **valor** e depois o **número do bit**?
 3. Inicie a simulação. Algum dígito saiu errado? Qual, e qual segmento estava trocado? ______________________
 
 > 🔎 **Se não funcionou, olhe nesta ordem:**
-> 1. Erro no código? Leia a **primeira** mensagem de erro: ela diz a linha.
-> 2. A simulação está **rodando**? Sobrou algum fio do CD4511 (1A) nos pinos?
-> 3. Um segmento **nunca** acende: o fio dele vai ao pino certo da lista (a = D2 … g = D8) e passa pelo **seu** resistor?
-> 4. O **mesmo** segmento errado em **todos** os números: fio trocado. Errado em **um** número só: confira essa linha da tabela.
+> 1. A simulação está **rodando**? Sobrou algum fio do CD4511 (1A) nos pinos?
+> 2. Um segmento **nunca** acende: o fio dele vai ao pino certo da lista (a = D2 … g = D8) e passa pelo **seu** resistor?
+> 3. O **mesmo** segmento errado em **todos** os números: fio trocado. Errado em **um** número só: confira essa linha da tabela.
 
 | 📸 Cole aqui: **um GIF** da contagem (ou prints de 0, 1, 2 e 3) |
 |---|

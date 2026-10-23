@@ -35,6 +35,8 @@ Tudo aqui é **na bancada**, não no Tinkercad.
 
 Igual ao Doc 1 (veja lá a tabela **piloto e navegador** e os combinados). Resumo: **piloto** opera a **Arduino IDE** e a placa, um passo por vez, dizendo o que faz; **navegador** lê em voz alta, confere e registra aqui, sem digitar o código. Os dois pensam juntos nas perguntas. **Vale trocar de papel** ao começar cada etapa (3A, 3B, 3C); antes de trocar, mande o código pelo Telegram. ⚡ para quem já domina; itens *(se sobrar tempo)* podem ficar em branco.
 
+**Erro no código?** Leia a **primeira** linha vermelha: ela diz a linha.
+
 | Selo | Significa |
 |---|---|
 | 🔮 | **Previsão:** responda *antes* de testar. Não precisa acertar. |
@@ -93,8 +95,6 @@ void loop() {
 }
 ```
 
-- **Onde colar:** no sketch **novo**, no lugar de tudo o que a IDE já escreveu (o `setup()` e o `loop()` vazios dela).
-
 3. Clique em **Verificar** (✓), **sem** carregar. Se aparecer `fatal error: TM1637Display.h: No such file or directory`, é o esperado: falta a biblioteca. Copie a linha do erro:
 
 | 📝 Registre aqui: a mensagem de erro (ou "compilou sem erro") |
@@ -118,8 +118,8 @@ Os nomes dos menus podem mudar um pouco entre versões da IDE (2.x e 1.8). Procu
 
 5. Volte ao seu sketch e clique em **Verificar** de novo. Compilou? (S ou N): ______
    - **Se não funcionou, olhe:**
-     1. Ainda `No such file or directory`: a biblioteca não instalou. O **TM1637Test** aparece no passo 4?
-     2. Erro **novo**, em outra linha: agora a IDE leu o resto do esqueleto. Leia a linha indicada: costuma ser `;` faltando ou um nome digitado diferente.
+     1. Ainda `No such file or directory`: a biblioteca certa não instalou. É a **TM1637** do autor **Avishay Orpaz**? O **TM1637Test** aparece no passo 4?
+     2. Erro **novo**, em outra linha: agora a IDE leu o resto do esqueleto. Leia a linha indicada **e a de cima**: costuma ser `;` faltando ou um nome digitado diferente.
 6. 🔒 No 3A.1 você só clicou em **Verificar**: nada foi para a placa, e mesmo assim deu erro. Por que o `#include` precisa da biblioteca instalada **no computador**, e não na placa? *Dica: onde o código é compilado, e o que vai para o Arduino?* ______________________
 
 ## 3A.3 Ligar o módulo no shield (4 min)
@@ -136,18 +136,18 @@ Os nomes dos menus podem mudar um pouco entre versões da IDE (2.x e 1.8). Procu
 ## 3A.4 Mostrar 1234 (3 min)
 
 1. **Piloto:** reconecte o USB. No `setup()`, escreva duas linhas: uma que ajusta o **brilho** em 5 e outra que mostra o número **1234**. Os nomes das funções estão na página da biblioteca (veja **Referências**) e no exemplo TM1637Test.
-   - **Onde mexer:** dentro de `setup()`, no lugar do comentário `// ETAPA 3A.4`. As duas linhas começam com `display.`, o nome que o esqueleto deu ao módulo.
+   - **Onde escrever:** dentro de `setup()`, no lugar do comentário `// ETAPA 3A.4`.
    - **Se não funcionou, olhe:**
      1. Erro `… was not declared in this scope` na sua linha: faltou `display.` antes do nome da função.
      2. Erro `… has no member named …`: o nome da função está diferente do da página da biblioteca (maiúsculas contam).
-     3. Carregou, mas o módulo ficou apagado: a linha do brilho vem **antes** da do número? Pela página da biblioteca, o brilho só vale a partir do próximo número mostrado.
+     3. Carregou, mas o módulo ficou apagado: a linha do brilho vem **antes** da do número? O brilho só vale a partir do próximo número mostrado; sem ele antes, o módulo começa desligado.
 2. **Carregar** (→). Aparece **1234**? (S ou N): ______
 
 > 🔎 **Se não funcionou, olhe nesta ordem:**
-> 1. A IDE mostrou **"Carregado"**? Se deu erro, leia a **primeira** linha vermelha. `TM1637Display.h: No such file or directory` = biblioteca não instalada (volte ao 3A.2).
+> 1. A IDE mostrou **"Carregado"**? `TM1637Display.h: No such file or directory` = biblioteca não instalada (volte ao 3A.2).
 > 2. Erro ao carregar: a placa é **Arduino Uno** e a **porta COM** é a sua?
 > 3. Módulo todo apagado: o USB está conectado? **VCC** e **GND** do módulo estão nos pinos VCC e GND da **barra**?
-> 4. Apagado ou com lixo: **CLK** no sinal da barra **D7** e **DIO** no sinal da **D8**, como `PINO_CLK` e `PINO_DIO`? Jumpers bem encaixados?
+> 4. Apagado: **CLK** no sinal da barra **D7** e **DIO** no da **D8**? Jumpers bem encaixados?
 > 5. O shield está bem encaixado no UNO? Ainda nada: **avise o professor** e diga o que já conferiu.
 
 | 📸 Cole aqui: **uma foto** do módulo mostrando 1234, com os fios até o shield aparecendo |
@@ -159,7 +159,7 @@ Os nomes dos menus podem mudar um pouco entre versões da IDE (2.x e 1.8). Procu
 | |
 
 3. *(se sobrar tempo)* Teste a previsão do 3A.3-5 **sem mexer nos fios**: troque no código para `TM1637Display display(PINO_DIO, PINO_CLK);`, carregue e conte o que viu. Depois desfaça. ______________________
-   - **Onde mexer:** na linha `TM1637Display display(PINO_CLK, PINO_DIO);`, acima do `setup()`. Troque só a ordem dos dois nomes.
+   - **Onde mexer:** na linha `TM1637Display display(PINO_CLK, PINO_DIO);`, acima do `setup()`. Troque só a ordem dos dois nomes. O módulo costuma guardar a última imagem: depois de carregar, desconecte e reconecte o USB para ele esquecer o 1234.
 
 > ⚡ **Já domina?** Instale a biblioteca, confira pelo exemplo (print), ligue, mostre 1234 (foto) e responda o 3A.2-6.
 
@@ -185,15 +185,13 @@ Os nomes dos menus podem mudar um pouco entre versões da IDE (2.x e 1.8). Procu
    - **Se não funcionou, olhe:**
      1. Ainda aparece 1234 parado: você clicou em **Carregar** de novo? Salvar não manda o programa para a placa.
      2. Erro `… was not declared in this scope` com o nome da sua variável: ela precisa de um tipo (ex.: `int`) na linha em que é criada, e do **mesmo nome** nas duas linhas.
-     3. O número muda com a **luz**, e não com o potenciômetro: você está lendo o **A1** (o LDR do lab01). O potenciômetro é o **A0**.
 2. Carregue e gire o potenciômetro devagar. Acertou os extremos do 3B.1? (S ou N): ______ Valores vistos: esquerda ______ · direita ______
 3. Pare o potenciômetro no meio. O último dígito fica parado ou "treme"? ______ Acrescente um `delay(100);` no fim do `loop()`. Mudou? ______
    - **Onde mexer:** última linha **dentro** do `loop()`, antes da `}` que o fecha.
 
 > 🔎 **Se não funcionou, olhe nesta ordem:**
-> 1. A IDE mostrou **"Carregado"**? Se deu erro, leia a **primeira** linha vermelha.
-> 2. Módulo apagado de repente: algum jumper soltou? Confira os 4 fios do 3A.3.
-> 3. O número não muda ao girar: o shield está **bem encaixado** no UNO? O código lê o **A0**?
+> 1. Módulo apagado de repente: algum jumper soltou? Confira os 4 fios do 3A.3.
+> 2. O número não muda ao girar: o shield está **bem encaixado** no UNO? O código lê o **A0**?
 
 | 📸 Cole aqui: **duas fotos** (potenciômetro numa ponta e na outra) **ou um GIF** girando |
 |---|
@@ -221,15 +219,14 @@ Os nomes dos menus podem mudar um pouco entre versões da IDE (2.x e 1.8). Procu
 2. **Piloto:** mude o `loop()`: converta a leitura para o nível com `map()`, proteja com `constrain()` e mostre o **nível** em vez da leitura.
    - **Onde mexer:** dentro de `loop()`, entre a linha do `analogRead` e a linha que mostra no display. Nessa última, troque a leitura pelo nível.
    - **Se não funcionou, olhe:**
-     1. Ainda chega a 1023: a linha que mostra ainda usa a **leitura**, e não o nível.
-     2. O `constrain()` **devolve** o valor limitado: guarde o resultado numa variável. Sozinho na linha, ele não muda nada.
-     3. Erro na linha do `map()`: são **5** valores entre parênteses, separados por vírgula.
+     1. O `constrain()` **devolve** o valor limitado: guarde o resultado numa variável. Sozinho na linha, ele não muda nada.
+     2. Erro na linha do `map()`: são **5** valores entre parênteses, separados por vírgula.
 3. Carregue. Nas pontas aparecem **0** e **1000**? ______ Em qual ponta está o 1000? ______
 
 > 🔎 **Se não funcionou, olhe nesta ordem:**
-> 1. A IDE mostrou **"Carregado"**? Se deu erro, leia a **primeira** linha vermelha.
-> 2. Ainda aparece a leitura de 0 a 1023: o código **novo** foi carregado?
-> 3. A fiação é a mesma do 3B: se a leitura aparecia lá, o problema está no código.
+> 1. Ainda chega a 1023: o código **novo** foi carregado? A linha que mostra usa o **nível**, e não a leitura?
+> 2. A fiação é a mesma do 3B: se a leitura aparecia lá, o problema está no código.
+
 4. 💭 *(se sobrar tempo)* Para quem usa o instrumento, faz mais sentido o 1000 na esquerda ou na direita? Como inverter só trocando dois números no `map()`? ______________________
 
 ## 3C.2 Zeros à esquerda: sim ou não? (3 min)
@@ -237,7 +234,7 @@ Os nomes dos menus podem mudar um pouco entre versões da IDE (2.x e 1.8). Procu
 1. 🔮 Com o nível em **7**, o display mostra `   7` (só o último dígito aceso) ou `0007`? ______
 2. Gire até um nível pequeno e confira. Acertou? ______
 3. A função que você usa tem um **segundo argumento**, `true` ou `false`, que liga os zeros à esquerda. Procure na página da biblioteca (**Referências**) e teste os dois. Qual é o padrão quando você não escreve nada? ______
-   - **Onde mexer:** na linha que mostra o número, dentro de `loop()`: o `true` ou `false` entra **depois** do valor, separado por vírgula, antes do `)`.
+   - **Onde mexer:** na linha que mostra o número, dentro de `loop()`.
    - **Se não funcionou, olhe:**
      1. Erro `'True' was not declared in this scope`: em C++ é `true` e `false`, tudo minúsculo.
      2. Não viu diferença: gire até um nível **pequeno**. Com 4 algarismos (1000) não sobra lugar para zeros.

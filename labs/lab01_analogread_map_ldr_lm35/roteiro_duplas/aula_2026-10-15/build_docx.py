@@ -45,7 +45,11 @@ def e_quadro_de_registro(tabela):
 def converter(md):
     SAIDA.mkdir(exist_ok=True)
     saida = SAIDA / (md.stem + ".docx")
-    subprocess.run(["pandoc", str(md), "-o", str(saida)], check=True)
+    # lists_without_preceding_blankline: o "> 1." logo abaixo do título do quadro 🔎 vira lista.
+    subprocess.run(
+        ["pandoc", str(md), "-f", "markdown+lists_without_preceding_blankline", "-o", str(saida)],
+        check=True,
+    )
     doc = Document(saida)
     n = 0
     for t in doc.tables:

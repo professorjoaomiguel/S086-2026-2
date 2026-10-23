@@ -57,6 +57,8 @@ def converter(md):
     subprocess.run(
         [
             "pandoc", md.name,
+            # o "> 1." logo abaixo do título do quadro 🔎 vira lista (e não um parágrafo só)
+            "-f", "markdown+lists_without_preceding_blankline",
             "--lua-filter", str(FILTRO),
             "--resource-path", str(md.parent),
             "-o", str(saida),

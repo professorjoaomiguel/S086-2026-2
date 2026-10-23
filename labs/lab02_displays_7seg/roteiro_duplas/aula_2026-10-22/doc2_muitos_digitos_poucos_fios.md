@@ -31,6 +31,8 @@ Tudo aqui é **no Tinkercad**. Continue no circuito do Doc 1 (Etapa 1B).
 
 Igual ao Doc 1 (veja lá a tabela **piloto e navegador** e os combinados). Resumo: **piloto** opera o Tinkercad, um passo por vez, dizendo o que faz; **navegador** lê em voz alta, confere e registra aqui, sem digitar o código. Os dois pensam juntos nas perguntas. **Vale trocar de papel** ao começar cada etapa (2A, 2B, 2C); antes de trocar, mande o código pelo Telegram. ⚡ para quem já domina; itens *(se sobrar tempo)* podem ficar em branco.
 
+**Mudou o código ou um fio?** **Pare e inicie** a simulação de novo. **Erro no código?** Leia a **primeira** mensagem de erro: ela diz a linha.
+
 | Selo | Significa |
 |---|---|
 | 🔮 | **Previsão:** responda *antes* de testar. Não precisa acertar. |
@@ -123,31 +125,26 @@ void loop() {
 
 - **Onde colar:** só os **10 valores** da sua tabela, entre as chaves de `const byte SEG[10] = { … };`, no lugar do comentário `/* cole aqui a sua tabela do Doc 1 */`.
 - **Se não funcionou, olhe:**
-  1. Erro perto de `SEG`: você colou de novo a linha `const byte SEG[10] = {` dentro das chaves? Deixe só os valores.
-  2. Erro logo depois da tabela: o `};` do fim continua lá?
+  1. Erro `redefinition of 'const byte SEG [10]'`: você colou a declaração inteira do Doc 1 **além** da linha do esqueleto. Fica uma só.
+  2. Erro `expected primary-expression before 'const'`: a linha `const byte SEG[10] = {` foi colada **dentro** das chaves. Deixe só os valores.
 
 2. Escreva o corpo de `mostrarDigito` seguindo os 3 comentários.
-   - **Onde mexer:** dentro de `mostrarDigito`, um trecho **embaixo** de cada comentário 1), 2) e 3), nessa ordem.
-   - **Se não funcionou, olhe:**
-     1. Erro `'n' was not declared in this scope`: aqui o algarismo se chama `valor` (no Doc 1 era `n`).
-     2. Os dois displays acesos ao mesmo tempo: o trecho 1) desliga **os dois** pinos de `PINOS_DIG`, **antes** de escrever os segmentos?
-     3. Nenhum display acende: o trecho 3) põe **HIGH** em `PINOS_DIG[posicao]`?
+   - **Onde escrever:** dentro de `mostrarDigito`, um trecho **embaixo** de cada comentário 1), 2) e 3), nessa ordem.
 3. Escreva o `loop()`: dezena = 4, espera `TEMPO_DIGITO_MS`; unidade = 2, espera `TEMPO_DIGITO_MS`.
-   - **Onde mexer:** dentro de `void loop() { … }`, abaixo do comentário `// ETAPA 2A.3`.
-   - **Se não funcionou, olhe:**
-     1. A ordem é `mostrarDigito(posicao, valor)`: primeiro **qual display** (0 = dezena, 1 = unidade), depois o **algarismo**.
-     2. O 2 quase não aparece: falta a **segunda** espera, depois da unidade.
+   - **Onde escrever:** dentro de `void loop() { … }`, abaixo do comentário `// ETAPA 2A.3`.
 4. Inicie a simulação. Com 500 ms você deve ver **4** e **2** se alternando, com **um display apagado de cada vez**. Isso é o esperado. Funcionou? (S ou N): ______
    - **Se não funcionou, olhe:**
-     1. Os dois displays mostram o **mesmo** número juntos: sobrou o fio do comum ao GND do 2A.1? Agora o comum vai **só** ao coletor.
-     2. Um display nunca acende: no NPN dele, **emissor** no GND, **coletor** no comum e **base** pelo 1 kΩ no D9 (dezena) ou D10 (unidade)?
-     3. O 4 aparece no display da direita: D9 e D10 estão trocados nas bases?
+     1. Erro `'n' was not declared in this scope`: em `mostrarDigito` o algarismo se chama `valor` (no Doc 1 era `n`).
+     2. Os dois displays acesos juntos, com o mesmo número: sobrou o fio do comum ao GND do 2A.1 (agora o comum vai **só** ao coletor)? O trecho 1) desliga **os dois** pinos de `PINOS_DIG` **antes** de escrever os segmentos?
+     3. Nenhum display (ou um só) acende: o trecho 3) põe **HIGH** em `PINOS_DIG[posicao]`? No NPN apagado: **emissor** no GND, **coletor** no comum e **base** pelo 1 kΩ no D9 (dezena) ou D10 (unidade)?
+     4. O 4 aparece no display da direita: a ordem é `mostrarDigito(posicao, valor)`, com 0 = dezena? D9 e D10 estão trocados nas bases?
+     5. O 4 não aparece (só o 2): a sua tabela `SEG` tem o 4? Quem pulou 4 a 9 no Doc 1 completa agora (ou pede pelo Telegram).
+     6. O 2 quase não aparece: falta a **segunda** espera, depois da unidade.
 
 ## 2A.4 Acelerar até enganar o olho (1 min)
 
 1. Troque `TEMPO_DIGITO_MS` e anote o que vê em cada valor (alterna, pisca, parece fixo, "fantasma" do outro dígito, brilho fraco):
-   - **Onde mexer:** na linha `const unsigned int TEMPO_DIGITO_MS = 500;`, no começo do código. Troque só o número.
-   - **Se não funcionou, olhe:** nada mudou? **Pare e inicie** a simulação de novo a cada valor: o Tinkercad costuma rodar o código de quando a simulação começou.
+   - **Onde mexer:** na linha `const unsigned int TEMPO_DIGITO_MS = 500;`, no começo do código. Pare a simulação, troque o número e inicie de novo.
 
 | `TEMPO_DIGITO_MS` | O que você viu |
 |---|---|
@@ -196,11 +193,8 @@ void loop() {
 ## 2B.3 Separar o que mostrar de como atualizar (3 min)
 
 1. **Piloto:** no seu código do 2A, troque `PINOS_DIG` por 4 pinos `{9, 10, 11, 12}`, ajuste os laços de 2 para 4 e `TEMPO_DIGITO_MS` para **2**.
-   - **Onde mexer:** em três lugares: a linha `const byte PINOS_DIG[2]` (os pinos **e** o tamanho `[2]`); os **dois** laços `d < 2` (em `mostrarDigito` e no `setup()`); a linha de `TEMPO_DIGITO_MS`.
-   - **Se não funcionou, olhe:**
-     1. Erro `too many initializers`: há 4 pinos, mas o tamanho ainda é `[2]`.
-     2. Displays 3 e 4 acesos por cima dos outros: o laço que desliga, em `mostrarDigito`, ainda vai só até 2.
-     3. Displays 3 e 4 apagados ou fracos: o laço do `setup()` ainda vai só até 2 (os pinos 11 e 12 não viraram saída).
+   - **Onde mexer:** na linha `const byte PINOS_DIG[2]` (os pinos **e** o tamanho `[2]`); no trecho 1) de `mostrarDigito` (agora desliga **4** pinos) e no laço `d < 2` do `setup()`; na linha de `TEMPO_DIGITO_MS`.
+   - **Se não funcionou, olhe:** erro `too many initializers`? Há 4 pinos, mas o tamanho ainda é `[2]`.
 2. Acrescente, antes de `setup()`:
 
 ```cpp
@@ -224,13 +218,11 @@ void varrer() {
      2. Aparece **0123**: você mandou a **posição** `p` como algarismo; o algarismo vem de `exibir[p]`.
      3. 1234 fora de ordem: D9 a D12 vão aos displays da esquerda para a direita (D9 = milhar)?
 4. Inicie a simulação. Aparece **1234**? (S ou N): ______ Troque `exibir` para `{9, 8, 7, 6}` **sem mexer em `varrer()`**. Mudou? ______
-   - **Onde mexer:** só na linha `byte exibir[4] = {1, 2, 3, 4};`. Depois, pare e inicie a simulação.
-
-> 🔎 **Se não funcionou, olhe nesta ordem:**
-> 1. Erro no código? Leia a **primeira** mensagem de erro: ela diz a linha.
-> 2. **Parou e iniciou** a simulação depois de mudar o código?
-> 3. Display 3 ou 4 apagado: no NPN dele, **emissor** no GND, **coletor** no comum e **base** pelo 1 kΩ no D11 ou D12? Confira cada fio do bloco colado.
-> 4. Display novo com segmentos faltando: está em **cátodo**, com a–g nos **mesmos pontos** das linhas a–g?
+   - **Se não funcionou, olhe:**
+     1. Displays 3 e 4 sempre acesos, com algarismos misturados: o trecho 1) de `mostrarDigito` ainda desliga só 2 pinos.
+     2. Displays 3 e 4 apagados ou fracos: o laço do `setup()` ainda vai só até 2 (os pinos 11 e 12 não viraram saída).
+     3. Display 3 ou 4 apagado com o código certo: está em **cátodo**? No NPN dele, **emissor** no GND, **coletor** no comum e **base** pelo 1 kΩ no D11 ou D12? Confira cada fio do bloco colado.
+     4. Display novo com segmentos faltando: a–g estão nos **mesmos pontos** das linhas a–g?
 
 | 📸 Cole aqui: **um print** com 1234 (ou 9876) nos quatro displays |
 |---|
@@ -254,18 +246,13 @@ void varrer() {
 ## 2C.1 Do número aos quatro algarismos (2 min)
 
 1. **Piloto:** acrescente uma variável `unsigned int contador = 2026;` e a função `void atualizarExibir()`, que separa `contador` em milhar, centena, dezena e unidade e guarda em `exibir[0]` … `exibir[3]`. *(Use `/ 1000`, `/ 100`, `/ 10` e `% 10`.)*
-   - **Onde colar:** `contador` logo abaixo da linha `byte exibir[4]`; a função `atualizarExibir()` logo abaixo de `contador`, antes de `void setup()`.
+   - **Onde escrever:** `contador` logo abaixo da linha `byte exibir[4]`; a função `atualizarExibir()` logo abaixo de `contador`, antes de `void setup()`.
    - **Se não funcionou, olhe:**
      1. Erro `'contador' was not declared in this scope`: a variável ficou **abaixo** da função que a usa.
-     2. Um dígito com desenho estranho: alguma posição de `exibir` recebeu mais que 9 (ex.: `2026 / 100` dá 20). Cada posição guarda **um** algarismo, de 0 a 9.
+     2. Um dígito com desenho estranho (ou apagado): quanto dá `2026 / 100`? Cada posição de `exibir` só pode guardar de 0 a 9.
 2. Chame `atualizarExibir()` no fim do `setup()`. Aparece **2026**? ______ Troque para `contador = 7;`. Aparece **0007**? ______ *(Os zeros à esquerda são esperados.)*
    - **Onde mexer:** a chamada vai na **última** linha dentro de `setup()`, antes da `}`. O 7 entra na própria linha de `contador`.
-   - **Se não funcionou, olhe:** ainda aparece 1234? A chamada está **dentro** do `setup()`? Parou e iniciou a simulação?
-
-> 🔎 **Se não funcionou, olhe nesta ordem:**
-> 1. Leia a **primeira** mensagem de erro. `'…' was not declared in this scope` costuma ser nome escrito diferente (maiúsculas contam) ou declarado **abaixo** de onde é usado.
-> 2. **Parou e iniciou** a simulação de novo?
-> 3. O circuito é o mesmo do 2B: se o 1234 apareceu lá, a fiação está certa e o problema está no código.
+   - **Se não funcionou, olhe:** ainda aparece 1234? A chamada está **dentro** do `setup()`? O circuito é o do 2B: se o 1234 apareceu lá, a fiação está certa e o problema está no código.
 
 > 🛑 **PONTO DE PARADA:** se 2026 e 0007 aparecem certos, a etapa já vale a entrega. Faltando menos de 5 min, pule para **"Você leva"** e entregue; o resto fica *(se sobrar tempo)*.
 
@@ -273,16 +260,17 @@ void varrer() {
 
 1. 🔮 Alguém escreve o `loop()` assim:
 
-```cpp
-void loop() {
-  varrer();
-  delay(1000);
-  contador++;
-  atualizarExibir();
-}
-```
+   ```cpp
+   void loop() {
+     varrer();
+     delay(1000);
+     contador++;
+     atualizarExibir();
+   }
+   ```
 
    O que você vai ver nos displays? ______________________
+
 2. Teste. O que viu? ______________________
    - **Onde colar:** no lugar do seu `loop()` inteiro: deve sobrar **um** só `void loop()`. Dois dão erro `redefinition of 'void loop()'`.
 3. 🔒 Por que o `delay(1000)` estraga a varredura? ______________________
@@ -292,6 +280,7 @@ void loop() {
 A ideia: em vez de **esperar** 1 s, o `loop()` **pergunta** a cada volta se já passou 1 s desde a última contagem. Se não passou, segue varrendo.
 
 1. **Piloto:** apague o `delay(1000)`. Acrescente antes de `setup()`: `unsigned long ultimaConta = 0;`
+   - **Onde escrever:** logo abaixo da linha de `contador`.
 2. Use este molde no `loop()`, depois de `varrer();`:
 
 ```cpp
@@ -301,13 +290,15 @@ A ideia: em vez de **esperar** 1 s, o `loop()` **pergunta** a cada volta se já 
   }
 ```
 
+- **Onde colar:** dentro de `loop()`, logo abaixo da linha `varrer();`.
+
 3. Escreva as linhas que faltam. **Volte o início para `contador = 0;`** (no 2C.1 estava em 2026 e depois em 7).
-   - **Onde mexer:** `ultimaConta` junto de `contador`, antes de `setup()`; o molde dentro de `loop()`, logo depois de `varrer();`; as linhas novas no lugar do comentário `// ETAPA 2C.3`; o `0` na linha de `contador`.
+   - **Onde escrever:** no lugar do comentário `// ETAPA 2C.3`; o `0` vai na linha de `contador`.
    - **Se não funcionou, olhe:**
      1. O número não muda: depois de contar, chamou `atualizarExibir()`?
      2. Ainda pisca a cada segundo: sobrou o `delay(1000)` no `loop()`.
-     3. Depois de 9999 aparece um desenho estranho no milhar: o `contador` passou de 9999 sem voltar a 0.
-     4. Depois de uns 30 s a contagem dispara: `ultimaConta` precisa ser `unsigned long`, como no passo 1, e não `int`.
+     3. A contagem dispara, rápida demais: sobrou `contador++;` (e `atualizarExibir();`) do 2C.2 **fora** do `if`. Eles vão para dentro dele.
+     4. Depois de 9999 aparece um desenho estranho (ou apagado) no milhar: o `contador` passou de 9999 sem voltar a 0.
 4. Inicie a simulação. Conta 0000, 0001, 0002… sem piscar? ______ Para testar a volta, comece em `contador = 9995`. Depois de 9999 vem **0000**? ______
 
 | 📸 Cole aqui: **um GIF** da contagem (ou **dois prints** com números diferentes) |
@@ -322,7 +313,6 @@ A ideia: em vez de **esperar** 1 s, o `loop()` **pergunta** a cada volta se já 
 
 1. 🧮 Exemplo com `TEMPO_DIGITO_MS = 10`: 10 ms × 4 dígitos = **40 ms por volta**; 1000 ms ÷ 40 ms = **25 voltas por segundo (25 Hz)**. Agora faça com `TEMPO_DIGITO_MS = 2`: uma volta leva ______ ms, ou seja, ______ Hz
 2. Aumente `TEMPO_DIGITO_MS` (5, 10, 15, 20…) até começar a piscar. Em qual valor começou? ______ Qual a frequência? ______ Hz *(O Tinkercad pode simular mais devagar que o tempo real; anote o que viu.)*
-   - **Onde mexer:** só o número na linha de `TEMPO_DIGITO_MS`, no começo do código. Pare e inicie a simulação a cada valor.
 3. 💭 Qual frequência de varredura mínima você escolheria para não piscar, e por quê? ______________________
 
 > ⚡ **Já domina?** Faça 2C.1, vá direto ao `millis()` (2C.3) e responda 2C.4. Desafio *(se sobrar tempo)*: o seu `varrer()` ainda usa `delay(2)`. Reescreva-o com `millis()`, acendendo **um dígito por chamada**, sem nenhum `delay()`.

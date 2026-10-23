@@ -140,7 +140,7 @@ Os nomes dos menus podem mudar um pouco entre versões da IDE (2.x e 1.8). Procu
    - **Se não funcionou, olhe:**
      1. Erro `… was not declared in this scope` na sua linha: faltou `display.` antes do nome da função.
      2. Erro `… has no member named …`: o nome da função está diferente do da página da biblioteca (maiúsculas contam).
-     3. Carregou, mas o módulo ficou apagado: a linha do brilho vem **antes** da do número? O brilho só vale a partir do próximo número mostrado; sem ele antes, o módulo começa desligado.
+     3. Carregou, mas o módulo ficou apagado: a linha do brilho vem **antes** da do número? O brilho só vale a partir do próximo número mostrado; sem ele antes, o módulo pode começar desligado.
 2. **Carregar** (→). Aparece **1234**? (S ou N): ______
 
 > 🔎 **Se não funcionou, olhe nesta ordem:**

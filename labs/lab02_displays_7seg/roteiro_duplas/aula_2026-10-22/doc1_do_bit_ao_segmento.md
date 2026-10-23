@@ -243,39 +243,39 @@ Cada símbolo vira **7 bits**, um por segmento: **bit 0 = a**, bit 1 = b, …, *
 
 1. **Piloto:** no editor do Tinkercad, apague tudo e escreva este esqueleto, colocando os valores da **sua** tabela em `SEG`:
 
-```cpp
-const byte PINOS_SEG[7] = {2, 3, 4, 5, 6, 7, 8};   // a, b, c, d, e, f, g
+   ```cpp
+   const byte PINOS_SEG[7] = {2, 3, 4, 5, 6, 7, 8};   // a, b, c, d, e, f, g
 
-// bit0 = a ... bit6 = g; 1 = aceso (cátodo comum)
-const byte SEG[10] = {
-  0b0000000,  // 0  <- troque pelos valores da sua tabela
-  0b0000000,  // 1
-  0b0000000,  // 2
-  0b0000000,  // 3
-  0b0000000,  // 4
-  0b0000000,  // 5
-  0b0000000,  // 6
-  0b0000000,  // 7
-  0b0000000,  // 8
-  0b0000000   // 9
-};
+   // bit0 = a ... bit6 = g; 1 = aceso (cátodo comum)
+   const byte SEG[10] = {
+     0b0000000,  // 0  <- troque pelos valores da sua tabela
+     0b0000000,  // 1
+     0b0000000,  // 2
+     0b0000000,  // 3
+     0b0000000,  // 4
+     0b0000000,  // 5
+     0b0000000,  // 6
+     0b0000000,  // 7
+     0b0000000,  // 8
+     0b0000000   // 9
+   };
 
-void setup() {
-  for (byte i = 0; i < 7; i++) {
-    pinMode(PINOS_SEG[i], OUTPUT);
-  }
-}
+   void setup() {
+     for (byte i = 0; i < 7; i++) {
+       pinMode(PINOS_SEG[i], OUTPUT);
+     }
+   }
 
-void loop() {
-  // ETAPA 1B.3: mostre SEG[0] ... SEG[9], um por segundo
-}
-```
+   void loop() {
+     // ETAPA 1B.3: mostre SEG[0] ... SEG[9], um por segundo
+   }
+   ```
 
-- **Onde mexer:** só nas 10 linhas de `SEG`: troque cada `0b0000000` pelo valor da linha de mesmo número da **sua** tabela. Mantenha a vírgula no fim de cada linha, menos na do 9.
-- **Se não funcionou, olhe:**
-  1. Erro `expected '}' before numeric constant` numa linha de `SEG`: falta a vírgula no fim da linha **de cima**.
-  2. Erro num valor `0b…`: depois do `0b` só pode haver **0** e **1**.
-  3. Erro `too many initializers`: há mais de 10 valores dentro das chaves.
+   - **Onde mexer:** só nas 10 linhas de `SEG`: troque cada `0b0000000` pelo valor da linha de mesmo número da **sua** tabela. Mantenha a vírgula no fim de cada linha, menos na do 9.
+   - **Se não funcionou, olhe:**
+     1. Erro `expected '}' before numeric constant` numa linha de `SEG`: falta a vírgula no fim da linha **de cima**.
+     2. Erro num valor `0b…`: depois do `0b` só pode haver **0** e **1**.
+     3. Erro `too many initializers`: há mais de 10 valores dentro das chaves.
 
 2. Escreva o `loop()`: para cada número `n` de 0 a 9, para cada segmento `i` de 0 a 6, mande ao pino `PINOS_SEG[i]` o **bit `i`** de `SEG[n]` (use `bitRead`); depois espere 1 s.
    - **Onde mexer:** dentro de `void loop() { … }`, logo abaixo do comentário `// ETAPA 1B.3`. Não mexa no `setup()`.

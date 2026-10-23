@@ -98,48 +98,45 @@ Para escolher **qual** display acende, o comum de cada um passa por um **transis
 
 1. **Piloto:** no editor, apague tudo e escreva este esqueleto, colando a **sua** tabela `SEG` do Doc 1:
 
-```cpp
-const byte PINOS_SEG[7] = {2, 3, 4, 5, 6, 7, 8};   // a, b, c, d, e, f, g
-const byte PINOS_DIG[2] = {9, 10};                 // 0 = dezena, 1 = unidade
+   ```cpp
+   const byte PINOS_SEG[7] = {2, 3, 4, 5, 6, 7, 8};   // a, b, c, d, e, f, g
+   const byte PINOS_DIG[2] = {9, 10};                 // 0 = dezena, 1 = unidade
 
-const byte SEG[10] = { /* cole aqui a sua tabela do Doc 1 */ };
+   const byte SEG[10] = { /* cole aqui a sua tabela do Doc 1 */ };
 
-const unsigned int TEMPO_DIGITO_MS = 500;          // quanto cada dígito fica aceso
+   const unsigned int TEMPO_DIGITO_MS = 500;          // quanto cada dígito fica aceso
 
-// Acende UM dígito: o display "posicao" mostra o algarismo "valor".
-void mostrarDigito(byte posicao, byte valor) {
-  // 1) desligue TODOS os pinos de seleção (LOW)
-  // 2) escreva os 7 segmentos de SEG[valor] (como no loop do Doc 1)
-  // 3) ligue (HIGH) só o pino de seleção de "posicao"
-}
+   // Acende UM dígito: o display "posicao" mostra o algarismo "valor".
+   void mostrarDigito(byte posicao, byte valor) {
+     // 1) desligue TODOS os pinos de seleção (LOW)
+     // 2) escreva os 7 segmentos de SEG[valor] (como no loop do Doc 1)
+     // 3) ligue (HIGH) só o pino de seleção de "posicao"
+   }
 
-void setup() {
-  for (byte i = 0; i < 7; i++) pinMode(PINOS_SEG[i], OUTPUT);
-  for (byte d = 0; d < 2; d++) pinMode(PINOS_DIG[d], OUTPUT);
-}
+   void setup() {
+     for (byte i = 0; i < 7; i++) pinMode(PINOS_SEG[i], OUTPUT);
+     for (byte d = 0; d < 2; d++) pinMode(PINOS_DIG[d], OUTPUT);
+   }
 
-void loop() {
-  // ETAPA 2A.3: mostre 4 na dezena, espere; mostre 2 na unidade, espere
-}
-```
+   void loop() {
+     // ETAPA 2A.3: mostre 4 na dezena, espere; mostre 2 na unidade, espere
+   }
+   ```
 
-- **Onde colar:** só os **10 valores** da sua tabela, entre as chaves de `const byte SEG[10] = { … };`, no lugar do comentário `/* cole aqui a sua tabela do Doc 1 */`.
-- **Se não funcionou, olhe:**
-  1. Erro `redefinition of 'const byte SEG [10]'`: você colou a declaração inteira do Doc 1 **além** da linha do esqueleto. Fica uma só.
-  2. Erro `expected primary-expression before 'const'`: a linha `const byte SEG[10] = {` foi colada **dentro** das chaves. Deixe só os valores.
+   - **Onde colar:** só os **10 valores** da sua tabela, entre as chaves de `const byte SEG[10] = { … };`, no lugar do comentário `/* cole aqui a sua tabela do Doc 1 */`.
+   - **Se não funcionou, olhe:**
+     1. Erro `redefinition of 'const byte SEG [10]'`: você colou a declaração inteira do Doc 1 **além** da linha do esqueleto. Fica uma só.
+     2. Erro `expected primary-expression before 'const'`: a linha `const byte SEG[10] = {` foi colada **dentro** das chaves. Deixe só os valores.
 
 2. Escreva o corpo de `mostrarDigito` seguindo os 3 comentários.
    - **Onde escrever:** dentro de `mostrarDigito`, um trecho **embaixo** de cada comentário 1), 2) e 3), nessa ordem.
 3. Escreva o `loop()`: dezena = 4, espera `TEMPO_DIGITO_MS`; unidade = 2, espera `TEMPO_DIGITO_MS`.
-   - **Onde escrever:** dentro de `void loop() { … }`, abaixo do comentário `// ETAPA 2A.3`.
 4. Inicie a simulação. Com 500 ms você deve ver **4** e **2** se alternando, com **um display apagado de cada vez**. Isso é o esperado. Funcionou? (S ou N): ______
    - **Se não funcionou, olhe:**
-     1. Erro `'n' was not declared in this scope`: em `mostrarDigito` o algarismo se chama `valor` (no Doc 1 era `n`).
-     2. Os dois displays acesos juntos, com o mesmo número: sobrou o fio do comum ao GND do 2A.1 (agora o comum vai **só** ao coletor)? O trecho 1) desliga **os dois** pinos de `PINOS_DIG` **antes** de escrever os segmentos?
-     3. Nenhum display (ou um só) acende: o trecho 3) põe **HIGH** em `PINOS_DIG[posicao]`? No NPN apagado: **emissor** no GND, **coletor** no comum e **base** pelo 1 kΩ no D9 (dezena) ou D10 (unidade)?
-     4. O 4 aparece no display da direita: a ordem é `mostrarDigito(posicao, valor)`, com 0 = dezena? D9 e D10 estão trocados nas bases?
-     5. O 4 não aparece (só o 2): a sua tabela `SEG` tem o 4? Quem pulou 4 a 9 no Doc 1 completa agora (ou pede pelo Telegram).
-     6. O 2 quase não aparece: falta a **segunda** espera, depois da unidade.
+     1. Os dois displays acesos juntos, com o mesmo número: sobrou o fio do comum ao GND do 2A.1 (agora o comum vai **só** ao coletor)? O trecho 1) desliga **os dois** pinos de `PINOS_DIG` **antes** de escrever os segmentos?
+     2. Nenhum display (ou um só) acende: o trecho 3) põe **HIGH** em `PINOS_DIG[posicao]`? No NPN apagado: **emissor** no GND, **coletor** no comum e **base** pelo 1 kΩ no D9 (dezena) ou D10 (unidade)?
+     3. O 4 não aparece (só o 2): a sua tabela `SEG` tem o 4? Quem pulou 4 a 9 no Doc 1 completa agora (ou pede pelo Telegram).
+     4. O 2 quase não aparece: falta a **segunda** espera, depois da unidade.
 
 ## 2A.4 Acelerar até enganar o olho (1 min)
 
@@ -197,19 +194,19 @@ void loop() {
    - **Se não funcionou, olhe:** erro `too many initializers`? Há 4 pinos, mas o tamanho ainda é `[2]`.
 2. Acrescente, antes de `setup()`:
 
-```cpp
-byte exibir[4] = {1, 2, 3, 4};   // O QUE mostrar: um algarismo por posição
+   ```cpp
+   byte exibir[4] = {1, 2, 3, 4};   // O QUE mostrar: um algarismo por posição
 
-// COMO atualizar: uma volta pelos 4 dígitos, lendo exibir[]
-void varrer() {
-  // ETAPA 2B.3: para cada posição p de 0 a 3, mostre exibir[p] e espere TEMPO_DIGITO_MS
-}
-```
+   // COMO atualizar: uma volta pelos 4 dígitos, lendo exibir[]
+   void varrer() {
+     // ETAPA 2B.3: para cada posição p de 0 a 3, mostre exibir[p] e espere TEMPO_DIGITO_MS
+   }
+   ```
 
-- **Onde colar:** depois da `}` que fecha `mostrarDigito` e **antes** de `void setup()`, fora de qualquer `{ }`.
-- **Se não funcionou, olhe:**
-  1. Erro `a function-definition is not allowed here`: o bloco caiu **dentro** de outra função.
-  2. Erro `'TEMPO_DIGITO_MS' was not declared in this scope`: o bloco ficou **acima** dessa constante.
+   - **Onde colar:** depois da `}` que fecha `mostrarDigito` e **antes** de `void setup()`, fora de qualquer `{ }`.
+   - **Se não funcionou, olhe:**
+     1. Erro `a function-definition is not allowed here`: o bloco caiu **dentro** de outra função.
+     2. Erro `'TEMPO_DIGITO_MS' was not declared in this scope`: o bloco ficou **acima** dessa constante.
 
 3. Escreva o corpo de `varrer()` e deixe o `loop()` só com `varrer();`.
    - **Onde mexer:** dentro de `varrer()`, abaixo do comentário `// ETAPA 2B.3`. No `loop()`, apague as linhas do 2A.
@@ -221,8 +218,7 @@ void varrer() {
    - **Se não funcionou, olhe:**
      1. Displays 3 e 4 sempre acesos, com algarismos misturados: o trecho 1) de `mostrarDigito` ainda desliga só 2 pinos.
      2. Displays 3 e 4 apagados ou fracos: o laço do `setup()` ainda vai só até 2 (os pinos 11 e 12 não viraram saída).
-     3. Display 3 ou 4 apagado com o código certo: está em **cátodo**? No NPN dele, **emissor** no GND, **coletor** no comum e **base** pelo 1 kΩ no D11 ou D12? Confira cada fio do bloco colado.
-     4. Display novo com segmentos faltando: a–g estão nos **mesmos pontos** das linhas a–g?
+     3. Display novo apagado ou com segmentos faltando, com o código certo: está em **cátodo**? No NPN dele, **emissor** no GND, **coletor** no comum e **base** pelo 1 kΩ no D11 ou D12? a–g nos **mesmos pontos** das linhas a–g?
 
 | 📸 Cole aqui: **um print** com 1234 (ou 9876) nos quatro displays |
 |---|
@@ -272,32 +268,29 @@ void varrer() {
    O que você vai ver nos displays? ______________________
 
 2. Teste. O que viu? ______________________
-   - **Onde colar:** no lugar do seu `loop()` inteiro: deve sobrar **um** só `void loop()`. Dois dão erro `redefinition of 'void loop()'`.
+   - Deve sobrar **um** só `void loop()`: dois dão erro `redefinition of 'void loop()'`.
 3. 🔒 Por que o `delay(1000)` estraga a varredura? ______________________
 
 ## 2C.3 Contar com `millis()` (3 min)
 
 A ideia: em vez de **esperar** 1 s, o `loop()` **pergunta** a cada volta se já passou 1 s desde a última contagem. Se não passou, segue varrendo.
 
-1. **Piloto:** apague o `delay(1000)`. Acrescente antes de `setup()`: `unsigned long ultimaConta = 0;`
-   - **Onde escrever:** logo abaixo da linha de `contador`.
+1. **Piloto:** no `loop()` do 2C.2, apague o `delay(1000)` **e** as linhas `contador++;` e `atualizarExibir();` (elas voltam no passo 3, dentro do `if`). Acrescente antes de `setup()`: `unsigned long ultimaConta = 0;`
 2. Use este molde no `loop()`, depois de `varrer();`:
 
-```cpp
-  if (millis() - ultimaConta >= 1000) {
-    ultimaConta = millis();
-    // ETAPA 2C.3: conte +1, volte a 0 depois de 9999, atualize exibir[]
-  }
-```
-
-- **Onde colar:** dentro de `loop()`, logo abaixo da linha `varrer();`.
+   ```cpp
+     if (millis() - ultimaConta >= 1000) {
+       ultimaConta = millis();
+       // ETAPA 2C.3: conte +1, volte a 0 depois de 9999, atualize exibir[]
+     }
+   ```
 
 3. Escreva as linhas que faltam. **Volte o início para `contador = 0;`** (no 2C.1 estava em 2026 e depois em 7).
    - **Onde escrever:** no lugar do comentário `// ETAPA 2C.3`; o `0` vai na linha de `contador`.
    - **Se não funcionou, olhe:**
      1. O número não muda: depois de contar, chamou `atualizarExibir()`?
      2. Ainda pisca a cada segundo: sobrou o `delay(1000)` no `loop()`.
-     3. A contagem dispara, rápida demais: sobrou `contador++;` (e `atualizarExibir();`) do 2C.2 **fora** do `if`. Eles vão para dentro dele.
+     3. A contagem dispara: as duas linhas do 2C.2 ficaram **fora** do `if`.
      4. Depois de 9999 aparece um desenho estranho (ou apagado) no milhar: o `contador` passou de 9999 sem voltar a 0.
 4. Inicie a simulação. Conta 0000, 0001, 0002… sem piscar? ______ Para testar a volta, comece em `contador = 9995`. Depois de 9999 vem **0000**? ______
 

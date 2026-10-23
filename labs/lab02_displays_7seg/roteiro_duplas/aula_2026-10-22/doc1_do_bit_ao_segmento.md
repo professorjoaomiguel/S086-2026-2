@@ -96,6 +96,12 @@ A dupla trabalha com **dois PCs e dois papéis**.
 2. Arraste um **Arduino Uno R3** e uma **placa de ensaio**. Ligue um **LED** com um **resistor de 220 Ω** em série entre o pino **13** e o **GND**.
 3. Clique em **Iniciar simulação**. O código que já vem pronto pisca o pino 13. O LED pisca? (S ou N): ______
 
+> 🔎 **Se não funcionou, olhe nesta ordem** (vale também para o 0.2):
+> 1. A simulação está **rodando**? O botão costuma mudar para **Parar simulação**.
+> 2. O LED está virado certo? Passe o mouse nos terminais: o **ânodo** vai para o lado do pino 13 e o **cátodo** para o lado do GND. Invertido, não acende.
+> 3. Na placa de ensaio, cada grupo de 5 furos de uma coluna é **um só ponto**. Os dois terminais do LED (ou do resistor) **não** podem ficar no mesmo grupo.
+> 4. No 0.2: o display está em **cátodo** e o **comum** vai ao GND?
+
 ## 0.2 Conhecer o display (2 min)
 
 1. Pare a simulação. Arraste um **Display de 7 segmentos** para a placa de ensaio.
@@ -165,8 +171,19 @@ A dupla trabalha com **dois PCs e dois papéis**.
 ## 1A.3 Rodar e observar (4 min)
 
 1. Abra o sketch `a1_bcd_cd4511` (pasta `codigo_base`), copie o texto e cole no editor **Código → Texto** do Tinkercad, apagando o que estava lá.
+   - **Onde colar:** no lugar de **todo** o código que estava no editor (o pisca-pisca do 0.1). Se o Tinkercad avisar que vai descartar os blocos, confirme.
+   - **Se não funcionou, olhe:**
+     1. Erro `redefinition of 'void setup()'` (ou de `loop`): sobrou o código antigo. Apague tudo e cole de novo.
+     2. Erro apontando para a última linha: a cópia parou antes da última `}`. Copie o sketch inteiro.
 2. Leia a função `enviarBCD`. 🧮 Para `valor = 6`, quanto vale `(valor >> bit) & 1` em cada bit? bit 0: ___ · bit 1: ___ · bit 2: ___ · bit 3: ___ *(confira com a linha 6 da sua tabela)*
 3. Inicie a simulação. O display conta de 0 a 9?
+
+> 🔎 **Se não funcionou, olhe nesta ordem:**
+> 1. Erro no código? Leia a **primeira** mensagem de erro: ela diz a linha.
+> 2. Display todo apagado: **VDD → 5V** e **VSS → GND**? **BI** no **5V** (no GND ele apaga o display)? Comum do display no GND e propriedade **cátodo**?
+> 3. Mostra **8** parado ou não sai do lugar: **LT** no **5V** (no GND ele acende tudo) e **LE** no **GND** (no 5V ele congela o número)?
+> 4. Números trocados (ex.: no lugar do 1 aparece 8): **D2, D3, D4, D5** estão em **A, B, C, D**, nessa ordem? Trocar A com D faz exatamente isso.
+> 5. Desenhos estranhos, que não são números: cada saída **a … g** do CI vai ao segmento de **mesmo nome** do display?
 
 | 📸 Cole aqui: **um GIF** do display contando de 0 a 9 (ou **três prints**: 0, 5 e 9) |
 |---|
@@ -253,8 +270,25 @@ void loop() {
 }
 ```
 
+- **Onde mexer:** só nas 10 linhas de `SEG`: troque cada `0b0000000` pelo valor da linha de mesmo número da **sua** tabela. Mantenha a vírgula no fim de cada linha, menos na do 9.
+- **Se não funcionou, olhe:**
+  1. Erro numa linha de `SEG`: faltou uma **vírgula** entre dois valores?
+  2. Erro num valor `0b…`: depois do `0b` só pode haver **0** e **1**.
+  3. Erro `too many initializers`: há mais de 10 valores dentro das chaves.
+
 2. Escreva o `loop()`: para cada número `n` de 0 a 9, para cada segmento `i` de 0 a 6, mande ao pino `PINOS_SEG[i]` o **bit `i`** de `SEG[n]` (use `bitRead`); depois espere 1 s.
+   - **Onde mexer:** dentro de `void loop() { … }`, logo abaixo do comentário `// ETAPA 1B.3`. Não mexa no `setup()`.
+   - **Se não funcionou, olhe:**
+     1. Erro `'n' was not declared in this scope` (ou `'i'`): a variável se cria **dentro** do `for`, como no `for` do `setup()`.
+     2. Os segmentos acendem **um por vez**, devagar: a espera de 1 s ficou **dentro** do `for` dos segmentos; ela vem depois dele.
+     3. Display sempre apagado, sem erro: a tabela ainda está com `0b0000000`? O `bitRead` recebe primeiro o **valor** e depois o **número do bit**?
 3. Inicie a simulação. Algum dígito saiu errado? Qual, e qual segmento estava trocado? ______________________
+
+> 🔎 **Se não funcionou, olhe nesta ordem:**
+> 1. Erro no código? Leia a **primeira** mensagem de erro: ela diz a linha.
+> 2. A simulação está **rodando**? Sobrou algum fio do CD4511 (1A) nos pinos?
+> 3. Um segmento **nunca** acende: o fio dele vai ao pino certo da lista (a = D2 … g = D8) e passa pelo **seu** resistor?
+> 4. O **mesmo** segmento errado em **todos** os números: fio trocado. Errado em **um** número só: confira essa linha da tabela.
 
 | 📸 Cole aqui: **um GIF** da contagem (ou prints de 0, 1, 2 e 3) |
 |---|
@@ -279,6 +313,7 @@ void loop() {
 ### *(se sobrar tempo)* Letras e símbolos
 
 1. Acrescente à tabela as letras **A, C, E, F, H, L, P, U** (escreva os 7 bits de cada uma) e mostre-as no display.
+   - **Onde mexer:** no fim de `SEG`, depois do 9 (ponha a vírgula que faltava nele); aumente o tamanho `[10]` e o limite do `for` do `loop()`. Sem aumentar o tamanho, dá erro `too many initializers`.
 2. 💭 Tente desenhar **K, M, W** e **X** com 7 segmentos. O que acontece? ______________________
 3. 🔒 Por que dizemos que 7 segmentos **não** formam um display alfanumérico completo? ______________________
 4. 🔍 Que tipos de display mostram todas as letras? Anote um e a fonte (link). ______________________

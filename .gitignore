@@ -87,6 +87,7 @@ docs/
 .claude/
 .github/
 GEMINI.md
+_inbox/
 diagramas/
 guias_e_roteiros_tecnicos/
 schemdraw_biblioteca/

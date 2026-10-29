@@ -1,4 +1,5 @@
 # Doc 3 de 3 — Módulo e biblioteca
+*LAB02-D3 · v1.0 · 2026-10-22*
 
 > RASCUNHO (professor): não testado em bancada. Pinos CLK = D7 e DIO = D8 a confirmar na bancada com o módulo. Apague este quadro antes de entregar aos alunos.
 

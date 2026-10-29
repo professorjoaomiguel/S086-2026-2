@@ -1,4 +1,5 @@
 # Doc 2 de 3 — Muitos dígitos, poucos fios
+*LAB02-D2 · v1.0 · 2026-10-22*
 
 **UC S086 — Sistemas Microprocessados** · Tinkercad Circuits (Arduino UNO R3 simulado)
 *Este documento é o roteiro **e** o relatório. Um arquivo por dupla: os dois alunos entregam o mesmo arquivo.*

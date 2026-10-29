@@ -1,4 +1,5 @@
 # Doc 3 de 3 — O termômetro
+*LAB01-D3 · v1.0 · 2026-10-22*
 
 **UC S086 — Sistemas Microprocessados** · Arduino UNO R3 + Shield 9-em-1
 *Este documento é o roteiro **e** o relatório. Um arquivo por dupla: os dois alunos entregam o mesmo arquivo.*

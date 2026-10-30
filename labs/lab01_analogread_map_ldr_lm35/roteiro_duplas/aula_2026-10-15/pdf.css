@@ -1,0 +1,24 @@
+@page { size: A4; margin: 15mm 14mm; }
+body { font-family: "Segoe UI", Calibri, sans-serif; font-size: 10.5pt; line-height: 1.4; max-width: none; margin: 0; color: #111; }
+h1 { font-size: 20pt; margin: 0 0 4px; border-bottom: 3px solid #0b5; padding-bottom: 4px; }
+h2 { font-size: 14pt; margin-top: 18px; color: #064; break-after: avoid; }
+h3 { font-size: 12pt; break-after: avoid; }
+table { border-collapse: collapse; width: 100%; margin: 8px 0; break-inside: avoid; }
+th, td { border: 1px solid #888; padding: 4px 7px; vertical-align: top; }
+th { background: #e8f1ec; text-align: left; }
+td:only-child:empty { height: 3.2cm; }
+body > header { display: none; }
+blockquote { margin: 8px 0; padding: 6px 12px; border-left: 4px solid #0b5; background: #f1f7f3; break-inside: avoid; }
+code { font-family: Consolas, monospace; font-size: 9.5pt; background: #f2f2f2; padding: 0 3px; }
+pre { background: #f6f6f6; border: 1px solid #ccc; padding: 8px; break-inside: avoid; overflow-wrap: anywhere; white-space: pre-wrap; }
+pre code { background: none; }
+img { max-width: 100%; }
+li { margin: 2px 0; }
+hr { border: 0; border-top: 1px solid #bbb; }
+/* larguras: ignora as partes iguais do pandoc e deixa o conteúdo mandar */
+colgroup { display: none; }
+table { table-layout: auto; font-size: 9.5pt; }
+td, th { overflow-wrap: break-word; }
+td:empty { min-width: 30%; }
+table:not(:has(td:only-child)) th:first-child, table:not(:has(td:only-child)) td:first-child { white-space: nowrap; }
+td p { margin: 0; }

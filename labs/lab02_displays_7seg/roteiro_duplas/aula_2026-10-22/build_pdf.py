@@ -9,10 +9,13 @@ Uso (a partir desta pasta):  python build_pdf.py
 Saída: pdf/doc1_*.pdf, pdf/doc2_*.pdf, pdf/doc3_*.pdf
 Requer: pandoc e Google Chrome (ou Microsoft Edge) instalados.
 """
+import argparse
 import shutil
 import subprocess
 import tempfile
 from pathlib import Path
+
+__version__ = "1.0"
 
 AQUI = Path(__file__).resolve().parent
 SAIDA = AQUI / "pdf"
@@ -62,8 +65,18 @@ def converter(md, navegador, tmp):
     )
     print(f"{saida.name}")
 
+def main():
+    ap = argparse.ArgumentParser(
+        description=__doc__.split("\n\n")[0],
+        epilog="Uso, saída e requisitos: veja o docstring no início deste arquivo.",
+    )
+    ap.add_argument("-V", "--version", action="version", version=f"%(prog)s {__version__}")
+    ap.parse_args()
+    navegador = achar_navegador()
+    with tempfile.TemporaryDirectory() as t:
+        for md in sorted(AQUI.glob("doc[0-9]_*.md")):
+            converter(md, navegador, Path(t))
 
-navegador = achar_navegador()
-with tempfile.TemporaryDirectory() as t:
-    for md in sorted(AQUI.glob("doc[0-9]_*.md")):
-        converter(md, navegador, Path(t))
+
+if __name__ == "__main__":
+    main()

@@ -4,6 +4,7 @@ Uso (a partir desta pasta):  python build_docx.py
 Saída: docx/doc1_*.docx, docx/doc2_*.docx, docx/doc3_*.docx
 Suba os .docx ao Google Drive e abra como Google Docs.
 """
+import argparse
 import subprocess
 from pathlib import Path
 
@@ -11,6 +12,8 @@ from docx import Document
 from docx.oxml import OxmlElement
 from docx.oxml.ns import qn
 from docx.shared import Cm
+
+__version__ = "1.0"
 
 AQUI = Path(__file__).parent
 SAIDA = AQUI / "docx"
@@ -60,6 +63,16 @@ def converter(md):
     doc.save(saida)
     print(f"{saida.name}: {len(doc.tables)} tabelas, {n} quadros de registro")
 
+def main():
+    ap = argparse.ArgumentParser(
+        description=__doc__.split("\n\n")[0],
+        epilog="Uso, saída e requisitos: veja o docstring no início deste arquivo.",
+    )
+    ap.add_argument("-V", "--version", action="version", version=f"%(prog)s {__version__}")
+    ap.parse_args()
+    for md in sorted(AQUI.glob("doc[0-9]_*.md")):
+        converter(md)
 
-for md in sorted(AQUI.glob("doc[0-9]_*.md")):
-    converter(md)
+
+if __name__ == "__main__":
+    main()

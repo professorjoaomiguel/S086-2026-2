@@ -1,10 +1,21 @@
-# Doc 2 de 3 — Muitos dígitos, poucos fios
-*LAB02-D2 · v1.0 · 2026-10-22*
+# Parte 2 de 3 — Muitos dígitos, poucos fios
+*LAB02-P2 · v1.3 · 2026-11-05*
 
 **UC S086 — Sistemas Microprocessados** · Tinkercad Circuits (Arduino UNO R3 simulado)
 *Este documento é o roteiro **e** o relatório. Um arquivo por dupla: os dois alunos entregam o mesmo arquivo.*
 
-No Doc 1, um display gastou **7 pinos** do Arduino. Quatro displays gastariam 28, e o UNO não tem tantos. Aqui as **7 linhas de segmento serão compartilhadas** por todos os displays, e o Arduino vai acender **um dígito de cada vez**, tão rápido que o olho vê todos acesos.
+# 🧰 PREPARAÇÃO — leia antes de começar
+
+> **Esta parte é só leitura e combinados**: o relógio da atividade **ainda não começou**. Preencha a **Identificação** e a tabela de componentes à medida que avançar. Quando terminar de ler, desça até a faixa verde **🚀 ATIVIDADE**.
+
+> **📝 Como preencher este documento (leia antes de começar)**
+>
+> 1. Este arquivo é um **Google Docs**. Abra-o pelo Classroom com a sua **conta Google educacional** e **digite direto nele**. A dupla edita **um único arquivo**.
+> 2. Onde houver uma linha **______** ou uma tabela vazia, **escreva a resposta ali**, no lugar do traço.
+> 3. Nas questões **☑️ (múltipla escolha)**, escolha **uma só alternativa** e **escreva a letra** no campo **"Sua resposta (letra): ______"**, logo abaixo das alternativas. Exemplo: `Sua resposta (letra): c`.
+> 4. Não apague as perguntas nem os quadros: responda **por cima** deles.
+
+Na Parte 1, um display gastou **7 pinos** do Arduino. Quatro displays gastariam 28, e o UNO não tem tantos. Aqui as **7 linhas de segmento serão compartilhadas** por todos os displays, e o Arduino vai acender **um dígito de cada vez**, tão rápido que o olho vê todos acesos.
 
 ## Identificação
 
@@ -17,20 +28,20 @@ No Doc 1, um display gastou **7 pinos** do Arduino. Quatro displays gastariam 28
 
 ## Componentes utilizados neste documento
 
-Tudo aqui é **no Tinkercad**. Continue no circuito do Doc 1 (Etapa 1B).
+Tudo aqui é **no Tinkercad**. Continue no circuito da Parte 1 (Etapa 1B).
 
 | Componente (Tinkercad) | Usou? (S ou N) | Anote |
 |---|---|---|
 | Arduino Uno R3 | | |
-| Placa de ensaio (protoboard) | | |
+| Protoboard | | |
 | Displays de 7 segmentos (2 no 2A, 4 no 2B) | | Todos em cátodo? |
-| 7 resistores 220 Ω (um por segmento, do Doc 1) | | |
+| 7 resistores 220 Ω (um por segmento, da Parte 1) | | |
 | Transistores NPN (1 por dígito) | | Quantos? |
 | Resistores 1 kΩ (1 na base de cada NPN) | | |
 
 ## Como trabalhar
 
-Igual ao Doc 1 (veja lá a tabela **piloto e navegador** e os combinados). Resumo: **piloto** opera o Tinkercad, um passo por vez, dizendo o que faz; **navegador** lê em voz alta, confere e registra aqui, sem digitar o código. Os dois pensam juntos nas perguntas. **Vale trocar de papel** ao começar cada etapa (2A, 2B, 2C); antes de trocar, mande o código pelo Telegram. ⚡ para quem já domina; itens *(se sobrar tempo)* podem ficar em branco.
+Igual à Parte 1 (veja lá a tabela **piloto e navegador** e os combinados). Resumo: **piloto** opera o Tinkercad, um passo por vez, dizendo o que faz; **navegador** lê em voz alta, confere e registra aqui, sem digitar o código. Os dois pensam juntos nas perguntas. **Vale trocar de papel** ao começar cada etapa (2A, 2B, 2C); antes de trocar, mande o código pelo Telegram. ⚡ para quem já domina; itens ⭐ **EXTRA** podem ficar em branco.
 
 **Mudou o código ou um fio?** **Pare e inicie** a simulação de novo. **Erro no código?** Leia a **primeira** mensagem de erro: ela diz a linha.
 
@@ -42,9 +53,10 @@ Igual ao Doc 1 (veja lá a tabela **piloto e navegador** e os combinados). Resum
 | ☑️ | **Múltipla escolha:** escreva a letra da resposta. |
 | 🔒 | **Fechada:** responda por extenso, ligando teoria e o que você viu. |
 | 💭 | **Aberta:** sem resposta certa; opine e justifique. |
+| ⭐ | **EXTRA:** opcional, só se sobrar tempo; pode ficar em branco. |
 | 📸 | **Mídia:** **foto, print de tela ou GIF** (vídeo não cola no Docs). |
 
-> **Perdeu a tabela `SEG[10]` do Doc 1?** Não refaça agora: peça ao professor ou a outra dupla pelo Telegram e cole no seu código.
+> **Perdeu a tabela `SEG[10]` da Parte 1?** Não refaça agora: peça ao professor ou a outra dupla pelo Telegram e cole no seu código.
 
 ### Glossário rápido
 
@@ -62,26 +74,32 @@ Igual ao Doc 1 (veja lá a tabela **piloto e navegador** e os combinados). Resum
 - Esquemas de ligação desta atividade: [2A dois dígitos](../../imagens/lab02_2a_dois_digitos.png) · [2B quatro dígitos](../../imagens/lab02_2b_quatro_digitos.png) (use **depois de tentar sozinho**, para conferir, não para copiar).
 - Sketches de referência na pasta `labs/lab02_displays_7seg/codigo_base` do repositório: `b1_dois_digitos`, `b2_quatro_digitos`, `b3_contador_millis`. **Só para conferir depois** que o seu funcionar (ou se travar de vez).
 
-**Tempo deste documento: ~30 min.** Ao terminar, entregue pelo Classroom e abra o **Doc 3 de 3**.
+**Tempo da ATIVIDADE: ~30 min** (a preparação é leitura de uns 3 min). Ao terminar, entregue pelo Classroom e abra a **Parte 3 de 3**.
+
+**✅ Antes de descer, confira:** (1) Identificação preenchida · (2) piloto e navegador definidos · (3) Telegram Web aberto nos dois PCs · (4) o circuito da Parte 1 (Etapa 1B) aberto no Tinkercad
 
 ---
+
+# 🚀 ATIVIDADE — comece aqui
+
+> **Daqui para baixo é a atividade:** um passo de cada vez, na ordem. O tempo de cada etapa vale a partir deste ponto.
 
 # Etapa 2A — Dois displays, os mesmos 7 fios (11 min)
 
 > 🧭 **Orientação:** um segundo display entra **pendurado nas mesmas linhas a–g**. Sozinho, isso só copia o número. O truque é ligar **um dígito de cada vez**. **Ao final desta etapa os dois displays mostram 42, e você viu a troca ficar rápida demais para o olho.**
 
-**Pinos:** a–g = D2–D8 (como no Doc 1) · seleção: D9 = dezena (display 1), D10 = unidade (display 2).
+**Pinos:** a–g = D2–D8 (como na Parte 1) · seleção: D9 = dezena (display 1), D10 = unidade (display 2).
 
 ## 2A.1 Segundo display em paralelo (3 min)
 
 1. **Piloto:** arraste um **segundo display** ao lado do primeiro. Clique nele e **confira que o comum está em "cátodo"**.
-2. Ligue cada segmento a–g do display 2 **no mesmo ponto** do segmento de mesmo nome do display 1 (depois do resistor, do lado do display). **Não** acrescente resistores: os 7 do Doc 1 servem aos dois.
+2. Ligue cada segmento a–g do display 2 **no mesmo ponto** do segmento de mesmo nome do display 1 (depois do resistor, do lado do display). **Não** acrescente resistores: os 7 da Parte 1 servem aos dois.
 3. Ligue o comum do display 2 no **GND**, como o do display 1.
-4. 🔮 Com o código do Doc 1 (contagem de 0 a 9) ainda no Arduino, o que os dois displays vão mostrar? ______________________
+4. 🔮 Com o código da Parte 1 (contagem de 0 a 9) ainda no Arduino, o que os dois displays vão mostrar? ______________________
 5. Inicie a simulação. Acertou? (S ou N): ______
 
 > 🔎 **Se não funcionou, olhe nesta ordem:**
-> 1. A simulação está **rodando**, com o código do Doc 1 (1B) no editor?
+> 1. A simulação está **rodando**, com o código da Parte 1 (1B) no editor?
 > 2. Display 2 apagado: o **comum** dele vai ao GND? A propriedade está em **cátodo**?
 > 3. Display 2 com segmentos faltando: o fio desse segmento sai do **mesmo ponto** do display 1, **depois** do resistor (do lado do display)?
 
@@ -97,20 +115,20 @@ Para escolher **qual** display acende, o comum de cada um passa por um **transis
 
 ## 2A.3 Varredura lenta, à mão (3 min)
 
-1. **Piloto:** no editor, apague tudo e escreva este esqueleto, colando a **sua** tabela `SEG` do Doc 1:
+1. **Piloto:** no editor, apague tudo e escreva este esqueleto, colando a **sua** tabela `SEG` da Parte 1:
 
    ```cpp
    const byte PINOS_SEG[7] = {2, 3, 4, 5, 6, 7, 8};   // a, b, c, d, e, f, g
    const byte PINOS_DIG[2] = {9, 10};                 // 0 = dezena, 1 = unidade
 
-   const byte SEG[10] = { /* cole aqui a sua tabela do Doc 1 */ };
+   const byte SEG[10] = { /* cole aqui a sua tabela da Parte 1 */ };
 
    const unsigned int TEMPO_DIGITO_MS = 500;          // quanto cada dígito fica aceso
 
    // Acende UM dígito: o display "posicao" mostra o algarismo "valor".
    void mostrarDigito(byte posicao, byte valor) {
      // 1) desligue TODOS os pinos de seleção (LOW)
-     // 2) escreva os 7 segmentos de SEG[valor] (como no loop do Doc 1)
+     // 2) escreva os 7 segmentos de SEG[valor] (como no loop da Parte 1)
      // 3) ligue (HIGH) só o pino de seleção de "posicao"
    }
 
@@ -124,9 +142,9 @@ Para escolher **qual** display acende, o comum de cada um passa por um **transis
    }
    ```
 
-   - **Onde colar:** só os **10 valores** da sua tabela, entre as chaves de `const byte SEG[10] = { … };`, no lugar do comentário `/* cole aqui a sua tabela do Doc 1 */`.
+   - **Onde colar:** só os **10 valores** da sua tabela, entre as chaves de `const byte SEG[10] = { … };`, no lugar do comentário `/* cole aqui a sua tabela da Parte 1 */`.
    - **Se não funcionou, olhe:**
-     1. Erro `redefinition of 'const byte SEG [10]'`: você colou a declaração inteira do Doc 1 **além** da linha do esqueleto. Fica uma só.
+     1. Erro `redefinition of 'const byte SEG [10]'`: você colou a declaração inteira da Parte 1 **além** da linha do esqueleto. Fica uma só.
      2. Erro `expected primary-expression before 'const'`: a linha `const byte SEG[10] = {` foi colada **dentro** das chaves. Deixe só os valores.
 
 2. Escreva o corpo de `mostrarDigito` seguindo os 3 comentários.
@@ -136,7 +154,7 @@ Para escolher **qual** display acende, o comum de cada um passa por um **transis
    - **Se não funcionou, olhe:**
      1. Os dois displays acesos juntos, com o mesmo número: sobrou o fio do comum ao GND do 2A.1 (agora o comum vai **só** ao coletor)? O trecho 1) desliga **os dois** pinos de `PINOS_DIG` **antes** de escrever os segmentos?
      2. Nenhum display (ou um só) acende: o trecho 3) põe **HIGH** em `PINOS_DIG[posicao]`? No NPN apagado: **emissor** no GND, **coletor** no comum e **base** pelo 1 kΩ no D9 (dezena) ou D10 (unidade)?
-     3. O 4 não aparece (só o 2): a sua tabela `SEG` tem o 4? Quem pulou 4 a 9 no Doc 1 completa agora (ou pede pelo Telegram).
+     3. O 4 não aparece (só o 2): a sua tabela `SEG` tem o 4? Quem pulou 4 a 9 na Parte 1 completa agora (ou pede pelo Telegram).
      4. O 2 quase não aparece: falta a **segunda** espera, depois da unidade.
 
 ## 2A.4 Acelerar até enganar o olho (1 min)
@@ -228,9 +246,9 @@ Para escolher **qual** display acende, o comum de cada um passa por um **transis
 ## 2B.4 Linhas compartilhadas (1 min)
 
 1. 🧮 Quantos pinos do Arduino o circuito usa (segmentos + seleção)? ______ E quantos usaria com 4 displays **sem** multiplexar? ______
-2. 🔒 No Doc 1 você viu que **um resistor no comum** deixa o brilho variando com o número. Aqui há **7 resistores** para **4 displays**. Por que um resistor **por segmento** (e não por dígito) funciona com a varredura? *Dica: quantos dígitos estão acesos de cada vez?* ______________________
+2. 🔒 Na Parte 1 você viu que **um resistor no comum** deixa o brilho variando com o número. Aqui há **7 resistores** para **4 displays**. Por que um resistor **por segmento** (e não por dígito) funciona com a varredura? *Dica: quantos dígitos estão acesos de cada vez?* ______________________
 
-> ⚡ **Já domina?** Faça 2B.1, monte, escreva `varrer()` e responda 2B.4. Desafio *(se sobrar tempo)*: 🔍 o CI **74HC595** (existe no Tinkercad) economiza ainda mais pinos. Quantos pinos ele usa e como? Anote a fonte (link). ______________________
+> ⚡ **Já domina?** Faça 2B.1, monte, escreva `varrer()` e responda 2B.4. Desafio ⭐ **EXTRA**: 🔍 o CI **74HC595** (existe no Tinkercad) economiza ainda mais pinos. Quantos pinos ele usa e como? Anote a fonte (link). ______________________
 
 **📎 Evidência — Etapa 2B:** confira que tem: conta e resposta 2B.1 · print com 1234 · troca de `exibir` sem mexer em `varrer()` · respostas 2B.4
 
@@ -251,7 +269,7 @@ Para escolher **qual** display acende, o comum de cada um passa por um **transis
    - **Onde mexer:** a chamada vai na **última** linha dentro de `setup()`, antes da `}`. O 7 entra na própria linha de `contador`.
    - **Se não funcionou, olhe:** ainda aparece 1234? A chamada está **dentro** do `setup()`? O circuito é o do 2B: se o 1234 apareceu lá, a fiação está certa e o problema está no código.
 
-> 🛑 **PONTO DE PARADA:** se 2026 e 0007 aparecem certos, a etapa já vale a entrega. Faltando menos de 5 min, pule para **"Você leva"** e entregue; o resto fica *(se sobrar tempo)*.
+> 🛑 **PONTO DE PARADA:** se 2026 e 0007 aparecem certos, a etapa já vale a entrega. Faltando menos de 5 min, pule para **"Você leva"** e entregue; o resto fica ⭐ **EXTRA**.
 
 ## 2C.2 E se usar `delay(1000)`? (2 min)
 
@@ -309,7 +327,7 @@ A ideia: em vez de **esperar** 1 s, o `loop()` **pergunta** a cada volta se já 
 2. Aumente `TEMPO_DIGITO_MS` (5, 10, 15, 20…) até começar a piscar. Em qual valor começou? ______ Qual a frequência? ______ Hz *(O Tinkercad pode simular mais devagar que o tempo real; anote o que viu.)*
 3. 💭 Qual frequência de varredura mínima você escolheria para não piscar, e por quê? ______________________
 
-> ⚡ **Já domina?** Faça 2C.1, vá direto ao `millis()` (2C.3) e responda 2C.4. Desafio *(se sobrar tempo)*: o seu `varrer()` ainda usa `delay(2)`. Reescreva-o com `millis()`, acendendo **um dígito por chamada**, sem nenhum `delay()`.
+> ⚡ **Já domina?** Faça 2C.1, vá direto ao `millis()` (2C.3) e responda 2C.4. Desafio ⭐ **EXTRA**: o seu `varrer()` ainda usa `delay(2)`. Reescreva-o com `millis()`, acendendo **um dígito por chamada**, sem nenhum `delay()`.
 
 *Extensão futura (não nesta atividade): a varredura pode ser feita por um **timer com interrupção**, sem depender do `loop()`.*
 
@@ -319,11 +337,11 @@ A ideia: em vez de **esperar** 1 s, o `loop()` **pergunta** a cada volta se já 
 
 # Você leva para o próximo documento
 
-No **Doc 3** (na bancada, com um módulo de 4 dígitos real), compare o que o chip faz com o que **você fez à mão** aqui:
+Na **Parte 3** (na bancada, com um módulo de 4 dígitos real), compare o que o chip faz com o que **você fez à mão** aqui:
 
 - o vetor **`exibir[4]`**: **o que** mostrar, um algarismo por posição;
 - a **varredura**: `varrer()` chamando `mostrarDigito(posicao, valor)`, um dígito de cada vez;
 - a **frequência de varredura**: rápida o bastante para a persistência da visão esconder a troca;
 - o **`millis()`**: medir tempo sem parar o programa, para a contagem não travar a varredura.
 
-**Entrega:** salve o arquivo, entregue no Classroom e abra o **Doc 3 de 3 — Módulo e biblioteca**, que é feito **só na bancada**.
+**Entrega:** salve o arquivo, entregue no Classroom e abra a **Parte 3 de 3 — Módulo e biblioteca**, que é feito **só na bancada**.

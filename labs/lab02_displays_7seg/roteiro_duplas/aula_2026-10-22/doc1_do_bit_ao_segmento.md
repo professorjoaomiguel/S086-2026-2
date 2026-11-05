@@ -1,8 +1,19 @@
-# Doc 1 de 3 — Do bit ao segmento
-*LAB02-D1 · v1.0 · 2026-10-22*
+# Parte 1 de 3 — Do bit ao segmento
+*LAB02-P1 · v1.8 · 2026-11-05*
 
 **UC S086 — Sistemas Microprocessados** · Tinkercad Circuits (Arduino UNO R3 simulado)
 *Este documento é o roteiro **e** o relatório. Um arquivo por dupla: os dois alunos entregam o mesmo arquivo.*
+
+# 🧰 PREPARAÇÃO — leia antes de começar
+
+> **Esta parte é só leitura e combinados**: o relógio da atividade **ainda não começou**. Preencha a **Identificação** e a tabela de componentes à medida que avançar. Quando terminar de ler, desça até a faixa verde **🚀 ATIVIDADE**.
+
+> **📝 Como preencher este documento (leia antes de começar)**
+>
+> 1. Este arquivo é um **Google Docs**. Abra-o pelo Classroom com a sua **conta Google educacional** e **digite direto nele**. A dupla edita **um único arquivo**.
+> 2. Onde houver uma linha **______** ou uma tabela vazia, **escreva a resposta ali**, no lugar do traço.
+> 3. Nas questões **☑️ (múltipla escolha)**, escolha **uma só alternativa** e **escreva a letra** no campo **"Sua resposta (letra): ______"**, logo abaixo das alternativas. Exemplo: `Sua resposta (letra): c`.
+> 4. Não apague as perguntas nem os quadros: responda **por cima** deles.
 
 ## Identificação
 
@@ -20,7 +31,7 @@ Marque o que a dupla usou e anote o que for pedido. Tudo aqui é **no Tinkercad*
 | Componente (Tinkercad) | Usou? (S ou N) | Anote |
 |---|---|---|
 | Arduino Uno R3 | | |
-| Placa de ensaio (protoboard) | | |
+| Protoboard | | |
 | LED + resistor 220 Ω (Etapa 0) | | |
 | Display de 7 segmentos | | Comum: cátodo ou ânodo? |
 | CD4511 (Etapa 1A) | | |
@@ -51,11 +62,11 @@ A dupla trabalha com **dois PCs e dois papéis**.
 - **Mudou o código ou um fio?** **Pare e inicie** a simulação de novo.
 - **Erro no código?** Leia a **primeira** mensagem de erro: ela diz a linha.
 - ⚡ **Já domina?** Faça só o que o selo pede e siga.
-- Estourou o tempo? **Siga adiante** e volte depois. Itens *(se sobrar tempo)* podem ficar em branco.
+- Estourou o tempo? **Siga adiante** e volte depois. As seções **⭐ EXTRA** são opcionais e podem ficar em branco.
 - **Trocar de documento conta no tempo** (~2 min): entregue pelo Classroom e abra o próximo.
 - **Código no Tinkercad:** botão **Código** → troque *Blocos* por **Texto**. O Tinkercad não abre arquivo `.ino`: abra o sketch no navegador ou no Telegram, copie o texto e cole no editor.
 - **Os sketches** estão no repositório
-  <https://github.com/professorjoaomiguel/S086-2026-2>, no sketch `a1_bcd_cd4511` (pasta `labs/lab02_displays_7seg/codigo_base`), ou no link que o professor enviar no Telegram.
+  <https://github.com/professorjoaomiguel/S086-2026-2>, nos sketches `a1_bcd_cd4511` (1A) e `a2_tabela_segmentos_esqueleto` (1B) (pasta `labs/lab02_displays_7seg/codigo_base`), ou no link que o professor enviar no Telegram.
 
 | Selo | Significa |
 |---|---|
@@ -65,6 +76,7 @@ A dupla trabalha com **dois PCs e dois papéis**.
 | ☑️ | **Múltipla escolha:** escreva a letra da resposta. |
 | 🔒 | **Fechada:** responda por extenso, ligando teoria e o que você viu. |
 | 💭 | **Aberta:** sem resposta certa; opine e justifique. |
+| ⭐ | **EXTRA:** opcional, só se sobrar tempo; pode ficar em branco. |
 | 📸 | **Mídia:** **foto, print de tela ou GIF** (vídeo não cola no Docs). |
 
 ### Glossário rápido
@@ -85,35 +97,77 @@ A dupla trabalha com **dois PCs e dois papéis**.
 - [Tinkercad Circuits](https://www.tinkercad.com/circuits): entre com a conta indicada pelo professor.
 - Esquemas de ligação desta atividade: [1A com CD4511](../../imagens/lab02_1a_cd4511.png) · [1B direto no Arduino](../../imagens/lab02_1b_direto.png) (use **depois de tentar sozinho**, para conferir, não para copiar).
 
-**Tempo deste documento: ~30 min.** Ao terminar, entregue pelo Classroom e abra o **Doc 2 de 3**.
+**Tempo da ATIVIDADE: ~30 min** (a preparação é leitura de uns 3 min). Ao terminar, entregue pelo Classroom e abra a **Parte 2 de 3**.
+
+**✅ Antes de descer, confira:** (1) Identificação preenchida · (2) piloto e navegador definidos · (3) Telegram Web aberto nos dois PCs · (4) Tinkercad aberto com a conta indicada pelo professor
 
 ---
 
-# Etapa 0 — Aquecimento no Tinkercad: um segmento é um LED (5 min)
+# 🚀 ATIVIDADE — comece aqui
+
+> **Daqui para baixo é a atividade:** um passo de cada vez, na ordem. O tempo de cada etapa vale a partir deste ponto.
+
+# Etapa 0 — Aquecimento no Tinkercad: um segmento é um LED (7 min)
 
 > 🧭 **Orientação:** antes do display, garanta que a dupla sabe montar e simular no Tinkercad, e veja que o display é só um conjunto de LEDs. **Ao final desta etapa um LED pisca na simulação e você acendeu um segmento do display "na mão".**
+
+## Conhecer a protoboard (leitura, 2 min)
+
+A **protoboard** (placa de ensaio) liga componentes **sem solda**: por baixo dos furos há tiras de metal que unem alguns furos entre si. Quem entende **quais furos estão ligados** monta sem se perder.
+
+```
+  trilho +  o o o o o o o o o o   <- todos os furos da linha estão ligados
+  trilho -  o o o o o o o o o o   <- todos os furos da linha estão ligados
+
+  coluna    1 2 3 4 5 6 7 8 9 10
+      a     o o o o o o o o o o   ┐ em cada coluna, os 5 furos
+      b     o o o o o o o o o o   │ de a até e estão ligados
+      c     o o o o o o o o o o   │ (um só ponto elétrico)
+      d     o o o o o o o o o o   │
+      e     o o o o o o o o o o   ┘
+   ══════ canal central: NÃO liga cima com baixo ══════
+      f     o o o o o o o o o o   ┐ em cada coluna, os 5 furos
+      g     o o o o o o o o o o   │ de f até j estão ligados
+      h     o o o o o o o o o o   │
+      i     o o o o o o o o o o   │
+      j     o o o o o o o o o o   ┘
+
+  trilho +  o o o o o o o o o o
+  trilho -  o o o o o o o o o o
+```
+
+| Regra | O que fazer |
+|---|---|
+| **Coluna = um ponto** | Tudo o que estiver espetado **na mesma coluna e na mesma metade** (a–e ou f–j) está ligado entre si. |
+| **Componente de 2 pernas** (LED, resistor) | Espete **cada perna numa coluna diferente**. Na mesma coluna, a corrente passa pelo metal e **não pelo componente** (curto-circuito). |
+| **Trilhos** (linhas com + e −) | Servem para **distribuir** o 5V (+) e o GND (−) a vários pontos. A linha inteira é um ponto só. |
+| **Canal central** | Separa a metade de cima da de baixo. **O CI atravessa o canal**: cada perna cai numa coluna própria e não encosta na vizinha. |
+
+No Tinkercad, **passe o mouse sobre um furo**: ele mostra a que está ligado. *(Confira os trilhos na sua protoboard: em algumas eles são interrompidos no meio.)*
+
+🔮 Se você espetar as **duas pernas de um resistor na mesma coluna** (ex.: A5 e C5), a corrente passa **pelo resistor**? Por quê? ______________________
 
 ## 0.1 Primeiro circuito (3 min)
 
 1. **Piloto:** em <https://www.tinkercad.com/circuits>, clique em **Criar → Circuito**.
-2. Arraste um **Arduino Uno R3** e uma **placa de ensaio**. Ligue um **LED** com um **resistor de 220 Ω** em série entre o pino **13** e o **GND**.
+2. Arraste um **Arduino Uno R3** e uma **protoboard**. Ligue um **LED** com um **resistor de 220 Ω** em série entre o pino **13** e o **GND**.
 3. Clique em **Iniciar simulação**. O código que já vem pronto pisca o pino 13. O LED pisca? (S ou N): ______
 
 > 🔎 **Se não funcionou, olhe nesta ordem** (vale também para o 0.2):
 > 1. A simulação está **rodando**? O botão costuma mudar para **Parar simulação**.
 > 2. O LED está virado certo? Passe o mouse nos terminais: o **ânodo** vai para o lado do pino 13 e o **cátodo** para o lado do GND. Invertido, não acende.
-> 3. Na placa de ensaio, cada grupo de 5 furos de uma coluna é **um só ponto**. Os dois terminais do LED (ou do resistor) **não** podem ficar no mesmo grupo.
+> 3. Na protoboard, cada grupo de 5 furos de uma coluna é **um só ponto**. Os dois terminais do LED (ou do resistor) **não** podem ficar no mesmo grupo.
 > 4. No 0.2: o display está em **cátodo** e o **comum** vai ao GND?
 
 ## 0.2 Conhecer o display (2 min)
 
-1. Pare a simulação. Arraste um **Display de 7 segmentos** para a placa de ensaio.
+1. Pare a simulação. Arraste um **Display de 7 segmentos** para a protoboard. *(Na biblioteca de componentes do Tinkercad, procure por **"Visor de 7 segmentos"** se a interface estiver em **português**, ou por **"Display"** se estiver em **inglês**.)*
 2. **Clique no display** e, no quadro de propriedades, **confira que o comum está em "cátodo"**. Se estiver "ânodo", troque para **cátodo**. *Tudo neste documento usa cátodo comum.*
 3. Passe o mouse sobre os terminais: o Tinkercad mostra o nome de cada um (a, b, …, g, DP, comum).
 4. 🔮 Ligando o **comum no GND** e o terminal **a**, por um resistor de 220 Ω, no **5V**, o que acende? ______________________
 5. Faça a ligação e inicie a simulação. Acertou? (S ou N): ______
 
-| 📸 Cole aqui: **um print** com o LED aceso (0.1) e o segmento **a** aceso (0.2), e o quadro de propriedades mostrando **cátodo** |
+| 📸 Cole aqui **dois prints**: (1) o LED aceso (0.1); (2) o segmento **a** aceso (0.2) com o quadro de propriedades mostrando **cátodo** |
 |---|
 | |
 
@@ -162,18 +216,65 @@ A dupla trabalha com **dois PCs e dois papéis**.
 
 4. 🔮 Com 4 bits dá para escrever até qual número? Por que o BCD para no 9? ______________________
 
+## Conhecer o CD4511 (leitura e pesquisa, 4 min)
+
+O **CD4511** é um CI de **16 pinos** que faz a **decodificação BCD → 7 segmentos**: recebe o número em binário (4 bits) e acende os segmentos certos do display. Os 16 pinos se dividem em 4 grupos:
+
+| Grupo | Pinos | O que são |
+|---|---|---|
+| **Alimentação** | **16** (VDD) · **8** (VSS) | energia do chip: VDD no **5V**, VSS no **GND** |
+| **Entradas BCD** | **7** (A, LSB) · **1** (B) · **2** (C) · **6** (D, MSB) | recebem os 4 bits vindos do Arduino (D2 a D5) |
+| **Controle** | **3** (LT) · **4** (BI) · **5** (LE) | teste, apagamento e trava (tabela no passo 2 do 1A.2) |
+| **Saídas** | **13** (a) · **12** (b) · **11** (c) · **10** (d) · **9** (e) · **15** (f) · **14** (g) | ligam aos 7 segmentos do display, cada uma com um resistor |
+
+🔍 **Agora confira no datasheet.** O **datasheet** é a folha de dados do fabricante: é a fonte oficial dos pinos, da tabela de funcionamento e dos limites de tensão. Pesquise na internet por `CD4511 datasheet`, abra um (de um fabricante conhecido, como a Texas Instruments) e:
+
+1. Ache o **diagrama de pinos** (em inglês: *pin diagram* ou *terminal assignments*) e **compare com a tabela acima**: os números dos pinos e as letras (A–D, a–g, LT, BI, LE, VDD, VSS) batem?
+2. Ache a **tabela de funcionamento** (*truth table*): o que o CI faz quando as entradas D C B A valem `1010` (10)? ______________________
+3. Anote o **link** do datasheet que você usou: ______________________
+
+Guarde o raciocínio: no passo 2 do 1A.2 você vai ligar os pinos usando os **nomes do Tinkercad** (em português), que **não são os do datasheet**. A tabela de lá traduz uns nos outros; o datasheet é o que vale na bancada.
+
+> ⚠️ **Não esqueça de alimentar o CI!** O CD4511 **não** recebe energia pelos pinos de dados do Arduino: os fios D2 a D5 só levam os **bits**. Ele precisa de **VDD (pino 16) no 5V** e **VSS (pino 8) no GND**, como qualquer circuito integrado. Sem isso, mesmo com todo o resto certo, o display fica **apagado**. Esse é o primeiro item a conferir se algo der errado.
+
 ## 1A.2 Montar (5 min)
 
-1. **Piloto:** no mesmo circuito (pode apagar o LED), coloque um **CD4511** atravessando o canal central da placa de ensaio.
-2. Alimente o CI: **VDD → 5V** e **VSS → GND**.
-3. Ligue os pinos de controle: **LT** e **BI** no **5V** e **LE** no **GND** (assim o CI fica sempre mostrando).
-4. Ligue **D2, D3, D4, D5** nas entradas **A, B, C, D** do CI.
-5. Ligue cada saída **a … g** do CI ao segmento de mesmo nome do display, **cada uma com seu resistor de 220 Ω**. Comum do display no **GND**.
-6. Confira com o esquema [lab02_1a_cd4511.png](../../imagens/lab02_1a_cd4511.png) **depois** de montar. Achou alguma diferença? Qual? ______________________
+1. **Piloto:** no mesmo circuito (pode apagar o LED), coloque um **CD4511** atravessando o canal central da protoboard.
+2. **Ache os pinos do CI.** O pino 1 fica no canto inferior esquerdo, ao lado da bolinha de marcação, e a numeração segue em U (sobe pela direita). Passe o mouse sobre cada pino: o Tinkercad mostra o nome dele, **traduzido e diferente das letras do datasheet**. Use esta tabela:
+
+   | Pino | Nome no Tinkercad (português) | Em inglês | Função |
+   |---|---|---|---|
+   | 16 | Potência | Power | alimentação (VDD) → **5V** |
+   | 8 | Solo | Ground | terra (VSS) → **GND** |
+   | 7 | Entrada 1 | Input 1 | entrada BCD **A**, bit 0, peso 1: **LSB** (*bit menos significativo*, *least significant bit*) |
+   | 1 | Entrada 2 | Input 2 | entrada BCD **B**, bit 1, peso 2 |
+   | 2 | Entrada 3 | Input 3 | entrada BCD **C**, bit 2, peso 4 |
+   | 6 | Entrada 4 | Input 4 | entrada BCD **D**, bit 3, peso 8: **MSB** (*bit mais significativo*, *most significant bit*) |
+   | 3 | Teste da lâmpada | Lamp Test | **LT**, ativo em nível baixo |
+   | 4 | Limpando | Blanking | **BI**, ativo em nível baixo (apaga o display) |
+   | 5 | Ativação de trava | Latch Enable | **LE** |
+   | 13 · 12 · 11 · 10 · 9 · 15 · 14 | A · B · C · D · E · F · G | A a G | **saídas** para os segmentos a · b · c · d · e · f · g |
+
+   ⚠️ **Cuidado com os nomes:** o Tinkercad traduz do inglês, e a tradução confunde. **"Solo"** é o GND, **"Potência"** é o 5V e **"Limpando"** apaga o display. No pino **12** o nome pode **não aparecer** (a guia de alinhamento do CI cobre a etiqueta): use o **número do pino**. Os pinos que o Tinkercad chama de **A a G** são as **saídas** para os segmentos; as entradas BCD se chamam **Entrada 1 a 4**.
+
+   **Os três pinos de controle: LT, BI e LE.** Guarde as siglas (são as do datasheet) e o que cada uma faz:
+
+   | Pino | Sigla | Significado (inglês) | Nome no Tinkercad (português) | Nome no Tinkercad (inglês) | Em português | Ligar em | Se ligar errado |
+   |---|---|---|---|---|---|---|---|
+   | 3 | **LT** | *Lamp Test* | Teste da lâmpada | Lamp Test | teste da lâmpada | **5V** (nível alto) | no GND: acende **todos** os segmentos (mostra 8) |
+   | 4 | **BI** | *Blanking Input* | Limpando | Blanking | apagamento | **5V** (nível alto) | no GND: **apaga** o display |
+   | 5 | **LE** | *Latch Enable* | Ativação de trava | Latch Enable | ativação de trava | **GND** (nível baixo) | no 5V: **congela** o último número |
+
+   LT e BI são *ativos em nível baixo*: só fazem efeito quando recebem 0 (GND). LE é *ativo em nível alto*: só trava quando recebe 1 (5V).
+3. Alimente o CI: **Potência (pino 16) → 5V** e **Solo (pino 8) → GND**.
+4. Ligue os pinos de controle conforme a tabela acima: **LT (3)** e **BI (4)** no **5V** e **LE (5)** no **GND** (assim o CI fica sempre mostrando).
+5. Ligue **D2, D3, D4, D5** nas **Entradas 1, 2, 3, 4** do CI (D2 = Entrada 1 / *Input 1* = A = **LSB** … D5 = Entrada 4 / *Input 4* = D = **MSB**).
+6. Ligue cada saída **A … G** do CI ao segmento de mesmo nome do display, **cada uma com seu resistor de 220 Ω**. Comum do display no **GND**.
+7. Confira com o esquema [lab02_1a_cd4511.png](../../imagens/lab02_1a_cd4511.png) **depois** de montar. Achou alguma diferença? Qual? ______________________
 
 ## 1A.3 Rodar e observar (4 min)
 
-1. Abra o sketch `a1_bcd_cd4511` (pasta `codigo_base`), copie o texto e cole no editor **Código → Texto** do Tinkercad, apagando o que estava lá.
+1. ✅ **Aqui vocês NÃO modificam o código:** só copiam e rodam (na 1B vocês vão modificar). Abra o sketch `a1_bcd_cd4511` (pasta `codigo_base`), copie o texto e cole no editor **Código → Texto** do Tinkercad, apagando o que estava lá.
    - **Onde colar:** no lugar de **todo** o código que estava no editor (o pisca-pisca do 0.1). Se o Tinkercad avisar que vai descartar os blocos, confirme.
    - **Se não funcionou, olhe:**
      1. Erro `redefinition of 'void setup()'` (ou de `loop`): sobrou o código antigo. Apague tudo e cole de novo.
@@ -182,10 +283,10 @@ A dupla trabalha com **dois PCs e dois papéis**.
 3. Inicie a simulação. O display conta de 0 a 9?
 
 > 🔎 **Se não funcionou, olhe nesta ordem:**
-> 1. Display todo apagado: **VDD → 5V** e **VSS → GND**? **BI** no **5V** (no GND ele apaga o display)? Comum do display no GND e propriedade **cátodo**?
-> 2. Mostra **8** parado ou não sai do lugar: **LT** no **5V** (no GND ele acende tudo) e **LE** no **GND** (no 5V ele congela o número)?
-> 3. Alguns números trocados (no lugar do 1 aparece 8) ou apagados no meio da contagem: **D2, D3, D4, D5** estão em **A, B, C, D**, nessa ordem?
-> 4. Desenhos estranhos, que não são números: cada saída **a … g** do CI vai ao segmento de **mesmo nome** do display?
+> 1. Display todo apagado: **Potência** → **5V** e **Solo** → **GND**? **Limpando (BI, pino 4)** no **5V** (no GND ele apaga o display)? Comum do display no GND e propriedade **cátodo**?
+> 2. Mostra **8** parado ou não sai do lugar: **Teste da lâmpada (LT, pino 3)** no **5V** (no GND ele acende tudo) e o **pino 5 (LE)** no **GND** (no 5V ele congela o número)?
+> 3. Alguns números trocados (no lugar do 1 aparece 8) ou apagados no meio da contagem: **D2, D3, D4, D5** estão em **Entrada 1, 2, 3, 4**, nessa ordem?
+> 4. Desenhos estranhos, que não são números: cada saída **A … G** do CI (pinos 13, 12, 11, 10, 9, 15, 14) vai ao segmento de **mesmo nome** do display?
 
 | 📸 Cole aqui: **um GIF** do display contando de 0 a 9 (ou **três prints**: 0, 5 e 9) |
 |---|
@@ -195,15 +296,17 @@ A dupla trabalha com **dois PCs e dois papéis**.
 
 > ⚡ **Já domina binário?** Complete a tabela BCD, monte, tire o GIF e responda o 1A.3-4.
 
-**📎 Evidência — Etapa 1A:** confira que tem: tabela BCD de 0 a 9 · previsão 1A.1-4 · conta 1A.1-1 · diferença com o esquema (1A.2-6) · conta do 1A.3-2 · GIF ou prints da contagem · resposta 1A.3-4
+**📎 Evidência — Etapa 1A:** confira que tem: link e respostas do datasheet (Conhecer o CD4511) · tabela BCD de 0 a 9 · previsão 1A.1-4 · conta 1A.1-1 · diferença com o esquema (1A.2-7) · conta do 1A.3-2 · GIF ou prints da contagem · resposta 1A.3-4
 
 ---
 
 # Etapa 1B — Sem o CI: o Arduino decide os segmentos (13 min)
 
-> 🧭 **Orientação:** agora **você** é o decodificador. Tire o CD4511 e ligue os 7 segmentos direto no Arduino. Para cada símbolo, vocês vão escrever **quais segmentos acendem** e guardar isso numa **tabela de consulta** `SEG[]`. **Ao final desta etapa o display conta de 0 a 9 com a tabela que a dupla escreveu.**
+> 🧭 **Orientação:** agora **você** é o decodificador. Tire o CD4511 e ligue os 7 segmentos direto no Arduino. Para cada símbolo, vocês vão escrever **quais segmentos acendem** e guardar isso numa **tabela de consulta** `SEG[]`. **Ao final desta etapa o display conta de 0 a 9 com a tabela que a dupla escreveu.** ✏️ **Nesta etapa vocês vão modificar o código** (no 1B.3).
 
 **Pinos:** a = D2 · b = D3 · c = D4 · d = D5 · e = D6 · f = D7 · g = D8. Cada segmento com **seu** resistor de 220 Ω. Comum no GND.
+
+> ⚡ **Já domina?** Pule o passo a passo: ligue os 7 segmentos direto (1B.1), escreva a tabela de 0 a 9 e o `loop()` (1B.2 e 1B.3), tire o GIF e vá ao 1B.4.
 
 ## 1B.1 Religar sem o CI (3 min)
 
@@ -221,6 +324,12 @@ Cada símbolo vira **7 bits**, um por segmento: **bit 0 = a**, bit 1 = b, …, *
    e   c
      d
 ```
+
+🔍📸 **Antes da tabela, ache um display de verdade.** Pesquise na internet uma **imagem de um display de 7 segmentos com os segmentos rotulados a, b, c, d, e, f, g** (sugestão de busca: `7 segment display segments a b c d e f g`). **Cole a imagem aqui no relatório** (*Inserir → Imagem*, ou `Ctrl+V`) e **anote a fonte (link)**. Use-a para conferir a figura acima: o "a" é mesmo o traço de cima?
+
+| 📸 Cole aqui a imagem do display (com a, b, c, d, e, f, g) e escreva o link da fonte |
+|---|
+| |
 
 1. 🧮 Complete **pelo menos 0, 1, 2 e 3** pela figura acima. O traço "-" já está feito como exemplo (só o g aceso).
 
@@ -242,44 +351,20 @@ Cada símbolo vira **7 bits**, um por segmento: **bit 0 = a**, bit 1 = b, …, *
 
 ## 1B.3 Programar (5 min)
 
-1. **Piloto:** no editor do Tinkercad, apague tudo e escreva este esqueleto, colocando os valores da **sua** tabela em `SEG`:
+> ✏️ **ATENÇÃO: aqui é com vocês!** O código desta etapa está **incompleto de propósito**. Se vocês só copiarem e rodarem, o display fica **apagado**. Vocês precisam **modificar o código em 2 lugares**, marcados com `SUA VEZ` no sketch:
+> - **SUA VEZ 1:** preencher a tabela `SEG[]` com os valores que **vocês** escreveram no 1B.2 (passo 1 abaixo);
+> - **SUA VEZ 2:** escrever o corpo da função `loop()` (passo 2 abaixo).
 
-   ```cpp
-   const byte PINOS_SEG[7] = {2, 3, 4, 5, 6, 7, 8};   // a, b, c, d, e, f, g
-
-   // bit0 = a ... bit6 = g; 1 = aceso (cátodo comum)
-   const byte SEG[10] = {
-     0b0000000,  // 0  <- troque pelos valores da sua tabela
-     0b0000000,  // 1
-     0b0000000,  // 2
-     0b0000000,  // 3
-     0b0000000,  // 4
-     0b0000000,  // 5
-     0b0000000,  // 6
-     0b0000000,  // 7
-     0b0000000,  // 8
-     0b0000000   // 9
-   };
-
-   void setup() {
-     for (byte i = 0; i < 7; i++) {
-       pinMode(PINOS_SEG[i], OUTPUT);
-     }
-   }
-
-   void loop() {
-     // ETAPA 1B.3: mostre SEG[0] ... SEG[9], um por segundo
-   }
-   ```
+1. **SUA VEZ 1: a tabela.** Abra o sketch `a2_tabela_segmentos_esqueleto` (pasta `codigo_base`, mesmo repositório do 1A), copie o texto e cole no editor **Código → Texto** do Tinkercad, apagando o que estava lá. Depois **edite** o código, colocando os valores da **sua** tabela em `SEG`.
 
    - **Onde mexer:** só nas 10 linhas de `SEG`: troque cada `0b0000000` pelo valor da linha de mesmo número da **sua** tabela. Mantenha a vírgula no fim de cada linha, menos na do 9.
    - **Se não funcionou, olhe:**
-     1. Erro `expected '}' before numeric constant` numa linha de `SEG`: falta a vírgula no fim da linha **de cima**.
+     1. Erro parecido com `expected '}' before numeric constant` numa linha de `SEG` (a mensagem pode variar): falta a vírgula no fim da linha **de cima**.
      2. Erro num valor `0b…`: depois do `0b` só pode haver **0** e **1**.
      3. Erro `too many initializers`: há mais de 10 valores dentro das chaves.
 
-2. Escreva o `loop()`: para cada número `n` de 0 a 9, para cada segmento `i` de 0 a 6, mande ao pino `PINOS_SEG[i]` o **bit `i`** de `SEG[n]` (use `bitRead`); depois espere 1 s.
-   - **Onde mexer:** dentro de `void loop() { … }`, logo abaixo do comentário `// ETAPA 1B.3`. Não mexa no `setup()`.
+2. **SUA VEZ 2: o `loop()`.** Escrevam o `loop()`: para cada número `n` de 0 a 9, para cada segmento `i` de 0 a 6, mande ao pino `PINOS_SEG[i]` o **bit `i`** de `SEG[n]` (use `bitRead`); depois espere 1 s.
+   - **Onde mexer:** dentro de `void loop() { … }`, no lugar do comentário `>>> SUA VEZ 2`. Não mexa no `setup()`.
    - **Se não funcionou, olhe:**
      1. Erro `'n' was not declared in this scope` (ou `'i'`): a variável se cria **dentro** do `for`, como no `for` do `setup()`.
      2. O número vai se formando um segmento por segundo: a espera de 1 s ficou **dentro** do `for` dos segmentos; ela vem depois dele.
@@ -301,17 +386,32 @@ Cada símbolo vira **7 bits**, um por segmento: **bit 0 = a**, bit 1 = b, …, *
 
 ## 1B.4 Um resistor por segmento? (1 min)
 
-1. 🔮☑️ Alguns tutoriais usam **um único resistor** no pino comum, no lugar dos 7. O que aconteceria com o brilho?
-   - a) Igual para todos os números.
-   - b) O "1" (2 segmentos) mais forte que o "8" (7 segmentos).
-   - c) O "8" mais forte que o "1".
-   - d) O display não acende.
+1. 🔮☑️ Alguns tutoriais usam **um único resistor** no pino comum, no lugar dos 7. O que aconteceria com o brilho?\
+   **a)** Igual para todos os números.\
+   **b)** O "1" mais forte que o "8".\
+   **c)** O "8" mais forte que o "1".\
+   **d)** O display não acende.\
    **Sua resposta (letra): ______**
-2. 🔒 *(se sobrar tempo)* Justifique pela corrente: o que o resistor único divide entre os segmentos acesos? ______________________
 
-> ⚡ **Já domina?** Escreva a tabela de 0 a 9 e o `loop()` direto, tire o GIF e faça o desafio: nas propriedades do display, troque **cátodo** por **ânodo** e ligue o comum no **5V**. 🔮 *Antes de testar:* o que inverte na tabela e na fiação? ______________________ Depois teste e conte o que viu: ______________________
+**📎 Evidência — Etapa 1B:** confira que tem: imagem do display com a fonte (1B.2) · tabela de segmentos (pelo menos 0 a 3) · GIF ou prints da contagem · código final com o seu `loop()` · resposta 1B.4-1
 
-### *(se sobrar tempo)* Letras e símbolos
+---
+
+## ⭐ EXTRA — só se sobrar tempo (opcional)
+
+> **Tudo daqui até o fim da seção é EXTRA.** Não é obrigatório, **pode ficar em branco** e não atrapalha a entrega. Se já terminou a evidência acima e ainda há tempo, escolha o que quiser, **em qualquer ordem**.
+
+### ⭐ Extra A — Explique a sua resposta do 1B.4-1
+
+🔒 Explique, com as suas palavras, por que você escolheu essa letra. Quantos segmentos acendem no "1"? E no "8"? O que muda no resistor único de um caso para o outro? ______________________
+
+### ⭐ Extra B — Cátodo comum para ânodo comum
+
+1. Nas propriedades do display, troque **cátodo** por **ânodo** e ligue o comum no **5V** (em vez do GND).
+2. 🔮 *Antes de testar:* o que inverte na tabela e na fiação? ______________________
+3. Teste e conte o que viu: ______________________
+
+### ⭐ Extra C — Letras e símbolos
 
 1. Acrescente à tabela as letras **A, C, E, F, H, L, P, U** (escreva os 7 bits de cada uma) e mostre-as no display.
    - **Onde mexer:** no fim de `SEG`, depois do 9 (ponha a vírgula que faltava nele); aumente o tamanho `[10]` e o limite do `for` do `loop()`. Sem aumentar o tamanho, dá erro `too many initializers`.
@@ -319,16 +419,14 @@ Cada símbolo vira **7 bits**, um por segmento: **bit 0 = a**, bit 1 = b, …, *
 3. 🔒 Por que dizemos que 7 segmentos **não** formam um display alfanumérico completo? ______________________
 4. 🔍 Que tipos de display mostram todas as letras? Anote um e a fonte (link). ______________________
 
-**📎 Evidência — Etapa 1B:** confira que tem: tabela de segmentos (pelo menos 0 a 3) · GIF ou prints da contagem · código final com o seu `loop()` · resposta 1B.4-1 · letras e desafio ânodo (se fez)
-
 ---
 
 # Você leva para o próximo documento
 
-No **Doc 2**, você vai reusar:
+Na **Parte 2**, você vai reusar:
 
 - a **sua tabela `SEG[10]`** (bit 0 = a … bit 6 = g, 1 = aceso) e os pinos **D2–D8** dos segmentos;
-- a ideia de que cada segmento é **uma linha** (um fio + **um resistor por segmento**). No Doc 2, essas 7 linhas serão **compartilhadas** por vários displays ao mesmo tempo;
+- a ideia de que cada segmento é **uma linha** (um fio + **um resistor por segmento**). Na Parte 2, essas 7 linhas serão **compartilhadas** por vários displays ao mesmo tempo;
 - o display em **cátodo comum**, conferido nas propriedades.
 
-**Entrega:** salve o arquivo, entregue no Classroom e abra o **Doc 2 de 3 — Muitos dígitos, poucos fios**.
+**Entrega:** salve o arquivo, entregue no Classroom e abra a **Parte 2 de 3 — Muitos dígitos, poucos fios**.

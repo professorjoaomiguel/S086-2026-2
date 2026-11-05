@@ -1,12 +1,23 @@
-# Doc 3 de 3 — Módulo e biblioteca
-*LAB02-D3 · v1.0 · 2026-10-22*
+# Parte 3 de 3 — Módulo e biblioteca
+*LAB02-P3 · v1.2 · 2026-11-05*
 
 > RASCUNHO (professor): não testado em bancada. Pinos CLK = D7 e DIO = D8 a confirmar na bancada com o módulo. Apague este quadro antes de entregar aos alunos.
 
 **UC S086 — Sistemas Microprocessados** · **Só na bancada:** Arduino UNO R3 + Shield 9-em-1 + módulo TM1637 de 4 dígitos
 *Este documento é o roteiro **e** o relatório. Um arquivo por dupla: os dois alunos entregam o mesmo arquivo.*
 
-No Doc 1 você decidiu **quais segmentos** acendem. No Doc 2 fez a **varredura** à mão: 11 pinos, um dígito de cada vez, com `millis()` para não travar. Agora vem um **módulo real** com um chip, o **TM1637**, que faz isso por dentro. O Arduino só manda o número por **2 fios**, e uma **biblioteca** cuida da conversa.
+# 🧰 PREPARAÇÃO — leia antes de começar
+
+> **Esta parte é só leitura e combinados**: o relógio da atividade **ainda não começou**. Preencha a **Identificação** e a tabela de componentes à medida que avançar. Quando terminar de ler, desça até a faixa verde **🚀 ATIVIDADE**.
+
+> **📝 Como preencher este documento (leia antes de começar)**
+>
+> 1. Este arquivo é um **Google Docs**. Abra-o pelo Classroom com a sua **conta Google educacional** e **digite direto nele**. A dupla edita **um único arquivo**.
+> 2. Onde houver uma linha **______** ou uma tabela vazia, **escreva a resposta ali**, no lugar do traço.
+> 3. Nas questões **☑️ (múltipla escolha)**, escolha **uma só alternativa** e **escreva a letra** no campo **"Sua resposta (letra): ______"**, logo abaixo das alternativas. Exemplo: `Sua resposta (letra): c`.
+> 4. Não apague as perguntas nem os quadros: responda **por cima** deles.
+
+Na Parte 1 você decidiu **quais segmentos** acendem. Na Parte 2 fez a **varredura** à mão: 11 pinos, um dígito de cada vez, com `millis()` para não travar. Agora vem um **módulo real** com um chip, o **TM1637**, que faz isso por dentro. O Arduino só manda o número por **2 fios**, e uma **biblioteca** cuida da conversa.
 
 **Pinos:** CLK = **D7** · DIO = **D8** (a confirmar na bancada) · potenciômetro = **A0**.
 
@@ -34,7 +45,7 @@ Tudo aqui é **na bancada**, não no Tinkercad.
 
 ## Como trabalhar
 
-Igual ao Doc 1 (veja lá a tabela **piloto e navegador** e os combinados). Resumo: **piloto** opera a **Arduino IDE** e a placa, um passo por vez, dizendo o que faz; **navegador** lê em voz alta, confere e registra aqui, sem digitar o código. Os dois pensam juntos nas perguntas. **Vale trocar de papel** ao começar cada etapa (3A, 3B, 3C); antes de trocar, mande o código pelo Telegram. ⚡ para quem já domina; itens *(se sobrar tempo)* podem ficar em branco.
+Igual à Parte 1 (veja lá a tabela **piloto e navegador** e os combinados). Resumo: **piloto** opera a **Arduino IDE** e a placa, um passo por vez, dizendo o que faz; **navegador** lê em voz alta, confere e registra aqui, sem digitar o código. Os dois pensam juntos nas perguntas. **Vale trocar de papel** ao começar cada etapa (3A, 3B, 3C); antes de trocar, mande o código pelo Telegram. ⚡ para quem já domina; itens ⭐ **EXTRA** podem ficar em branco.
 
 **Erro no código?** Leia a **primeira** linha vermelha: ela diz a linha.
 
@@ -46,6 +57,7 @@ Igual ao Doc 1 (veja lá a tabela **piloto e navegador** e os combinados). Resum
 | ☑️ | **Múltipla escolha:** escreva a letra da resposta. |
 | 🔒 | **Fechada:** responda por extenso, ligando teoria e o que você viu. |
 | 💭 | **Aberta:** sem resposta certa; opine e justifique. |
+| ⭐ | **EXTRA:** opcional, só se sobrar tempo; pode ficar em branco. |
 | 📸 | **Mídia:** **foto, print de tela ou GIF** (vídeo não cola no Docs). |
 
 ### Glossário rápido
@@ -67,9 +79,15 @@ Igual ao Doc 1 (veja lá a tabela **piloto e navegador** e os combinados). Resum
 - Esquema de ligação desta atividade: [3A módulo TM1637 no shield](../../imagens/lab02_3a_tm1637_shield.png) (use **depois de tentar sozinho**, para conferir, não para copiar).
 - Sketches de referência na pasta `labs/lab02_displays_7seg/codigo_base` do repositório: `c1_tm1637_ola`, `c2_pot_display`, `c3_indicador_nivel`. **Só para conferir depois** que o seu funcionar (ou se travar de vez).
 
-**Tempo deste documento: ~30 min.** Ao terminar, entregue pelo Classroom: é o último do bloco.
+**Tempo da ATIVIDADE: ~30 min** (a preparação é leitura de uns 3 min). Ao terminar, entregue pelo Classroom: é o último do bloco.
+
+**✅ Antes de descer, confira:** (1) Identificação preenchida · (2) piloto e navegador definidos · (3) Telegram Web aberto nos dois PCs · (4) Arduino IDE aberta e a placa conectada
 
 ---
+
+# 🚀 ATIVIDADE — comece aqui
+
+> **Daqui para baixo é a atividade:** um passo de cada vez, na ordem. O tempo de cada etapa vale a partir deste ponto.
 
 # Etapa 3A — Primeiro contato: biblioteca, fios e 1234 (13 min)
 
@@ -159,7 +177,7 @@ Os nomes dos menus podem mudar um pouco entre versões da IDE (2.x e 1.8). Procu
 |---|
 | |
 
-3. *(se sobrar tempo)* Teste a previsão do 3A.3-5 **sem mexer nos fios**: troque no código para `TM1637Display display(PINO_DIO, PINO_CLK);`, carregue e conte o que viu. Depois desfaça. ______________________
+3. ⭐ **EXTRA** Teste a previsão do 3A.3-5 **sem mexer nos fios**: troque no código para `TM1637Display display(PINO_DIO, PINO_CLK);`, carregue e conte o que viu. Depois desfaça. ______________________
    - **Onde mexer:** na linha `TM1637Display display(PINO_CLK, PINO_DIO);`, acima do `setup()`. Troque só a ordem dos dois nomes. O módulo costuma guardar a última imagem: depois de carregar, desconecte e reconecte o USB para ele esquecer o 1234.
 
 > ⚡ **Já domina?** Instale a biblioteca, confira pelo exemplo (print), ligue, mostre 1234 (foto) e responda o 3A.2-6.
@@ -228,7 +246,7 @@ Os nomes dos menus podem mudar um pouco entre versões da IDE (2.x e 1.8). Procu
 > 1. Ainda chega a 1023: o código **novo** foi carregado? A linha que mostra usa o **nível**, e não a leitura?
 > 2. A fiação é a mesma do 3B: se a leitura aparecia lá, o problema está no código.
 
-4. 💭 *(se sobrar tempo)* Para quem usa o instrumento, faz mais sentido o 1000 na esquerda ou na direita? Como inverter só trocando dois números no `map()`? ______________________
+4. 💭 ⭐ **EXTRA** Para quem usa o instrumento, faz mais sentido o 1000 na esquerda ou na direita? Como inverter só trocando dois números no `map()`? ______________________
 
 ## 3C.2 Zeros à esquerda: sim ou não? (3 min)
 
@@ -249,11 +267,11 @@ Os nomes dos menus podem mudar um pouco entre versões da IDE (2.x e 1.8). Procu
 |---|
 | |
 
-> ⚡ **Já domina?** Faça o 3C.1 e o 3C.2 direto e escolha um desafio *(se sobrar tempo)*:
+> ⚡ **Já domina?** Faça o 3C.1 e o 3C.2 direto e escolha um desafio ⭐ **EXTRA**:
 > - **Brilho:** use `setBrightness()` para o brilho seguir o nível (0 a 7). Lembre: o brilho novo só vale **na próxima vez** que você mostrar um número. 🔮 O que acontece se você chamar `setBrightness()` e não mostrar nada depois? ______________________
 > - **Dois-pontos:** se o seu módulo tem dois-pontos no meio, use `showNumberDecEx(valor, 0b01000000, true)` para acendê-los e mostre o nível de **00:00 a 10:00**. Se o módulo não tem dois-pontos nem pontos decimais, pule este ⚡.
 > - **Pontos decimais:** se o seu módulo tem pontos decimais, mostre a porcentagem **0,0 a 100,0 %** (o segundo argumento muda: veja a lista no comentário de `showNumberDecEx` na página da biblioteca). 🔒 Por que o mesmo `map()` de 0 a 1000 serve para 0,0 a 100,0 %? ______________________
-> - **Volta ao Doc 1:** a função `setSegments()` recebe os segmentos de cada dígito com **bit 0 = a … bit 6 = g**, como a sua tabela `SEG[10]`. Mostre um símbolo seu (ex.: `-` ou uma letra do Doc 1) num dos dígitos.
+> - **Volta à Parte 1:** a função `setSegments()` recebe os segmentos de cada dígito com **bit 0 = a … bit 6 = g**, como a sua tabela `SEG[10]`. Mostre um símbolo seu (ex.: `-` ou uma letra da Parte 1) num dos dígitos.
 
 **📎 Evidência — Etapa 3C:** confira que tem: conta do 3C.1 · 0 e 1000 nas pontas · previsão e resposta dos zeros à esquerda · foto · código final · desafio ⚡ (se fez)
 
@@ -261,8 +279,8 @@ Os nomes dos menus podem mudar um pouco entre versões da IDE (2.x e 1.8). Procu
 
 # Fechamento do bloco (3 min)
 
-1. 💭 No Doc 2, o **seu** código fazia a varredura: `exibir[4]`, `varrer()`, `mostrarDigito()`, a frequência de varredura e o `millis()`, com **11 pinos**. Aqui foram **2 pinos** e duas linhas de código (brilho e número). O que **saiu do seu software e foi para dentro do chip TM1637**? E o que a **biblioteca** faz entre o seu `showNumberDec()` e o chip? ______________________
-2. 🔒 Nos Docs 1 e 2 você usou o simulador; aqui, a bancada. Cite **duas coisas** que a bancada mostrou (ou poderia mostrar) e o simulador esconde. *Ideias: corrente nos pinos, fio solto ou trocado, instalar biblioteca, brilho real, leitura que "treme".* ______________________
+1. 💭 Na Parte 2, o **seu** código fazia a varredura: `exibir[4]`, `varrer()`, `mostrarDigito()`, a frequência de varredura e o `millis()`, com **11 pinos**. Aqui foram **2 pinos** e duas linhas de código (brilho e número). O que **saiu do seu software e foi para dentro do chip TM1637**? E o que a **biblioteca** faz entre o seu `showNumberDec()` e o chip? ______________________
+2. 🔒 Nos Partes 1 e 2 você usou o simulador; aqui, a bancada. Cite **duas coisas** que a bancada mostrou (ou poderia mostrar) e o simulador esconde. *Ideias: corrente nos pinos, fio solto ou trocado, instalar biblioteca, brilho real, leitura que "treme".* ______________________
 
 ## O que levei do bloco
 
@@ -270,14 +288,14 @@ Os três documentos foram um caminho só, de baixo para cima:
 
 | Elo | Onde você viu |
 |---|---|
-| **bit** | 4 bits BCD e a tabela `SEG[10]` (Doc 1) |
-| **sinal** | nível ALTO acende o segmento; nível ALTO na base liga o dígito (Docs 1 e 2) |
-| **circuito** | um resistor por segmento, um NPN por dígito (Docs 1 e 2) |
-| **software** | `mostrarDigito()`, `exibir[4]`, `varrer()` (Doc 2) |
-| **temporização** | persistência da visão, frequência de varredura, `millis()` (Doc 2) |
-| **protocolo** | CLK + DIO: o número vai bit a bit por 2 fios (Doc 3) |
-| **biblioteca** | `TM1637Display`: esconde o protocolo atrás de `showNumberDec()` (Doc 3) |
-| **aplicação** | potenciômetro → `map()` → indicador de nível (Doc 3) |
+| **bit** | 4 bits BCD e a tabela `SEG[10]` (Parte 1) |
+| **sinal** | nível ALTO acende o segmento; nível ALTO na base liga o dígito (Partes 1 e 2) |
+| **circuito** | um resistor por segmento, um NPN por dígito (Partes 1 e 2) |
+| **software** | `mostrarDigito()`, `exibir[4]`, `varrer()` (Parte 2) |
+| **temporização** | persistência da visão, frequência de varredura, `millis()` (Parte 2) |
+| **protocolo** | CLK + DIO: o número vai bit a bit por 2 fios (Parte 3) |
+| **biblioteca** | `TM1637Display`: esconde o protocolo atrás de `showNumberDec()` (Parte 3) |
+| **aplicação** | potenciômetro → `map()` → indicador de nível (Parte 3) |
 
 3. 💭 Qual elo foi o mais difícil para a dupla, e qual você acha que mais vai usar daqui para a frente? ______________________
 
